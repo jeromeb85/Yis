@@ -13,7 +13,7 @@ using Yis.Framework.Core.Tracer;
 namespace Yis
 {
     class Boot
-    {        
+    {       
 
 
         //--private static YisDesignerDbContext db = ;
