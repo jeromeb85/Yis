@@ -100,18 +100,32 @@
     <Compile Include="Designer\Model\WorkSpace.cs" />
     <Compile Include="Boot.cs" />
     <Compile Include="Designer\Presentation\ViewModel\MainViewModel.cs" />
+    <Compile Include="Framework\Core\Caching\CacheStorage.cs" />
+    <Compile Include="Framework\Core\Caching\CacheStorageValueInfo.cs" />
+    <Compile Include="Framework\Core\Caching\ICacheStorage.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\AbsoluteExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\CompositeExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\CustomExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\DurationExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\ExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\SlidingExpirationPolicy.cs" />
     <Compile Include="Framework\Core\Extension\ExtString.cs" />
     <Compile Include="Framework\Core\Factory\Factory.cs" />
     <Compile Include="Framework\Core\Factory\IFactory.cs" />
+    <Compile Include="Framework\Core\Fluent\Argument.cs" />
     <Compile Include="Framework\Core\IoC\DependencyResolverFactory.cs" />
     <Compile Include="Framework\Core\IoC\UnityDependencyResolver.cs" />
     <Compile Include="Framework\Core\IoC\IDependencyResolver.cs" />
     <Compile Include="Framework\Core\IoC\DependencyResolver.cs" />
+    <Compile Include="Framework\Core\Threading\SynchronizationContext.cs" />
     <Compile Include="Framework\Core\Tracer\ITrace.cs" />
     <Compile Include="Framework\Core\Tracer\Log4NetTrace.cs" />
     <Compile Include="Framework\Core\Tracer\Trace.cs" />
     <Compile Include="Framework\Core\Tracer\TraceFactory.cs" />
     <Compile Include="Framework\Core\YisSystem.cs" />
+    <Compile Include="Framework\Data\EntityFramework\DbContext.cs" />
+    <Compile Include="Framework\Data\EntityFramework\RepositoryBase.cs" />
+    <Compile Include="Framework\Data\EntityFramework\UnitOfWork.cs" />
     <Compile Include="Framework\Data\IRepository.cs" />
     <Compile Include="Framework\Data\IUnitOfWork.cs" />
     <Compile Include="Framework\Model\IModelBase.cs" />
@@ -167,6 +181,8 @@
     <Folder Include="Designer\Business\" />
     <Folder Include="Designer\Service\Interface\" />
     <Folder Include="Framework\Business\" />
+    <Folder Include="Framework\Data\Database\" />
+    <Folder Include="Framework\Data\nHibernate\" />
     <Folder Include="Framework\Helper\" />
   </ItemGroup>
   <ItemGroup>

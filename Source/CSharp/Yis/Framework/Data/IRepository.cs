@@ -8,12 +8,12 @@ using Yis.Framework.Model;
 
 namespace Yis.Framework.Data
 {
-    interface IRepository
+    public interface IRepository
     {
     }
 
-    interface IRepository<TModel> : IRepository
-   where TModel : IModelBase
+    public interface IRepository<TModel> : IRepository
+   where TModel : class
     {
 
         #region Methods
@@ -36,8 +36,8 @@ namespace Yis.Framework.Data
     }
 
 
-    public interface IEntityRepository<TModel, TKey> : IRepository<TModel>
-        where TModel : IModelBase
+    public interface IRepository<TModel, TKey> : IRepository<TModel>
+        where TModel : class
     {
         #region Methods
         TModel GetByKey(TKey keyValue);

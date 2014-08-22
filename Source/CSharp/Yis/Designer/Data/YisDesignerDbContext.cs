@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yis.Designer.Model;
+using Yis.Framework.Data.EntityFramework;
 
 namespace Yis.Designer.Data
 {
-    public class YisDesignerDbContext : DbContext
+    public class YisDesignerDbContext : Yis.Framework.Data.EntityFramework.DbContext
     {
 
         public YisDesignerDbContext()
@@ -24,8 +25,8 @@ namespace Yis.Designer.Data
         }
 
         public DbSet<WorkSpace> WorkSpace { get; set; }
-        public DbSet<AspectSemantic> AspectSemantic { get; set; }
-        public DbSet<DomainSemantic> DomainSemantic { get; set; }
+        //public DbSet<AspectSemantic> AspectSemantic { get; set; }
+        //public DbSet<DomainSemantic> DomainSemantic { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

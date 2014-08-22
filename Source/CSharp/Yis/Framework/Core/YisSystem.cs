@@ -47,7 +47,7 @@ namespace Yis.Framework.Core
 
         public static void Boot()
         {
-            DependencyResolver.Register<ITrace>(new Log4NetTrace());
+            DependencyResolver.Register<ITrace>(new Log4NetTrace());            
         }
     }
 }

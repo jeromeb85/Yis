@@ -80,6 +80,17 @@ namespace Yis.Framework.Core.IoC
         {
             return _resolver.ResolveAll<T>();
         }
+
+        public static T Resolve<T>(IDictionary<string, object> paramConstructor)
+        {
+            return _resolver.Resolve<T>(paramConstructor);
+        }
+
+        public static bool IsRegistered<T>()
+        {
+
+            return _resolver.IsRegistered<T>();
+        }
     }
 
 }

@@ -17,7 +17,8 @@ namespace Yis.Designer.Data
 
             var WorkSpace = new List<WorkSpace>
             {
-                new WorkSpace{Id= IdWorkSpace, Name="TestMaster", AspectSemantic = new AspectSemantic { Id = Guid.NewGuid() }},
+//                new WorkSpace{Id= IdWorkSpace, Name="TestMaster", AspectSemantic = new AspectSemantic { Id = Guid.NewGuid() }},
+new WorkSpace{Id= IdWorkSpace, Name="TestMaster"},
             };
             
             WorkSpace.ForEach(s => context.WorkSpace.Add(s));

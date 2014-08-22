@@ -58,6 +58,15 @@ namespace Yis.Framework.Core.IoC
             T Resolve<T>(string name);
 
             /// <summary>
+            /// Résoudre le type spécifié.
+            /// </summary>
+            /// <typeparam name="T">Le type à résoudre.</typeparam>
+            /// <returns>Retourne une instance du type à résoudre.</returns>
+            T Resolve<T>(IDictionary<string,object> paramConstructor);
+
+            bool IsRegistered<T>();
+
+            /// <summary>
             /// Résoudre un ensemble
             /// </summary>
             /// <typeparam name="T">Le type à résoudre.</typeparam>

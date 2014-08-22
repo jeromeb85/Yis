@@ -25,7 +25,7 @@ namespace Yis.Framework.Data
         /// <summary>
         /// Saves the changes inside the unit of work.
         /// </summary>
-        /// <param name="saveOptions">The save options.</param>
+        /// <param name="saveOptions">Options de sauvegarde.</param>
         void SaveChanges(SaveOptions saveOptions = SaveOptions.DetectChangesBeforeSave | SaveOptions.AcceptAllChangesAfterSave);
 
         /// <summary>

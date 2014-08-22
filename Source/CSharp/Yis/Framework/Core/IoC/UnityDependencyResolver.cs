@@ -51,7 +51,7 @@ namespace Yis.Framework.Core.IoC
         /// <typeparam name="T">Type de l'instance.</typeparam>
         /// <param name="instance">L'instance.</param>
         public void Register<T>(T instance)
-        {
+        {        
             _container.RegisterInstance(instance);
         }
 
@@ -101,6 +101,7 @@ namespace Yis.Framework.Core.IoC
         /// </returns>
         public T Resolve<T>()
         {
+
             return _container.Resolve<T>();
         }
 
@@ -159,6 +160,27 @@ namespace Yis.Framework.Core.IoC
         }
         #endregion
 
+
+
+        public T Resolve<T>(IDictionary<string,object> paramConstructor)
+        {
+            int i = 0;
+            ResolverOverride[] toto = new ResolverOverride[paramConstructor.Count()];
+
+            foreach (var param in paramConstructor)
+            {
+                toto[i] = new ParameterOverride(param.Key,param.Value);
+                i++;
+            }
+
+            return _container.Resolve<T>(toto);
+        }
+
+        public bool IsRegistered<T>()
+        {
+
+            return _container.IsRegistered<T>();
+        }
     }
 
 }
