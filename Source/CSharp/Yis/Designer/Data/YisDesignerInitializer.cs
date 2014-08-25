@@ -9,9 +9,9 @@ using Yis.Designer.Model;
 
 namespace Yis.Designer.Data
 {
-    public class YisDesignerInitializer : DropCreateDatabaseAlways<YisDesignerDbContext>
+    public class YisDesignerInitializer : DropCreateDatabaseAlways<YisDesignerDataContext>
     {
-        protected override void Seed(YisDesignerDbContext context)
+        protected override void Seed(YisDesignerDataContext context)
         {
             Guid IdWorkSpace = Guid.NewGuid();
 

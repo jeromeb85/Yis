@@ -16,8 +16,9 @@ namespace Yis.Framework.Core.IoC
             /// </summary>
             /// <typeparam name="T">Type de l'instance.</typeparam>
             /// <param name="instance">L'instance.</param>
-
             void Register<T>(T instance);
+            void Register<T>(string name,T instance);
+
             /// <summary>
             /// Injection sur un type existant.
             /// </summary>

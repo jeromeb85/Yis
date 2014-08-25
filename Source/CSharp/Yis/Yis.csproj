@@ -75,6 +75,10 @@
     <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
       <HintPath>..\..\packages\Unity.3.5.1405-prerelease\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\odp.net.managed.121.1.2\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -96,6 +100,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Designer\Data\IRepositoryWorkSpace.cs" />
+    <Compile Include="Designer\Data\IYisDesignerDataContext.cs" />
+    <Compile Include="Designer\Data\RepositoryWorkSpace.cs" />
     <Compile Include="Designer\Data\YisDesignerInitializer.cs" />
     <Compile Include="Designer\Model\WorkSpace.cs" />
     <Compile Include="Boot.cs" />
@@ -123,9 +130,15 @@
     <Compile Include="Framework\Core\Tracer\Trace.cs" />
     <Compile Include="Framework\Core\Tracer\TraceFactory.cs" />
     <Compile Include="Framework\Core\YisSystem.cs" />
-    <Compile Include="Framework\Data\EntityFramework\DbContext.cs" />
+    <Compile Include="Framework\Data\Database\ConnectionFactory.cs" />
+    <Compile Include="Framework\Data\Database\DatabaseDataContext.cs" />
+    <Compile Include="Framework\Data\Database\ParamHelper.cs" />
+    <Compile Include="Framework\Data\Database\RepositoryBase.cs" />
+    <Compile Include="Framework\Data\Database\DataContextBase.cs" />
+    <Compile Include="Framework\Data\EntityFramework\DataContextBase.cs" />
     <Compile Include="Framework\Data\EntityFramework\RepositoryBase.cs" />
-    <Compile Include="Framework\Data\EntityFramework\UnitOfWork.cs" />
+    <Compile Include="Framework\Data\IDataContext.cs" />
+    <Compile Include="Framework\Data\UnitOfWork.cs" />
     <Compile Include="Framework\Data\IRepository.cs" />
     <Compile Include="Framework\Data\IUnitOfWork.cs" />
     <Compile Include="Framework\Model\IModelBase.cs" />
@@ -133,7 +146,7 @@
     <Compile Include="Framework\Presentation\MainWindowBase.cs" />
     <Compile Include="Framework\Presentation\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Designer\Data\YisDesignerDbContext.cs" />
+    <Compile Include="Designer\Data\YisDesignerDataContext.cs" />
     <ApplicationDefinition Include="Designer\Presentation\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -181,7 +194,7 @@
     <Folder Include="Designer\Business\" />
     <Folder Include="Designer\Service\Interface\" />
     <Folder Include="Framework\Business\" />
-    <Folder Include="Framework\Data\Database\" />
+    <Folder Include="Framework\Data\Memory\" />
     <Folder Include="Framework\Data\nHibernate\" />
     <Folder Include="Framework\Helper\" />
   </ItemGroup>

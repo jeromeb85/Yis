@@ -7,9 +7,10 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Core.Fluent;
 using Yis.Framework.Core.IoC;
 
-namespace Yis.Framework.Data.EntityFramework
+namespace Yis.Framework.Data
 {
     /// <summary>
     /// Implementation of the unit of work pattern for entity framework.
@@ -18,52 +19,27 @@ namespace Yis.Framework.Data.EntityFramework
     {
 
         #region Fields
-       // private readonly IServiceLocator _serviceLocator;
-        //private readonly ITypeFactory _typeFactory;
-
         private bool _disposed;
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UnitOfWork" /> class.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="tag">The tag to uniquely identify this unit of work. If <c>null</c>, a unique id will be generated.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="context" /> is <c>null</c>.</exception>
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(IDataContext context)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException("pas de context donné");
-            }
-            
-            //_serviceLocator = ServiceLocator.Default;
-            //_typeFactory = _serviceLocator.ResolveType<ITypeFactory>();
+            Argument.IsNotNull("context", context);
 
-            DbContext = context;
-            //Tag = tag ?? UniqueIdentifierHelper.GetUniqueIdentifier<UnitOfWork>().ToString(CultureInfo.InvariantCulture);
+            Context = context;            
+        }
+
+        public UnitOfWork(string nameDataContext)
+            : this(DependencyResolver.Resolve<IDataContext>(nameDataContext))
+        {
+
         }
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Gets the db context.
-        /// </summary>
-        /// <value>The db context.</value>
-        protected DbContext DbContext { get; private set; }
+        protected IDataContext Context { get; private set; }
 
-        /// <summary>
-        /// Gets the tag.
-        /// </summary>
-        /// <value>The tag.</value>
-      //  protected string Tag { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the transaction.
-        /// </summary>
-        /// <value>The transaction.</value>
-        protected IDbTransaction Transaction { get; set; }
         #endregion
 
         #region IUnitOfWork Members
@@ -73,7 +49,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// <value><c>true</c> if this instance is currently in a transaction; otherwise, <c>false</c>.</value>
         public bool IsInTransaction
         {
-            get { return Transaction != null; }
+            get { return Context.IsInTransaction; }
         }
 
         /// <summary>
@@ -83,20 +59,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// <exception cref="InvalidOperationException">A transaction is already running.</exception>
         public virtual void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
-
-            if (Transaction != null)
-            {
-                const string error = "Cannot begin a new transaction while an existing transaction is still running. " +
-                               "Please commit or rollback the existing transaction before starting a new one.";
-
-                throw new InvalidOperationException(error);
-            }
-
-            OpenConnection();
-            Transaction = DbContext.Database.Connection.BeginTransaction(isolationLevel);
-            //var objectContext = DbContext.GetObjectContext();
-            //Transaction = objectContext.Connection.BeginTransaction(isolationLevel);
-
+            Context.BeginTransaction(isolationLevel);
         }
 
         /// <summary>
@@ -105,17 +68,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// <exception cref="InvalidOperationException">No transaction is currently running.</exception>
         public virtual void RollBackTransaction()
         {
-
-            if (Transaction == null)
-            {
-                const string error = "Cannot roll back a transaction when there is no transaction running.";
-
-
-                throw new InvalidOperationException(error);
-            }
-
-            Transaction.Rollback();
-            ReleaseTransaction();
+            Context.RollBackTransaction();
         }
 
         /// <summary>
@@ -124,25 +77,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// <exception cref="InvalidOperationException">No transaction is currently running.</exception>
         public virtual void CommitTransaction()
         {
-            if (Transaction == null)
-            {
-                const string error = "Cannot commit a transaction when there is no transaction running.";
-                throw new InvalidOperationException(error);
-            }
-
-            try
-            {
-                DbContext.SaveChanges();
-                //var objectContext = DbContext.GetObjectContext();
-                //objectContext.SaveChanges();
-                Transaction.Commit();
-                ReleaseTransaction();
-            }
-            catch (Exception ex)
-            {
-                RollBackTransaction();
-                throw;
-            }
+            Context.CommitTransaction();
         }
 
         /// <summary>
@@ -176,10 +111,8 @@ namespace Yis.Framework.Data.EntityFramework
                 throw new NotSupportedException(error);
             }
 
-            //var repository = _typeFactory.CreateInstanceWithParameters(registrationInfo.ImplementingType, DbContext);
-            //return (TRepository) repository;
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("dbContext", DbContext);
+            param.Add("dataContext", Context);
             return DependencyResolver.Resolve<TRepository>(param);
         }
 
@@ -188,7 +121,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="saveOptions">The save options.</param>
         /// <exception cref="InvalidOperationException">A transaction is running. Call CommitTransaction instead.</exception>
-        public virtual void SaveChanges(SaveOptions saveOptions = SaveOptions.DetectChangesBeforeSave | SaveOptions.AcceptAllChangesAfterSave)
+        public virtual void SaveChanges()
         {
              if (IsInTransaction)
             {
@@ -196,9 +129,7 @@ namespace Yis.Framework.Data.EntityFramework
                 throw new InvalidOperationException(error);
             }
 
-             DbContext.SaveChanges();
-            //var objectContext = DbContext.GetObjectContext();
-            //objectContext.SaveChanges(saveOptions);
+             Context.SaveChanges();
         }
         #endregion
 
@@ -212,7 +143,6 @@ namespace Yis.Framework.Data.EntityFramework
             GC.SuppressFinalize(this);
         }
 
-        #region Methods
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
@@ -241,44 +171,8 @@ namespace Yis.Framework.Data.EntityFramework
         {
         }
 
-        /// <summary>
-        /// Disposes the db context.
-        /// </summary>
-        protected void DisposeDbContext()
-        {
-            if (DbContext != null)
-            {
-                DbContext.Dispose();
-            }
-        }
         #endregion
 
-        #endregion
 
-        #region Methods
-        /// <summary>
-        /// Opens the connection to the database.
-        /// </summary>
-        protected virtual void OpenConnection()
-        {           
-            //var objectContext = DbContext.GetObjectContext();
-            if (DbContext.Database.Connection.State != ConnectionState.Open)
-            {
-                DbContext.Database.Connection.Open();
-            }
-        }
-
-        /// <summary>
-        /// Releases the transaction.
-        /// </summary>
-        protected virtual void ReleaseTransaction()
-        {
-            if (Transaction != null)
-            {
-                Transaction.Dispose();
-                Transaction = null;
-            }
-        }
-        #endregion
     }
 }

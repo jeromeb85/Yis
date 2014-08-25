@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 //using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -10,13 +11,14 @@ using Yis.Framework.Model;
 
 namespace Yis.Framework.Data.EntityFramework
 {
-    public class EntityRepositoryBase<TModel, TKey> : IRepository<TModel, TKey>
-           where TModel : class
+    public class RepositoryBase<TEntity, TKey> : IRepository<TEntity, TKey>
+           where TEntity : class
     {
         #region Fields
         private readonly DbContext _dbContext;
+        private readonly IDbSet<TEntity> _dbSet;
 
-        private readonly string _entitySetName;
+       // private readonly string _entitySetName;
         #endregion
 
         #region Constructors
@@ -25,16 +27,15 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="dbContext">The db context. The caller is responsible for correctly disposing the <see cref="DbContext"/>.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="dbContext" /> is <c>null</c>.</exception>
-        public EntityRepositoryBase(DbContext dbContext)
+        public RepositoryBase(IDataContext dataContext)
         {
-            if (dbContext == null)
+            if (dataContext == null)
             {
                 throw new ArgumentNullException("pas de context donné");
             }
 
-            _dbContext = dbContext;
-
-            _entitySetName = dbContext.GetEntitySetName<TModel>();
+            _dbContext = (DbContext)dataContext;
+            _dbSet = _dbContext.Set<TEntity>();       
         }
         #endregion
 
@@ -51,22 +52,23 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="keyValue">The key value.</param>
         /// <returns>The entity or <c>null</c> if the entity could not be found.</returns>
-        public virtual TModel GetByKey(TKey keyValue)
+        public virtual TEntity GetByKey(TKey keyValue)
         {
-            throw new NotImplementedException();
+            return _dbSet.Find(keyValue);
         }
 
         /// <summary>
         /// Gets the default query for this repository.
         /// </summary>
         /// <returns>The default queryable for this repository.</returns>
-        public virtual IQueryable<TModel> GetQuery()
+        public virtual IQueryable<TEntity> GetQuery()
         {
             //_dbContext.cre
     
-            var objectContext = ((IObjectContextAdapter) _dbContext).ObjectContext; 
+            //var objectContext = ((IObjectContextAdapter) _dbContext).ObjectContext; 
             //var objectContext = _dbContext.GetObjectContext();
-            return objectContext.CreateQuery<TModel>(_entitySetName);
+           //return objectContext.CreateQuery<TModel>(_entitySetName);
+            return _dbContext.Set<TEntity>();
         }
 
         /// <summary>
@@ -74,7 +76,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>The customized queryable for this repository.</returns>
-        public virtual IQueryable<TModel> GetQuery(Expression<Func<TModel, bool>> predicate)
+        public virtual IQueryable<TEntity> GetQuery(Expression<Func<TEntity, bool>> predicate)
         {
             var query = GetQuery();
             return query.Where(predicate);
@@ -85,7 +87,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>The entity or <c>null</c> if no entity matches the criteria.</returns>
-        public virtual TModel Single(Expression<Func<TModel, bool>> predicate = null)
+        public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate = null)
         {
             var query = GetQuery();
             predicate = EnsureValidatePredicate(predicate);
@@ -98,7 +100,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>The entity or <c>null</c> if no entity matches the criteria.</returns>
-        public virtual TModel SingleOrDefault(Expression<Func<TModel, bool>> predicate = null)
+        public virtual TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate = null)
         {
             var query = GetQuery();
             predicate = EnsureValidatePredicate(predicate);
@@ -111,7 +113,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>The entity or <c>null</c> if no entity matches the criteria.</returns>
-        public virtual TModel First(Expression<Func<TModel, bool>> predicate = null)
+        public virtual TEntity First(Expression<Func<TEntity, bool>> predicate = null)
         {
             var query = GetQuery();
             predicate = EnsureValidatePredicate(predicate);
@@ -124,7 +126,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>The entity or <c>null</c> if no entity matches the criteria.</returns>
-        public virtual TModel FirstOrDefault(Expression<Func<TModel, bool>> predicate = null)
+        public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate = null)
         {
             var query = GetQuery();
             predicate = EnsureValidatePredicate(predicate);
@@ -138,9 +140,9 @@ namespace Yis.Framework.Data.EntityFramework
         /// Note that the returned proxy entity is NOT added or attached to the set.
         /// </summary>
         /// <returns>The proxy entity</returns>
-        public virtual TModel Create()
+        public virtual TEntity Create()
         {
-            return _dbContext.Set<TModel>().Create();
+            return _dbContext.Set<TEntity>().Create();
         }
 
         /// <summary>
@@ -148,29 +150,14 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="entity">The entity to add.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="entity"/> is <c>null</c>.</exception>
-        public virtual void Add(TModel entity)
+        public virtual void Add(TEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException();
             }
 
-            _dbContext.Set<TModel>().Add(entity);
-        }
-
-        /// <summary>
-        /// Attaches the specified entity to the repository.
-        /// </summary>
-        /// <param name="entity">The entity to attach.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="entity" /> is <c>null</c>.</exception>
-        public virtual void Attach(TModel entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            _dbContext.Set<TModel>().Attach(entity);
+            _dbContext.Set<TEntity>().Add(entity);
         }
 
         /// <summary>
@@ -178,14 +165,14 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="entity" /> is <c>null</c>.</exception>
-        public virtual void Delete(TModel entity)
+        public virtual void Delete(TEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException();
             }
 
-            _dbContext.Set<TModel>().Remove(entity);
+            _dbContext.Set<TEntity>().Remove(entity);
         }
 
         /// <summary>
@@ -193,7 +180,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="predicate" /> is <c>null</c>.</exception>
-        public virtual void Delete(Expression<Func<TModel, bool>> predicate)
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
             if (predicate == null)
             {
@@ -215,21 +202,23 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="entity" /> is <c>null</c>.</exception>
-        public virtual void Update(TModel entity)
+        public virtual void Update(TEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException();
             }
 
-            var objectContext = ((IObjectContextAdapter)_dbContext).ObjectContext; 
+            _dbContext.Set<TEntity>().Attach(entity);
 
-            object originalItem;
-            var key = objectContext.CreateEntityKey(_entitySetName, entity);
-            if (objectContext.TryGetObjectByKey(key, out originalItem))
-            {
-                objectContext.ApplyCurrentValues(key.EntitySetName, entity);
-            }
+            //var objectContext = ((IObjectContextAdapter)_dbContext).ObjectContext; 
+
+            //object originalItem;
+            //var key = objectContext.CreateEntityKey(_entitySetName, entity);
+            //if (objectContext.TryGetObjectByKey(key, out originalItem))
+            //{
+            //    objectContext.ApplyCurrentValues(key.EntitySetName, entity);
+            //}
         }
 
         /// <summary>
@@ -238,7 +227,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// <param name="predicate">The predicate.</param>
         /// <returns>Enumerable of all matching entities.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="predicate" /> is <c>null</c>.</exception>
-        public virtual IQueryable<TModel> Find(Expression<Func<TModel, bool>> predicate)
+        public virtual IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
             predicate = EnsureValidatePredicate(predicate);
 
@@ -251,7 +240,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// Not that this method executes the default query returned by <see cref="GetQuery()" />/.
         /// </summary>
         /// <returns>Enumerable of all entities.</returns>
-        public virtual IQueryable<TModel> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
             return GetQuery();
         }
@@ -261,7 +250,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>The number of entities that match the criteria.</returns>
-        public virtual int Count(Expression<Func<TModel, bool>> predicate = null)
+        public virtual int Count(Expression<Func<TEntity, bool>> predicate = null)
         {
             predicate = EnsureValidatePredicate(predicate);
 
@@ -278,7 +267,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>The ensured valid predicate.</returns>
-        private Expression<Func<TModel, bool>> EnsureValidatePredicate(Expression<Func<TModel, bool>> predicate)
+        private Expression<Func<TEntity, bool>> EnsureValidatePredicate(Expression<Func<TEntity, bool>> predicate)
         {
             if (predicate == null)
             {

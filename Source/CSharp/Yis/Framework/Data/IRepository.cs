@@ -25,7 +25,6 @@ namespace Yis.Framework.Data
         TModel FirstOrDefault(Expression<Func<TModel, bool>> predicate = null);
         TModel Create();
         void Add(TModel entity);
-        void Attach(TModel entity);
         void Delete(TModel entity);
         void Delete(Expression<Func<TModel, bool>> predicate);
         void Update(TModel entity);

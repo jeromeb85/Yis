@@ -51,6 +51,11 @@ namespace Yis.Framework.Core.IoC
             _resolver.Register(instance);
         }
 
+        public static void Register<T>(string name,T instance)
+        {
+            _resolver.Register(name,instance);
+        }
+
         public static void Inject<T>(T existing)
         {
             _resolver.Inject(existing);

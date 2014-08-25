@@ -51,8 +51,16 @@ namespace Yis.Framework.Core.IoC
         /// <typeparam name="T">Type de l'instance.</typeparam>
         /// <param name="instance">L'instance.</param>
         public void Register<T>(T instance)
-        {        
+        {                    
             _container.RegisterInstance(instance);
+   
+        }
+
+
+        public void Register<T>(string name,T instance)
+        {
+            _container.RegisterInstance(name,instance);
+
         }
 
         /// <summary>
@@ -135,7 +143,7 @@ namespace Yis.Framework.Core.IoC
                 unnamedInstance = _container.Resolve<T>();
                 //When default instance is missing
             }
-            catch (ResolutionFailedException generatedExceptionName)
+            catch (ResolutionFailedException)
             {
             }
 
@@ -178,7 +186,6 @@ namespace Yis.Framework.Core.IoC
 
         public bool IsRegistered<T>()
         {
-
             return _container.IsRegistered<T>();
         }
     }

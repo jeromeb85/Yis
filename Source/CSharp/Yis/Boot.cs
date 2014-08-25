@@ -8,7 +8,9 @@ using Yis.Designer.Data;
 using Yis.Designer.Model;
 using Yis.Designer.Presentation;
 using Yis.Framework.Core;
+using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Tracer;
+using Yis.Framework.Data;
 
 namespace Yis
 {
@@ -24,6 +26,36 @@ namespace Yis
             Trace.Debug("toto");
 
             YisSystem.ShowConsoleWindow();
+
+            DependencyResolver.Register<IDataContext>("YisDataContext", new YisDesignerDataContext());
+
+            using (UnitOfWork uow = new UnitOfWork("YisDataContext"))
+            {
+                
+                IRepositoryWorkSpace _workSpaceProvider = uow.GetRepository<IRepositoryWorkSpace>();
+                WorkSpace newWS = _workSpaceProvider.Create();
+
+                newWS.Id = Guid.NewGuid();
+                newWS.Name = "toto to to";
+
+                _workSpaceProvider.Add(newWS);
+                uow.SaveChanges();
+
+                foreach (var item in _workSpaceProvider.GetAll())
+                {
+                    Console.WriteLine(item.Name);
+                    
+
+                    //db.Entry(WorkSpace).Reference(WorkSpace.AspectSemantic).Load();
+
+                    //Console.WriteLine(item.AspectSemantic.Id.ToString());
+                    //  Console.WriteLine(item.AspectSemantic.WorkSpace.Id.ToString());
+                }
+            }
+
+
+
+            Console.ReadLine();
             /*
             using (var db = new YisDesignerDbContext())
             {
@@ -61,7 +93,7 @@ namespace Yis
             Console.ReadKey();*/
 
             YisSystem.HideConsoleWindow();
-            RunWindows();
+            //RunWindows();
         }
 
 

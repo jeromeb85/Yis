@@ -6,16 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yis.Designer.Model;
+using Yis.Framework.Core.IoC;
 using Yis.Framework.Data.EntityFramework;
 
 namespace Yis.Designer.Data
 {
-    public class YisDesignerDbContext : Yis.Framework.Data.EntityFramework.DbContext
+    public class YisDesignerDataContext : DataContextBase
     {
 
-        public YisDesignerDbContext()
+        public YisDesignerDataContext()
             : base("Yis")
         {
+            DependencyResolver.Register<IRepositoryWorkSpace>(new RepositoryWorkSpace(this));
            // Database.SetInitializer<YisDbContext>(new CreateDatabaseIfNotExists<YisDbContext>());
 
             //Database.SetInitializer<YisDbContext>(new DropCreateDatabaseIfModelChanges<YisDbContext>());
