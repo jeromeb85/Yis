@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,7 +31,7 @@ namespace Yis.Framework.Model
         /// <param name="propertyName">The name of the property on which errors have changed.</param>
         [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
-        protected void RaiseErrorsChanged(string propertyName)
+        protected void RaiseErrorsChanged(string propertyName = "")
         {
             var args = new DataErrorsChangedEventArgs(propertyName);
             OnErrorsChanged(args);
@@ -85,6 +86,76 @@ namespace Yis.Framework.Model
             return errors;
         }
         #endregion
+
+        public bool Validate()
+        {
+            //List<ValidationResult> validationResults = new List<ValidationResult>();
+            //Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true);
+            //if (validationResults.Any())
+            //{
+            //    errors.Clear();
+            //    foreach (var validationResult in validationResults)
+            //    {
+            //        var propertyNames = validationResult.MemberNames.Any() ? validationResult.MemberNames : new string[] { "" };
+            //        foreach (string propertyName in propertyNames)
+            //        {
+            //            if (!errors.ContainsKey(propertyName))
+            //            {
+            //                errors.Add(propertyName, new List<ValidationResult>() { validationResult });
+            //            }
+            //            else
+            //            {
+            //                errors[propertyName].Add(validationResult);
+            //            }
+            //        }
+            //    }
+            //    RaiseErrorsChanged();
+            //    return false;
+            //}
+            //else
+            //{
+            //    if (errors.Any())
+            //    {
+            //        errors.Clear();
+            //        RaiseErrorsChanged();
+            //    }
+            //}
+            return true;
+        }
+
+         protected bool SetPropertyAndValidate<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            //if (string.IsNullOrEmpty(propertyName)) { throw new ArgumentException("The argument propertyName must not be null or empty."); }
+
+            //if (SetProperty(ref field, value, propertyName))
+            //{
+            //    ValidateProperty(value, propertyName);
+            //    return true;
+            //}
+            return false;
+        }
+
+        protected bool ValidateProperty(object value, [CallerMemberName] string propertyName = null)
+        {
+            //if (string.IsNullOrEmpty(propertyName)) { throw new ArgumentException("The argument propertyName must not be null or empty."); }
+
+            //List<ValidationResult> validationResults = new List<ValidationResult>();
+            //Validator.TryValidateProperty(value, new ValidationContext(this) { MemberName = propertyName }, validationResults);
+            //if (validationResults.Any())
+            //{
+            //    errors[propertyName] = validationResults;
+            //    RaiseErrorsChanged(propertyName);
+            //    return false;
+            //}
+            //else
+            //{
+            //    if (errors.Remove(propertyName))
+            //    {
+            //        RaiseErrorsChanged(propertyName);
+            //    }
+            //}
+            return true;
+        }
     }
 
 }

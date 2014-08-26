@@ -34,7 +34,7 @@ namespace Yis.Framework.Model
             }
         }
 
-        protected void SetValue<T>(ref T value, ref T newValue, Action onChanged = null, [CallerMemberName] string name = null)
+        protected void SetValue<T>(ref T value, T newValue, Action onChanged = null, [CallerMemberName] string name = null)
         {
             if (newValue != null)
             {
@@ -58,7 +58,7 @@ namespace Yis.Framework.Model
         private TKey _id;
         [Key]
         [Column("Id")]
-        public TKey Id { get { return _id; } set { SetValue<TKey>(ref _id, ref _id); } }
+        public TKey Id { get { return _id; } set { SetValue<TKey>(ref _id, _id); } }
 
         [Column("CreatedDate")]
         public DateTime DateCreated { get; set; }
