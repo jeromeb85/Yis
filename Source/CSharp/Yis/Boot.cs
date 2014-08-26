@@ -32,7 +32,7 @@ namespace Yis
             using (UnitOfWork uow = new UnitOfWork("YisDataContext"))
             {
                 
-                IRepositoryWorkSpace _workSpaceProvider = uow.GetRepository<IRepositoryWorkSpace>();
+                IWorkSpaceProvider _workSpaceProvider = uow.GetRepository<IWorkSpaceProvider>();
                 WorkSpace newWS = _workSpaceProvider.Create();
 
                 newWS.Id = Guid.NewGuid();

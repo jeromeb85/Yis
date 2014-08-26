@@ -100,13 +100,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Designer\Data\IRepositoryWorkSpace.cs" />
+    <Compile Include="Designer\Data\IWorkSpaceProvider.cs" />
     <Compile Include="Designer\Data\IYisDesignerDataContext.cs" />
-    <Compile Include="Designer\Data\RepositoryWorkSpace.cs" />
+    <Compile Include="Designer\Data\WorkSpaceProvider.cs" />
     <Compile Include="Designer\Data\YisDesignerInitializer.cs" />
     <Compile Include="Designer\Model\WorkSpace.cs" />
     <Compile Include="Boot.cs" />
     <Compile Include="Designer\Presentation\ViewModel\MainViewModel.cs" />
+    <Compile Include="Framework\Business\BusinessComponentBase.cs" />
+    <Compile Include="Framework\Business\IBusinessComponentBase.cs" />
     <Compile Include="Framework\Core\Caching\CacheStorage.cs" />
     <Compile Include="Framework\Core\Caching\CacheStorageValueInfo.cs" />
     <Compile Include="Framework\Core\Caching\ICacheStorage.cs" />
@@ -143,6 +145,14 @@
     <Compile Include="Framework\Data\IUnitOfWork.cs" />
     <Compile Include="Framework\Model\IModelBase.cs" />
     <Compile Include="Framework\Model\ModelBase.cs" />
+    <Compile Include="Framework\Model\ModelBase.IChangeTracking.cs" />
+    <Compile Include="Framework\Model\ModelBase.IDataErrorInfo.cs" />
+    <Compile Include="Framework\Model\ModelBase.IEditableObject.cs" />
+    <Compile Include="Framework\Model\ModelBase.INotifyDataErrorInfo.cs" />
+    <Compile Include="Framework\Model\ModelBase.INotifyPropertyChanged.cs" />
+    <Compile Include="Framework\Model\ModelBase.INotifyPropertyChanging.cs" />
+    <Compile Include="Framework\Model\ModelBase.IRevertibleChangeTracking.cs" />
+    <Compile Include="Framework\Model\ModelBase.IValidatableObject.cs" />
     <Compile Include="Framework\Presentation\MainWindowBase.cs" />
     <Compile Include="Framework\Presentation\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -193,7 +203,6 @@
   <ItemGroup>
     <Folder Include="Designer\Business\" />
     <Folder Include="Designer\Service\Interface\" />
-    <Folder Include="Framework\Business\" />
     <Folder Include="Framework\Data\Memory\" />
     <Folder Include="Framework\Data\nHibernate\" />
     <Folder Include="Framework\Helper\" />

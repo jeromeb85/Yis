@@ -8,7 +8,7 @@ using Yis.Framework.Data;
 
 namespace Yis.Designer.Data
 {
-    public interface IRepositoryWorkSpace : IRepository<WorkSpace>
+    public interface IWorkSpaceProvider : IRepository<WorkSpace>
     {
     }
 }
