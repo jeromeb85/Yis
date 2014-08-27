@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Model
 {
-    public partial class ModelBase : IEditableObject
+    public  abstract partial class ModelBase : IEditableObject
     {
 
         #region Implementation de IEditableObject

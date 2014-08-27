@@ -104,15 +104,20 @@ namespace Yis.Framework.Data
         public virtual TRepository GetRepository<TRepository>()
             where TRepository : IRepository
         {
-            
+            return GetRepository<TRepository>(Context);
+
+        }
+
+        public static TRepository GetRepository<TRepository>(IDataContext context)
+        {
             if (!DependencyResolver.IsRegistered<TRepository>())
             {
-                string error = string.Format("The specified repository type '{0}' cannot be found. Make sure it is registered in the ServiceLocator.", typeof(TRepository).FullName);                
+                string error = string.Format("The specified repository type '{0}' cannot be found. Make sure it is registered in the ServiceLocator.", typeof(TRepository).FullName);
                 throw new NotSupportedException(error);
             }
 
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("dataContext", Context);
+            param.Add("dataContext", context);
             return DependencyResolver.Resolve<TRepository>(param);
         }
 

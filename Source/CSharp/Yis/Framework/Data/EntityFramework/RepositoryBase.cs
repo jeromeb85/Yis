@@ -240,7 +240,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// Not that this method executes the default query returned by <see cref="GetQuery()" />/.
         /// </summary>
         /// <returns>Enumerable of all entities.</returns>
-        public virtual IQueryable<TEntity> GetAll()
+        private IQueryable<TEntity> GetAll()
         {
             return GetQuery();
         }
@@ -277,5 +277,11 @@ namespace Yis.Framework.Data.EntityFramework
             return predicate;
         }
         #endregion
+
+
+        IEnumerable<TEntity> IRepository<TEntity>.GetAll()
+        {
+            return GetQuery().ToList<TEntity>();
+        }
     }
 }

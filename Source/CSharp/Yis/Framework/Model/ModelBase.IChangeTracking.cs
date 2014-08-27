@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Model
 {
-    public partial class ModelBase : IChangeTracking
+    public abstract partial class ModelBase : IChangeTracking
     {
         private bool _isChanged;
 
@@ -27,9 +27,7 @@ namespace Yis.Framework.Model
             {
                 if (_isChanged != value)
                 {
-                    RaisePropertyChanging("IsChanged");
                     _isChanged = value;
-                    RaisePropertyChanged("IsChanged");
                 }
             }
 

@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yis.Framework.Model
+namespace Yis.Framework.Presentation.ViewModel
 {
-    public  abstract partial class ModelBase : IValidatableObject
+    public abstract partial class ViewModelBase : IValidatableObject
     {
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {            
+        {
             yield break;
         }
-
     }
 }

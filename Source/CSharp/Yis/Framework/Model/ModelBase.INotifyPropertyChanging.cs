@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Model
 {
-    public partial class ModelBase : INotifyPropertyChanging
+    public  abstract partial class ModelBase : INotifyPropertyChanging
     {
         #region INotifyPropertyChanging Implementation
         /// <summary>

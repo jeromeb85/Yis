@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Model
 {
-    public interface IModelBase
+    public interface IModel
     {
     }
 

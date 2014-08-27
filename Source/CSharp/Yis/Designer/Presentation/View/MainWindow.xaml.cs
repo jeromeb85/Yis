@@ -1,4 +1,4 @@
-﻿using Yis.Framework.Presentation;
+﻿using Yis.Framework.Presentation.Window;
 
 namespace Yis.Designer.Presentation.View
 {
@@ -8,7 +8,6 @@ namespace Yis.Designer.Presentation.View
     public partial class MainWindow : MainWindowBase
     {
         public MainWindow()
-           // : base(DataWindowMode.Custom)
         {
             InitializeComponent();
         }

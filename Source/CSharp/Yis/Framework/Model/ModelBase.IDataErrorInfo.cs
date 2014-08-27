@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Model
 {
-    public partial class ModelBase : IDataErrorInfo
+    public  abstract partial class ModelBase : IDataErrorInfo
     {
         #region IDataErrorInfo
         [IgnoreDataMember]

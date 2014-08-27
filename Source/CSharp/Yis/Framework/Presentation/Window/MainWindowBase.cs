@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls.Ribbon;
 
-namespace Yis.Framework.Presentation
+namespace Yis.Framework.Presentation.Window
 {
     public class MainWindowBase : RibbonWindow
     {

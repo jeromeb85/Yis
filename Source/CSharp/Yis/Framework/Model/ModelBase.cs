@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Model
 {
-    public partial class ModelBase : IModelBase
+    public abstract partial class ModelBase : IModel
     {
 
         private Dictionary<string, object> _cacheBackup;
@@ -34,15 +34,13 @@ namespace Yis.Framework.Model
             }
         }
 
-        protected void SetValue<T>(ref T value, T newValue, Action onChanged = null, [CallerMemberName] string name = null)
+        protected void SetValue<T>(ref T value, T newValue, [CallerMemberName] string name = null)
         {
             if (newValue != null)
             {
                 if (!newValue.Equals(value))
                 {
-                    RaisePropertyChanging(name);
-                    value = newValue;
-                    RaisePropertyChanged(name);
+                    value = newValue;                    
                 }
             }
             else
@@ -58,12 +56,12 @@ namespace Yis.Framework.Model
         private TKey _id;
         [Key]
         [Column("Id")]
-        public TKey Id { get { return _id; } set { SetValue<TKey>(ref _id, _id); } }
+        public TKey Id { get { return _id; } set { SetValue<TKey>(ref _id, value); } }
 
-        [Column("CreatedDate")]
-        public DateTime DateCreated { get; set; }
-        [Column("LastModifiedDate")]
-        public DateTime DateLastModified { get; set; }
+        //[Column("CreatedDate")]
+        //public DateTime DateCreated { get; set; }
+        //[Column("LastModifiedDate")]
+        //public DateTime DateLastModified { get; set; }
 
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Model
 {
-    public partial class ModelBase : IRevertibleChangeTracking
+    public  abstract partial class ModelBase : IRevertibleChangeTracking
 
     {
         public void RejectChanges()

@@ -329,12 +329,18 @@ namespace Yis.Framework.Data.Database
             throw new NotImplementedException();
         }
 
-        IQueryable<TEntity> IRepository<TEntity>.GetAll()
+        //IQueryable<TEntity> IRepository<TEntity>.GetAll()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public int Count(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate = null)
         {
             throw new NotImplementedException();
         }
 
-        public int Count(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate = null)
+
+        IEnumerable<TEntity> IRepository<TEntity>.GetAll()
         {
             throw new NotImplementedException();
         }

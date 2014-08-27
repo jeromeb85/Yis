@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yis.Framework.Presentation
+namespace Yis.Framework.Presentation.ViewModel
 {
-    public class ViewModelBase
+    public interface IViewModel
     {
     }
 }

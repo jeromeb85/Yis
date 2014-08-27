@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Business
 {
-    interface IBusinessComponentBase
+    public interface IBusinessComponentBase
     {
+    }
+
+    public interface IBusinessComponentBase<TModel>
+    {
+        IEnumerable<TModel> GetAll();
     }
 }

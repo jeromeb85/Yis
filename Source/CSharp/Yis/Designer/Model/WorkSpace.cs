@@ -5,17 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Model;
 
 namespace Yis.Designer.Model
 {
     [Table("WorkSpace")]
     [Serializable]
-    public partial class WorkSpace
+    public partial class WorkSpace : ModelBase<Guid>
     {
         
-        [Key]
-        [Column("WorkSpaceId")]
-        public Guid Id { get; set; }
 
         [Required]
         [StringLength(50,MinimumLength=5,ErrorMessage="La longueur doit être comprise entre 5 et 50")]

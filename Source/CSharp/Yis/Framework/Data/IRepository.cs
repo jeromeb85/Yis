@@ -28,8 +28,8 @@ namespace Yis.Framework.Data
         void Delete(TModel entity);
         void Delete(Expression<Func<TModel, bool>> predicate);
         void Update(TModel entity);
-        IQueryable<TModel> Find(Expression<Func<TModel, bool>> predicate);
-        IQueryable<TModel> GetAll();
+        IQueryable<TModel> Find(Expression<Func<TModel, bool>> predicate);        
+        IEnumerable<TModel> GetAll();
         int Count(Expression<Func<TModel, bool>> predicate = null);
         #endregion
     }
