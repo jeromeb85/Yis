@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Rule;
 
 namespace Yis.Framework.Presentation.ViewModel
 {
@@ -28,14 +29,30 @@ namespace Yis.Framework.Presentation.ViewModel
         public bool AutoValidateProperty { get; set; }
 
 
+        private RuleValidator _validator;
+        public RuleValidator Validator
+        {
+            get
+            {
+                if (_validator == null)
+                {
+                    _validator = new RuleValidator();
+                    _validator.AddRuleAnnotation(this.GetType());
+                }
+
+                return _validator;
+            }
+        }
+
         #endregion
 
         #region Constructeurs
         protected ViewModelBase()
         {
-            AutoValidateProperty = true;
-            _errors = new Dictionary<string, List<ValidationResult>>();
+            AutoValidateProperty = true;            
             _hasErrors = false;
+
+            OnRuleInialize();
 
         }
         #endregion
@@ -57,7 +74,7 @@ namespace Yis.Framework.Presentation.ViewModel
 
                     if (validate)
                     {
-                        ValidateProperty(newValue, name);
+                        Validate(name);
                     }
                 }
             }
@@ -69,23 +86,24 @@ namespace Yis.Framework.Presentation.ViewModel
 
         public bool Validate()
         {
-            List<ValidationResult> validationResults = new List<ValidationResult>();
-            Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true);
+
+            IEnumerable<ValidationResult> validationResults = Validator.Validate(this); 
+            //Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true);
             if (validationResults.Any())
             {
-                _errors.Clear();
+                Errors.Clear();
                 foreach (var validationResult in validationResults)
                 {
                     var propertyNames = validationResult.MemberNames.Any() ? validationResult.MemberNames : new string[] { "" };
                     foreach (string propertyName in propertyNames)
                     {
-                        if (!_errors.ContainsKey(propertyName))
+                        if (!Errors.ContainsKey(propertyName))
                         {
-                            _errors.Add(propertyName, new List<ValidationResult>() { validationResult });
+                            Errors.Add(propertyName, new List<ValidationResult>() { validationResult });
                         }
                         else
                         {
-                            _errors[propertyName].Add(validationResult);
+                            Errors[propertyName].Add(validationResult);
    
                         }
                         RaiseErrorsChanged(propertyName);
@@ -95,35 +113,78 @@ namespace Yis.Framework.Presentation.ViewModel
             }
             else
             {
-                if (_errors.Any())
+                if (Errors.Any())
                 {
-                    _errors.Clear();
+                    Errors.Clear();
                     RaiseErrorsChanged();
                 }
             }
             return true;
         }
 
-        protected bool ValidateProperty(object value, [CallerMemberName] string propertyName = null)
+        protected bool Validate([CallerMemberName] string propertyName = null)
         {
-            if (string.IsNullOrEmpty(propertyName)) { throw new ArgumentException("The argument propertyName must not be null or empty."); }
-
-            List<ValidationResult> validationResults = new List<ValidationResult>();
-            Validator.TryValidateProperty(value, new ValidationContext(this) { MemberName = propertyName }, validationResults);
+            IEnumerable<ValidationResult> validationResults = Validator.Validate(this, propertyName);
+            //Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true);
             if (validationResults.Any())
             {
-                _errors[propertyName] = validationResults;
+                Errors.Remove(propertyName);
+
+                foreach (var validationResult in validationResults)
+                {
+                    var propertyNames = validationResult.MemberNames.Any() ? validationResult.MemberNames : new string[] { "" };
+                    foreach (string item in propertyNames)
+                    {
+                        if (!Errors.ContainsKey(item))
+                        {
+                            Errors.Add(item, new List<ValidationResult>() { validationResult });
+                        }
+                        else
+                        {
+                            Errors[item].Add(validationResult);
+
+                        }
+                        
+                    }
+
+                    
+                }
+
                 RaiseErrorsChanged(propertyName);
                 return false;
             }
             else
             {
-                if (_errors.Remove(propertyName))
-                {
+                if (Errors.Remove(propertyName))
+                {                    
                     RaiseErrorsChanged(propertyName);
                 }
             }
             return true;
+
+            //    if (string.IsNullOrEmpty(propertyName)) { throw new ArgumentException("The argument propertyName must not be null or empty."); }
+
+            //    IEnumerable<ValidationResult> validationResults = Validator.Validate(this, propertyName);
+            //    //Validator.TryValidateProperty(value, new ValidationContext(this) { MemberName = propertyName }, validationResults);
+            //    if (validationResults.Any())
+            //    {
+            //        Errors[propertyName] = validationResults.ToList();
+            //        RaiseErrorsChanged(propertyName);
+            //        return false;
+            //    }
+            //    else
+            //    {
+            //        if (Errors.Remove(propertyName))
+            //        {
+            //            RaiseErrorsChanged(propertyName);
+            //        }
+            //    }
+            //    return true;
+            //}
+        }
+        protected virtual void OnRuleInialize()
+        {
+
         }
     }
 }

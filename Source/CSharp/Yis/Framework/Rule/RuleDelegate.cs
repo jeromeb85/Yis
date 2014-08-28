@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Rule
 {
-    public class RuleDelegate : IRule
+    public class RuleDelegate<T> : IRule    
     {
         private string _errorMessage;
-        private Func<bool> _command;
+        private Func<T, bool> _command;
 
-        public RuleDelegate(Func<bool> command, string errorMessage)
+        public RuleDelegate(Func<T, bool> command, string errorMessage)
         {            
             _errorMessage = errorMessage;
             _command = command;
         }
 
-        public IEnumerable<ValidationResult> Execute(object context)
+        public IEnumerable<ValidationResult> Execute(IRuleContext context)
         {
             List<ValidationResult> list = new List<ValidationResult>();
 
-            if (!_command())
+            if (!_command((T) context.GetTarget()))
             {
                 ValidationResult item = new ValidationResult(_errorMessage);
                 list.Add(item);

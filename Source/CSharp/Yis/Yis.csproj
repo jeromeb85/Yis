@@ -111,9 +111,13 @@
     <Compile Include="Designer\Presentation\ViewModel\MainViewModel.cs" />
     <Compile Include="Framework\Business\BusinessComponentBase.cs" />
     <Compile Include="Framework\Business\IBusinessComponentBase.cs" />
+    <Compile Include="Framework\Presentation\View\IView.cs" />
     <Compile Include="Framework\Rule\IRule.cs" />
+    <Compile Include="Framework\Rule\IRuleContext.cs" />
+    <Compile Include="Framework\Rule\RuleContext.cs" />
     <Compile Include="Framework\Rule\RuleDataAnnontation.cs" />
     <Compile Include="Framework\Rule\RuleDelegate.cs" />
+    <Compile Include="Framework\Rule\RuleResult.cs" />
     <Compile Include="Framework\Rule\RuleValidator.cs" />
     <Compile Include="Framework\Core\Caching\CacheStorage.cs" />
     <Compile Include="Framework\Core\Caching\CacheStorageValueInfo.cs" />
@@ -156,8 +160,6 @@
     <Compile Include="Framework\Model\ModelBase.IEditableObject.cs" />
     <Compile Include="Framework\Model\ModelBase.IRevertibleChangeTracking.cs" />
     <Compile Include="Framework\Model\ModelBase.IValidatableObject.cs" />
-    <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.IDataErrorInfo.cs" />
-    <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.IValidatableObject.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyDataErrorInfo.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyPropertyChanged.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyPropertyChanging.cs" />

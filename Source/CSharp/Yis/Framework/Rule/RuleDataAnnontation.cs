@@ -21,9 +21,9 @@ namespace Yis.Framework.Rule
             
         }
 
-        public IEnumerable<ValidationResult> Execute(object context)
+        public IEnumerable<ValidationResult> Execute(IRuleContext context)
         {
-            var ctx = new ValidationContext(context, null, null);
+            var ctx = new ValidationContext(context.GetTarget(), null, null);
             List<ValidationResult> list = new List<ValidationResult>();
 
 
@@ -37,7 +37,7 @@ namespace Yis.Framework.Rule
                 if (_prop != null)
                 {
                      
-                    result = this.Attribute.GetValidationResult(_prop.GetValue(context), ctx);
+                    result = this.Attribute.GetValidationResult(_prop.GetValue(context.GetTarget()), ctx);
                 }
                 else
                 {

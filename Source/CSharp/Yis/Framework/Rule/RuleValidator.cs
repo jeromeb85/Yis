@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Rule
 {
+
     public class RuleValidator
     {
-        private object _context;
         private Dictionary<string, List<IRule>> _ruleCache;
         private Dictionary<string, List<IRule>> RuleCache
         {
@@ -25,57 +25,7 @@ namespace Yis.Framework.Rule
             }
         }
 
-        public RuleValidator(object context)
-        {
-            _context = context;
-        }
-
-        public void AddRule(Expression<Func<object>> property, Func<bool> validateDelegate, string errorMessage)
-        {
-            AddRule(GetMemberName(property.Body), validateDelegate, errorMessage);
-        }
-        public void AddRule(string propertyName, Func<bool> validateDelegate, string errorMessage)
-        {
-            RegisterRule(propertyName, new RuleDelegate(validateDelegate, errorMessage));
-        }
-
-        public void AddRuleAnnotation(Type metadataType)
-        {
-            AddDataAnnotationsFromType(metadataType);
-        }
-
-        public IEnumerable<ValidationResult> Validate()
-        {
-            List<ValidationResult> list = new List<ValidationResult>();
-
-            foreach (IRule item in RuleCache.Values)
-            {
-                list.AddRange(item.Execute(_context));
-            }
-
-            return list;
-        }
-
-
-
-        private void AddDataAnnotationsFromType(Type metadataType)
-        {
-            var attList = metadataType.GetCustomAttributes(typeof(ValidationAttribute), true);
-            foreach (var att in attList)
-                RegisterRule(null, new RuleDataAnnotation(null, (ValidationAttribute)att));
-            
-            var propList = metadataType.GetProperties();
-            foreach (var prop in propList)
-            {
-                attList = prop.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.ValidationAttribute), true);
-                foreach (var att in attList)
-                {
-                    RegisterRule(prop.Name, new RuleDataAnnotation(prop, (ValidationAttribute)att));
-                }
-            }
-        }
-
-        private void RegisterRule(string propertyName, IRule Rule)
+        protected void RegisterRule(string propertyName, IRule Rule)
         {
             if (RuleCache.ContainsKey(propertyName))
             {
@@ -89,7 +39,7 @@ namespace Yis.Framework.Rule
             }
         }
 
-        private static string GetMemberName(Expression expression, bool compound = true)
+        protected string GetMemberName(Expression expression, bool compound = true)
         {
             var memberExpression = expression as MemberExpression;
 
@@ -118,6 +68,106 @@ namespace Yis.Framework.Rule
 
             throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Could not determine member from {0}",
                                                               expression));
+        }
+
+
+        private void AddDataAnnotationsFromType(Type metadataType)
+        {
+            var attList = metadataType.GetCustomAttributes(typeof(ValidationAttribute), true);
+            foreach (var att in attList)
+                RegisterRule(null, new RuleDataAnnotation(null, (ValidationAttribute)att));
+
+            var propList = metadataType.GetProperties();
+            foreach (var prop in propList)
+            {
+                attList = prop.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.ValidationAttribute), true);
+                foreach (var att in attList)
+                {
+                    RegisterRule(prop.Name, new RuleDataAnnotation(prop, (ValidationAttribute)att));
+                }
+            }
+        }
+
+        public void AddRuleAnnotation(Type metadataType)
+        {
+            AddDataAnnotationsFromType(metadataType);
+        }
+
+        public IEnumerable<ValidationResult> Validate(IRuleContext context)
+        {
+            List<ValidationResult> result = new List<ValidationResult>();
+
+            foreach (var dico in RuleCache)
+            {
+                List<IRule> list;
+                RuleCache.TryGetValue(dico.Key, out list);
+
+                foreach (IRule item in list)
+                {
+                    foreach (var error in item.Execute(context))
+                    {
+                        result.Add(new ValidationResult(error.ErrorMessage, new string[] { dico.Key }));
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        public IEnumerable<ValidationResult> Validate(object target)
+        {
+            return Validate(new RuleContext(target));
+        }
+
+        public IEnumerable<ValidationResult> Validate(object target, string propertyName)
+        {
+            return Validate(new RuleContext(target), propertyName);
+        }
+
+        public IEnumerable<ValidationResult> Validate(IRuleContext context, string propertyName)
+        {
+            List<ValidationResult> result = new List<ValidationResult>();
+            List<IRule> list;
+            RuleCache.TryGetValue(propertyName, out list);
+
+            if (list != null)
+            {
+                foreach (IRule item in list)
+                {
+                    foreach (var error in item.Execute(context))
+                    {
+                        result.Add(new ValidationResult(error.ErrorMessage, new string[] { propertyName }));
+                    }
+                }
+            }
+
+
+            return result;
+        }
+
+        public void AddRule<TTarget>(Expression<Func<TTarget, object>> property, Func<TTarget, bool> validateDelegate, string errorMessage)
+        {
+            AddRule(GetMemberName(property.Body), validateDelegate, errorMessage);
+        }
+        public void AddRule<TTarget>(string propertyName, Func<TTarget, bool> validateDelegate, string errorMessage)
+        {
+            RegisterRule(propertyName, new RuleDelegate<TTarget>(validateDelegate, errorMessage));
+        }
+
+        public void AddRuleAnnotation<TTarget>()
+        {
+            AddRuleAnnotation(typeof(TTarget));
+        }
+
+        public IEnumerable<ValidationResult> Validate<TTarget>(IRuleContext context, Expression<Func<TTarget, object>> property)
+        {
+            return Validate(context, GetMemberName(property.Body));
+        }
+
+        public IEnumerable<ValidationResult> Validate<TTarget>(object target, Expression<Func<TTarget, object>> property)
+        {
+            return Validate(new RuleContext(target), GetMemberName(property.Body));
         }
 
     }

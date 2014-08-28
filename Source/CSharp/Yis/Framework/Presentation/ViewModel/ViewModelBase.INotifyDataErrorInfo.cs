@@ -14,9 +14,23 @@ namespace Yis.Framework.Presentation.ViewModel
 
         #region variables privées
         private static readonly ValidationResult[] _noErrors = new ValidationResult[0];
-        private readonly Dictionary<string, List<ValidationResult>> _errors;
+        private Dictionary<string, List<ValidationResult>> _errors;
         private bool _hasErrors;
         #endregion
+
+        #region prorpriétés
+        private Dictionary<string, List<ValidationResult>> Errors
+        {
+            get
+            {
+                if (_errors == null)
+                {
+                    _errors = new Dictionary<string, List<ValidationResult>>();
+                }
+                return _errors;
+            }
+        }
+#endregion
 
         #region méthodes
         public IEnumerable<ValidationResult> GetErrors()
@@ -29,7 +43,7 @@ namespace Yis.Framework.Presentation.ViewModel
             if (!string.IsNullOrEmpty(propertyName))
             {
                 List<ValidationResult> result;
-                if (_errors.TryGetValue(propertyName, out result))
+                if (Errors.TryGetValue(propertyName, out result))
                 {
                     return result;
                 }
@@ -37,7 +51,7 @@ namespace Yis.Framework.Presentation.ViewModel
             }
             else
             {
-                return _errors.Values.SelectMany(x => x).Distinct().ToArray();
+                return Errors.Values.SelectMany(x => x).Distinct().ToArray();
             }
         }
 
@@ -50,14 +64,14 @@ namespace Yis.Framework.Presentation.ViewModel
 
         private void RaiseErrorsChanged(string propertyName = "")
         {
-            HasErrors = _errors.Any();
+            HasErrors = Errors.Any();
             var args = new DataErrorsChangedEventArgs(propertyName);
             OnErrorsChanged(args);
             if (_errorsChanged != null) { _errorsChanged(this, args); }
         }
         #endregion
 
-        #region Implementation de INotifyDataErrorInfo
+        #region Implementation de INotifyDataErrorInfoGetErrors(propertyName).Select(e => e.ErrorMessage).ToArray()
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged
         {
@@ -66,14 +80,14 @@ namespace Yis.Framework.Presentation.ViewModel
         }
 
         IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
-        {
-            return GetErrors(propertyName);
+        {           
+            return GetErrors(propertyName).Select(e => e.ErrorMessage);         
         }
 
         public bool HasErrors
         {
             get { return _hasErrors; }
-            private set { SetValue<bool>(ref _hasErrors, value); }
+            private set { SetValue<bool>(ref _hasErrors, value, false); }
         }
 
         #endregion

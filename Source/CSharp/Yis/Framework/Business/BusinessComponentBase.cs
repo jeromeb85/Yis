@@ -32,16 +32,16 @@ namespace Yis.Framework.Business
         }
 
 
-        //private RuleValidator _validator;
-        //protected RuleValidator Validator
-        //{
-        //    get
-        //    {
-        //        if (_validator == null)
-        //            _validator = new RuleValidator();
-        //        return _validator;
-        //    }
-        //}
+        private RuleValidator _validator;
+        protected RuleValidator Validator
+        {
+            get
+            {
+                if (_validator == null)
+                    _validator = new RuleValidator();
+                return _validator;
+            }
+        }
       
         #region Constructeurs
 

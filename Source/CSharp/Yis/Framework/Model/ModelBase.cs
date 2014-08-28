@@ -55,7 +55,7 @@ namespace Yis.Framework.Model
 
         private TKey _id;
         [Key]
-        [Column("Id")]
+        [Column("Id")]    
         public TKey Id { get { return _id; } set { SetValue<TKey>(ref _id, value); } }
 
         //[Column("CreatedDate")]

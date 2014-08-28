@@ -12,7 +12,7 @@
     <StackPanel x:Name="LayoutRoot">
         <Ribbon/>
         <Button Command="{Binding CommandTest}">Test</Button>
-        <TextBox Text="{Binding TestText, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"></TextBox>
+        <TextBox Text="{Binding TestText, NotifyOnValidationError=True, Mode=TwoWay}"></TextBox>
         <TextBox Text="no binding"></TextBox>
     </StackPanel>
 </w:MainWindowBase>

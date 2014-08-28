@@ -34,6 +34,9 @@ namespace Yis.Designer.Data
         {
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            //modelBuilder.Entity<WorkSpace>().HasKey<Guid>(t => t.Id);
+
             //modelBuilder.Entity().HasRequired(d => d.Administrator).WithMany().WillCascadeOnDelete(false);
             /*         modelBuilder.Entity<Course>()
              .HasMany(c => c.Instructors).WithMany(i => i.Courses)

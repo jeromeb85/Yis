@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,8 +26,8 @@ namespace Yis
         static void Main(string[] args)
         {
             YisSystem.Boot();
-            RunConsole();
-            //RunWindows();
+            //RunConsole();
+            RunWindows();
         }
 
 
@@ -36,6 +37,15 @@ namespace Yis
             App.Main();
         }
 
+        private static string _toto;
+        public static string Toto { get { return _toto; } set { _toto = value;  } }
+
+
+
+        private static void tata(Expression<Func<object>> func, Func<WorkSpace, bool> func2)
+        {
+           
+        }
         private static void RunConsole()
         {
             Trace.Debug("toto");
@@ -44,15 +54,23 @@ namespace Yis
 
             
             WorkSpace ws = new WorkSpace();
-            ws.Name = "rr";
+            ws.Name = "12345";
 
-            RuleValidator rv = new RuleValidator(ws);
-            rv.AddRuleAnnotation(ws.GetType());
+            WorkSpace ws2 = new WorkSpace();
+            ws2.Name = "123888888";
 
-            foreach (var item in rv.Validate())
-            {
-                Console.WriteLine(item.ErrorMessage);
-            }
+           // RuleValidator<WorkSpace> rv = new RuleValidator<WorkSpace>();
+           // rv.AddRuleAnnotation();
+           // rv.AddRule((t) => t.Name, (t) => { return t.Name == "12345"; }, "C moche");
+           //// tata(() => Toto, (w) => { return w.Name =="rr" } );
+           // ws.Name = "12345";
+           //// ws = null;
+
+
+           // foreach (var item in rv.Validate(ws2,(t) => t.Name))
+           // {
+           //     Console.WriteLine(item.ErrorMessage);
+           // }
 
 
             //DependencyResolver.Register<IDataContext>("YisDataContext", new YisDesignerDataContext());
@@ -130,6 +148,9 @@ namespace Yis
 
             YisSystem.HideConsoleWindow();
         }
+
+
+
 
 
 

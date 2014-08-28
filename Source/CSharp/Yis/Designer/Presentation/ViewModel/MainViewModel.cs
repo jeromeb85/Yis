@@ -45,5 +45,12 @@ namespace Yis.Designer.Presentation.ViewModel
             //TestText = "dd";
             Validate();
         }
+
+        protected override void OnRuleInialize()
+        {
+            base.OnRuleInialize();
+
+            Validator.AddRule<MainViewModel>((t) => t.TestText, (t) => { return t.TestText == "tototo"; }, "Tu dois metre tototo");
+        }
     }
 }
