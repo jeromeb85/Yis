@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Yis.Framework.Presentation.View
 {
-    public interface IView
+    public interface IWindowView : IView
     {
-        object DataContext { get; set; }
-
-
-
+        void Show(object context = null);
+        bool? ShowModal(object context = null);
     }
 }

@@ -6,8 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Tracer;
+using Yis.Framework.Presentation.Locator;
+using Yis.Framework.Presentation.Navigation;
 
-namespace Yis.Framework.Core
+namespace Yis.Framework
 {
     public static class YisSystem 
     {
@@ -47,7 +49,10 @@ namespace Yis.Framework.Core
 
         public static void Boot()
         {
-            DependencyResolver.Register<ITrace>(new Log4NetTrace());            
+            DependencyResolver.Register<ITrace>(new Log4NetTrace());
+            DependencyResolver.Register<IViewModelLocator>(new ViewModelLocator());
+            DependencyResolver.Register<IViewLocator>(new ViewLocator());
+            DependencyResolver.Register<INavigation>(new Navigation());
         }
     }
 }

@@ -1,0 +1,11 @@
+﻿<w:UserControlBase x:Class="Yis.Designer.Presentation.View.WorkSpaceView"
+                         xmlns:w="clr-namespace:Yis.Framework.Presentation.View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" >
+    <StackPanel>
+        <TextBox>lolo</TextBox>
+        <TextBox>lulululu</TextBox>
+    </StackPanel>
+</w:UserControlBase>

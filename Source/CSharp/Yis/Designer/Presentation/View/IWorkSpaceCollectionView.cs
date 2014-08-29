@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Presentation.View;
 
-namespace Yis.Framework.Presentation.View
+namespace Yis.Designer.Presentation.View
 {
-    public interface IView
+    interface IWorkSpaceCollectionView : IView
     {
-        object DataContext { get; set; }
-
-
-
     }
 }

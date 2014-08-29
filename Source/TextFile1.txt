@@ -1,4 +1,6 @@
 Localization
 Collection
-Navigation
 BootStrapper
+
+LogFramework
+Shell

@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yis.Framework.Presentation.View
+namespace Yis.Framework.Presentation.Locator
 {
-    public interface IView
+    public interface IViewModelLocator
     {
-        object DataContext { get; set; }
-
-
-
+        Type ResolveViewModel(Type viewType);
     }
 }

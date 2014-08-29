@@ -8,7 +8,7 @@ namespace Yis.Framework.Core.Factory
 {
     public interface IFactory
     {
-
+        object CreateInstance();
     }
 
     public interface IFactory<T> where T : class

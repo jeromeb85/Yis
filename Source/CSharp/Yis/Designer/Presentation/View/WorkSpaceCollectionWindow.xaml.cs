@@ -5,9 +5,9 @@ namespace Yis.Designer.Presentation.View
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : WindowBase
+    public partial class WorkSpaceCollectionWindow : WindowBase, IWorkSpaceCollectionView
     {
-        public MainWindow() : base(true)
+        public WorkSpaceCollectionWindow()
         {
             InitializeComponent();
         }

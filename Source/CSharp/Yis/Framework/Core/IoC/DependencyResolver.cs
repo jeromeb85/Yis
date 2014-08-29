@@ -82,7 +82,7 @@ namespace Yis.Framework.Core.IoC
         }
 
         public static IEnumerable<T> ResolveAll<T>()
-        {
+        {            
             return _resolver.ResolveAll<T>();
         }
 

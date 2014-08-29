@@ -28,8 +28,8 @@ namespace Yis.Framework.Core.IoC
             UnityConfigurationSection configuration = ConfigurationManager.GetSection("Unity") as UnityConfigurationSection;
 
             if (configuration != null)
-            { 
-            configuration.Configure(_container);
+            {
+                configuration.Configure(_container);
             }
         }
 
@@ -51,15 +51,15 @@ namespace Yis.Framework.Core.IoC
         /// <typeparam name="T">Type de l'instance.</typeparam>
         /// <param name="instance">L'instance.</param>
         public void Register<T>(T instance)
-        {                    
+        {
             _container.RegisterInstance(instance);
-   
+
         }
 
 
-        public void Register<T>(string name,T instance)
+        public void Register<T>(string name, T instance)
         {
-            _container.RegisterInstance(name,instance);
+            _container.RegisterInstance(name, instance);
 
         }
 
@@ -149,9 +149,9 @@ namespace Yis.Framework.Core.IoC
 
             //if (Equals(unnamedInstance, null))
             //{
-              //  return namedInstances;
+            //  return namedInstances;
             //}
-      
+
             //return null;
             //return new ReadOnlyCollection<T>(new List<T>(namedInstances) { unnamedInstance });
 
@@ -170,14 +170,14 @@ namespace Yis.Framework.Core.IoC
 
 
 
-        public T Resolve<T>(IDictionary<string,object> paramConstructor)
+        public T Resolve<T>(IDictionary<string, object> paramConstructor)
         {
             int i = 0;
             ResolverOverride[] toto = new ResolverOverride[paramConstructor.Count()];
 
             foreach (var param in paramConstructor)
             {
-                toto[i] = new ParameterOverride(param.Key,param.Value);
+                toto[i] = new ParameterOverride(param.Key, param.Value);
                 i++;
             }
 

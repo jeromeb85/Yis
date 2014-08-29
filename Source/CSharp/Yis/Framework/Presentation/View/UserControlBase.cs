@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Yis.Framework.Presentation.View
 {
-    public interface IView
+    public class UserControlBase : UserControl, IView
     {
-        object DataContext { get; set; }
-
-
 
     }
 }

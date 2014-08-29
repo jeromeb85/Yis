@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Yis.Designer.Presentation.Command;
+using Yis.Designer.Presentation.View;
 using Yis.Framework.Presentation.ViewModel;
 
 namespace Yis.Designer.Presentation.ViewModel
@@ -43,7 +44,11 @@ namespace Yis.Designer.Presentation.ViewModel
         private void ProcedureTest()
         {
             //TestText = "dd";
-            Validate();
+            //Validate();
+            WorkSpaceCollectionViewModel ws = new WorkSpaceCollectionViewModel();
+            ws.TestText = "tutu";
+
+            Navigation.Show<IWorkSpaceCollectionView>(ws);
         }
 
         protected override void OnRuleInialize()

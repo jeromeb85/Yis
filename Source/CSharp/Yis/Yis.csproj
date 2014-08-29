@@ -109,9 +109,26 @@
     <Compile Include="Boot.cs" />
     <Compile Include="Designer\Presentation\Command\RelayCommand.cs" />
     <Compile Include="Designer\Presentation\ViewModel\MainViewModel.cs" />
+    <Compile Include="Designer\Presentation\ViewModel\WorkSpaceCollectionViewModel.cs" />
+    <Compile Include="Designer\Presentation\ViewModel\WorkSpaceViewModel.cs" />
+    <Compile Include="Designer\Presentation\View\IWorkSpaceCollectionView.cs" />
+    <Compile Include="Designer\Presentation\View\WorkSpaceCollectionWindow.xaml.cs">
+      <DependentUpon>WorkSpaceCollectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Presentation\View\WorkSpaceView.xaml.cs">
+      <DependentUpon>WorkSpaceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Framework\Business\BusinessComponentBase.cs" />
     <Compile Include="Framework\Business\IBusinessComponentBase.cs" />
+    <Compile Include="Framework\Presentation\Locator\IViewLocator.cs" />
+    <Compile Include="Framework\Presentation\Locator\IViewModelLocator.cs" />
+    <Compile Include="Framework\Presentation\Locator\ViewLocator.cs" />
+    <Compile Include="Framework\Presentation\Locator\ViewModelLocator.cs" />
+    <Compile Include="Framework\Presentation\Navigation\INavigation.cs" />
+    <Compile Include="Framework\Presentation\Navigation\Navigation.cs" />
     <Compile Include="Framework\Presentation\View\IView.cs" />
+    <Compile Include="Framework\Presentation\View\IWindowView.cs" />
+    <Compile Include="Framework\Presentation\View\UserControlBase.cs" />
     <Compile Include="Framework\Rule\IRule.cs" />
     <Compile Include="Framework\Rule\IRuleContext.cs" />
     <Compile Include="Framework\Rule\RuleContext.cs" />
@@ -141,7 +158,7 @@
     <Compile Include="Framework\Core\Tracer\Log4NetTrace.cs" />
     <Compile Include="Framework\Core\Tracer\Trace.cs" />
     <Compile Include="Framework\Core\Tracer\TraceFactory.cs" />
-    <Compile Include="Framework\Core\YisSystem.cs" />
+    <Compile Include="Framework\YisSystem.cs" />
     <Compile Include="Framework\Data\Database\ConnectionFactory.cs" />
     <Compile Include="Framework\Data\Database\DatabaseDataContext.cs" />
     <Compile Include="Framework\Data\Database\ParamHelper.cs" />
@@ -163,7 +180,7 @@
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyDataErrorInfo.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyPropertyChanged.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyPropertyChanging.cs" />
-    <Compile Include="Framework\Presentation\Window\MainWindowBase.cs" />
+    <Compile Include="Framework\Presentation\View\WindowBase.cs" />
     <Compile Include="Framework\Presentation\ViewModel\IViewModel.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Designer\Presentation\View\WorkSpaceCollectionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Designer\Presentation\View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,6 +205,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Designer\Presentation\View\WorkSpaceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Core.IoC;
+using Yis.Framework.Presentation.Navigation;
 using Yis.Framework.Rule;
 
 namespace Yis.Framework.Presentation.ViewModel
@@ -44,6 +46,21 @@ namespace Yis.Framework.Presentation.ViewModel
             }
         }
 
+        INavigation _navigation;
+
+        protected INavigation Navigation
+        {
+            get
+            {
+                if (_navigation == null)
+                {
+                    _navigation = DependencyResolver.Resolve<INavigation>();
+                }
+
+                return _navigation;
+            }
+        }
+
         #endregion
 
         #region Constructeurs
@@ -56,6 +73,7 @@ namespace Yis.Framework.Presentation.ViewModel
 
         }
         #endregion
+
 
         protected void SetValue<T>(ref T property, T newValue, [CallerMemberName] string name = null)
         {
