@@ -7,9 +7,8 @@ using System.Windows;
 using System.Reflection;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Presentation.Locator;
-using Yis.Framework.Core.Fluent;
-using Yis.Framework.Core.Caching;
 using Yis.Framework.Presentation.View;
+using Yis.Framework.Presentation.Locator.Contract;
 
 namespace Yis.Framework.Presentation.Navigation
 {
@@ -17,15 +16,13 @@ namespace Yis.Framework.Presentation.Navigation
     {
         IViewLocator _locator;
 
-        private static readonly ICacheStorage<string, PropertyInfo> _availableProperties = new CacheStorage<string, PropertyInfo>();
-
         protected IViewLocator Locator
         {
             get
             {
                 if (_locator == null)
                 {
-                    _locator = DependencyResolver.Resolve<IViewLocator>();
+                    _locator = DependencyResolverManager.Default.Resolve<IViewLocator>();
                 }
 
                 return _locator;
@@ -40,9 +37,6 @@ namespace Yis.Framework.Presentation.Navigation
             Type viewtype = Locator.ResolveView<T>();
             IWindowView window = CreateWindow(viewtype);
             window.Show(context);
-
-            //var showMethodInfo = window.GetType().GetMethod("Show");
-            //window.Dispatcher.Invoke(() => showMethodInfo.Invoke(window, null));
         }
 
         public bool? ShowModal<T>(object context = null) where T : View.IView
@@ -50,15 +44,6 @@ namespace Yis.Framework.Presentation.Navigation
             Type viewtype = Locator.ResolveView<T>();
             IWindowView window = CreateWindow(viewtype);
             return window.ShowModal(context);
-            //var showDialogMethodInfo = window.GetType().GetMethod("ShowDialog");
-
-            //if (showDialogMethodInfo != null)
-            //{
-            //    // Child window does not have a ShowDialog, so not null is allowed
-            //    bool? result = null;
-            //    window.Dispatcher.Invoke(() => result = showDialogMethodInfo.Invoke(window, null) as bool?);
-            //    // return result;
-            //}
         }
 
 
@@ -66,92 +51,19 @@ namespace Yis.Framework.Presentation.Navigation
         {
             FrameworkElement window = null;
 
-            //if (context != null)
-            //{
-            //    var injectionConstructor = viewType.GetConstructor(new[] { context.GetType() });
-
-            //    if (injectionConstructor != null)
-            //    {
-            //        window = (FrameworkElement)injectionConstructor.Invoke(new[] { context });
-            //    }
-            //}
-
-
-            //if (window == null)
-            //{
-                var defaultConstructor = viewType.GetConstructor(new Type[0]);
-                window = (FrameworkElement) defaultConstructor.Invoke(null);
-
-                //if (context != null)
-                //{
-                //    window.DataContext = context;
-                //}
-            //}
-
-
+            var defaultConstructor = viewType.GetConstructor(new Type[0]);
+            window = (FrameworkElement)defaultConstructor.Invoke(null);
 
             var activeWindow = GetActiveWindowForApplication(Application.Current);
 
             if (window != activeWindow)
             {
-                TrySetPropertyValue(window, "Owner", activeWindow, true);
+                ((Window)window).Owner = activeWindow;
             }
-
 
             return (IWindowView)window;
         }
 
-        /*Objet extension  / Propertyhelper*/
-        private static bool TrySetPropertyValue(object obj, string property, object value, bool throwOnError)
-        {
-            Argument.IsNotNull("obj", obj);
-            Argument.IsNotNullOrWhitespace("property", property);
-
-            var propertyInfo = GetPropertyInfo(obj, property);
-            if (propertyInfo == null)
-            {
-
-                if (throwOnError)
-                {
-                    throw new Exception(property);
-                }
-
-                return false;
-            }
-
-            if (!propertyInfo.CanWrite)
-            {
-                if (throwOnError)
-                {
-                    throw new Exception(property);
-                }
-
-                return false;
-            }
-
-
-            var setMethod = propertyInfo.GetSetMethod(true);
-            if (setMethod == null)
-            {
-                if (throwOnError)
-                {
-                    throw new Exception(property);
-                }
-
-                return false;
-            }
-
-            setMethod.Invoke(obj, new[] { value });
-
-            return true;
-        }
-
-        /*Objet extension  / Propertyhelper*/
-        private static PropertyInfo GetPropertyInfo(object obj, string property)
-        {
-            string cacheKey = string.Format("{0}_{1}", obj.GetType().FullName, property);
-            return _availableProperties.GetFromCacheOrFetch(cacheKey, () => obj.GetType().GetProperty(property));
-        }
 
         /*Application Extension*/
         private static System.Windows.Window GetActiveWindowForApplication(System.Windows.Application application)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Core.Factory.Contract;
 
 namespace Yis.Framework.Core.Factory
 {

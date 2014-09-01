@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Data.Contract;
 using Yis.Framework.Model;
 
 namespace Yis.Framework.Data.EntityFramework

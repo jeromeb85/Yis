@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Data;
 using Yis.Framework.Model;
-using Yis.Framework.Rule;
+using Yis.Framework.Core.Rule;
+using Yis.Framework.Business.Contract;
+using Yis.Framework.Data.Contract;
 
 namespace Yis.Framework.Business
 {
@@ -47,7 +49,7 @@ namespace Yis.Framework.Business
 
         public BusinessComponentBase(string nameDataContext) : this()
         {
-            DataContext = DependencyResolver.Resolve<IDataContext>(nameDataContext);            
+            DataContext = DependencyResolverManager.Default.Resolve<IDataContext>(nameDataContext);            
         }
 
         private BusinessComponentBase()

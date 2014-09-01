@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yis.Designer.Model;
 using Yis.Framework.Data;
+using Yis.Framework.Data.Contract;
 
 namespace Yis.Designer.Data
 {

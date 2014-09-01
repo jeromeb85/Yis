@@ -9,6 +9,7 @@ using System.Windows.Controls.Ribbon;
 using Yis.Framework.Core.Factory;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Presentation.Locator;
+using Yis.Framework.Presentation.Locator.Contract;
 
 
 namespace Yis.Framework.Presentation.View
@@ -23,7 +24,7 @@ namespace Yis.Framework.Presentation.View
             {
                 if (_locator == null)
                 {
-                    _locator = DependencyResolver.Resolve<IViewModelLocator>();
+                    _locator = DependencyResolverManager.Default.Resolve<IViewModelLocator>();
                 }
 
                 return _locator;

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Presentation.Navigation;
-using Yis.Framework.Rule;
+using Yis.Framework.Core.Rule;
 
 namespace Yis.Framework.Presentation.ViewModel
 {
@@ -54,7 +54,7 @@ namespace Yis.Framework.Presentation.ViewModel
             {
                 if (_navigation == null)
                 {
-                    _navigation = DependencyResolver.Resolve<INavigation>();
+                    _navigation = DependencyResolverManager.Default.Resolve<INavigation>();
                 }
 
                 return _navigation;

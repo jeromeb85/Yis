@@ -7,8 +7,9 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yis.Framework.Core.Fluent;
+using Yis.Framework.Core.Helper;
 using Yis.Framework.Core.IoC;
+using Yis.Framework.Data.Contract;
 
 namespace Yis.Framework.Data
 {
@@ -25,13 +26,13 @@ namespace Yis.Framework.Data
         #region Constructors
         public UnitOfWork(IDataContext context)
         {
-            Argument.IsNotNull("context", context);
+            ArgumentHelper.IsNotNull("context", context);
 
             Context = context;            
         }
 
         public UnitOfWork(string nameDataContext)
-            : this(DependencyResolver.Resolve<IDataContext>(nameDataContext))
+            : this(DependencyResolverManager.Default.Resolve<IDataContext>(nameDataContext))
         {
 
         }
@@ -110,7 +111,7 @@ namespace Yis.Framework.Data
 
         public static TRepository GetRepository<TRepository>(IDataContext context)
         {
-            if (!DependencyResolver.IsRegistered<TRepository>())
+            if (!DependencyResolverManager.Default.IsRegistered<TRepository>())
             {
                 string error = string.Format("The specified repository type '{0}' cannot be found. Make sure it is registered in the ServiceLocator.", typeof(TRepository).FullName);
                 throw new NotSupportedException(error);
@@ -118,7 +119,7 @@ namespace Yis.Framework.Data
 
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("dataContext", context);
-            return DependencyResolver.Resolve<TRepository>(param);
+            return DependencyResolverManager.Default.Resolve<TRepository>(param);
         }
 
         /// <summary>

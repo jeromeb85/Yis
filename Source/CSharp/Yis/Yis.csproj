@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Yis.Boot</StartupObject>
+    <StartupObject>Yis.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -106,7 +106,13 @@
     <Compile Include="Designer\Data\WorkSpaceProvider.cs" />
     <Compile Include="Designer\Data\YisDesignerInitializer.cs" />
     <Compile Include="Designer\Model\WorkSpace.cs" />
-    <Compile Include="Boot.cs" />
+    <Compile Include="Framework\Core\Extension\ObjectExt.cs" />
+    <Compile Include="Framework\Core\Helper\ConsoleHelper.cs" />
+    <Compile Include="Framework\Core\Helper\StackTraceHelper.cs" />
+    <Compile Include="Framework\Core\Locator\Contract\IServiceLocator.cs" />
+    <Compile Include="Framework\Core\Locator\ServiceLocator.cs" />
+    <Compile Include="Framework\Core\Locator\ServiceLocatorManager.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Designer\Presentation\Command\RelayCommand.cs" />
     <Compile Include="Designer\Presentation\ViewModel\MainViewModel.cs" />
     <Compile Include="Designer\Presentation\ViewModel\WorkSpaceCollectionViewModel.cs" />
@@ -118,10 +124,14 @@
     <Compile Include="Designer\Presentation\View\WorkSpaceView.xaml.cs">
       <DependentUpon>WorkSpaceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Framework\Core\Boot\Boot.cs" />
     <Compile Include="Framework\Business\BusinessComponentBase.cs" />
-    <Compile Include="Framework\Business\IBusinessComponentBase.cs" />
-    <Compile Include="Framework\Presentation\Locator\IViewLocator.cs" />
-    <Compile Include="Framework\Presentation\Locator\IViewModelLocator.cs" />
+    <Compile Include="Framework\Business\Contract\IBusinessComponentBase.cs" />
+    <Compile Include="Framework\Core\Shell\Contract\IShell.cs" />
+    <Compile Include="Framework\Core\Shell\Contract\IShellBootable.cs" />
+    <Compile Include="Framework\Core\Shell\Contract\IShellLoadable.cs" />
+    <Compile Include="Framework\Presentation\Locator\Contract\IViewLocator.cs" />
+    <Compile Include="Framework\Presentation\Locator\Contract\IViewModelLocator.cs" />
     <Compile Include="Framework\Presentation\Locator\ViewLocator.cs" />
     <Compile Include="Framework\Presentation\Locator\ViewModelLocator.cs" />
     <Compile Include="Framework\Presentation\Navigation\INavigation.cs" />
@@ -129,36 +139,23 @@
     <Compile Include="Framework\Presentation\View\IView.cs" />
     <Compile Include="Framework\Presentation\View\IWindowView.cs" />
     <Compile Include="Framework\Presentation\View\UserControlBase.cs" />
-    <Compile Include="Framework\Rule\IRule.cs" />
-    <Compile Include="Framework\Rule\IRuleContext.cs" />
-    <Compile Include="Framework\Rule\RuleContext.cs" />
-    <Compile Include="Framework\Rule\RuleDataAnnontation.cs" />
-    <Compile Include="Framework\Rule\RuleDelegate.cs" />
-    <Compile Include="Framework\Rule\RuleResult.cs" />
-    <Compile Include="Framework\Rule\RuleValidator.cs" />
-    <Compile Include="Framework\Core\Caching\CacheStorage.cs" />
-    <Compile Include="Framework\Core\Caching\CacheStorageValueInfo.cs" />
-    <Compile Include="Framework\Core\Caching\ICacheStorage.cs" />
-    <Compile Include="Framework\Core\Caching\Policies\AbsoluteExpirationPolicy.cs" />
-    <Compile Include="Framework\Core\Caching\Policies\CompositeExpirationPolicy.cs" />
-    <Compile Include="Framework\Core\Caching\Policies\CustomExpirationPolicy.cs" />
-    <Compile Include="Framework\Core\Caching\Policies\DurationExpirationPolicy.cs" />
-    <Compile Include="Framework\Core\Caching\Policies\ExpirationPolicy.cs" />
-    <Compile Include="Framework\Core\Caching\Policies\SlidingExpirationPolicy.cs" />
-    <Compile Include="Framework\Core\Extension\ExtString.cs" />
+    <Compile Include="Framework\Core\Rule\Contract\IRule.cs" />
+    <Compile Include="Framework\Core\Rule\Contract\IRuleContext.cs" />
+    <Compile Include="Framework\Core\Rule\RuleContext.cs" />
+    <Compile Include="Framework\Core\Rule\RuleDataAnnontation.cs" />
+    <Compile Include="Framework\Core\Rule\RuleDelegate.cs" />
+    <Compile Include="Framework\Core\Rule\RuleResult.cs" />
+    <Compile Include="Framework\Core\Rule\RuleValidator.cs" />
+    <Compile Include="Framework\Core\Extension\StringExt.cs" />
     <Compile Include="Framework\Core\Factory\Factory.cs" />
-    <Compile Include="Framework\Core\Factory\IFactory.cs" />
-    <Compile Include="Framework\Core\Fluent\Argument.cs" />
-    <Compile Include="Framework\Core\IoC\DependencyResolverFactory.cs" />
-    <Compile Include="Framework\Core\IoC\UnityDependencyResolver.cs" />
-    <Compile Include="Framework\Core\IoC\IDependencyResolver.cs" />
-    <Compile Include="Framework\Core\IoC\DependencyResolver.cs" />
-    <Compile Include="Framework\Core\Threading\SynchronizationContext.cs" />
-    <Compile Include="Framework\Core\Tracer\ITrace.cs" />
-    <Compile Include="Framework\Core\Tracer\Log4NetTrace.cs" />
-    <Compile Include="Framework\Core\Tracer\Trace.cs" />
-    <Compile Include="Framework\Core\Tracer\TraceFactory.cs" />
-    <Compile Include="Framework\YisSystem.cs" />
+    <Compile Include="Framework\Core\Factory\Contract\IFactory.cs" />
+    <Compile Include="Framework\Core\Helper\ArgumentHelper.cs" />
+    <Compile Include="Framework\Core\IoC\Unity\UnityDependencyResolver.cs" />
+    <Compile Include="Framework\Core\IoC\Contract\IDependencyResolver.cs" />
+    <Compile Include="Framework\Core\IoC\DependencyResolverManager.cs" />
+    <Compile Include="Framework\Core\Logging\Contract\ILog.cs" />
+    <Compile Include="Framework\Core\Logging\Log4Net\Log4NetLog.cs" />
+    <Compile Include="Framework\Core\Logging\LogManager.cs" />
     <Compile Include="Framework\Data\Database\ConnectionFactory.cs" />
     <Compile Include="Framework\Data\Database\DatabaseDataContext.cs" />
     <Compile Include="Framework\Data\Database\ParamHelper.cs" />
@@ -166,10 +163,10 @@
     <Compile Include="Framework\Data\Database\DataContextBase.cs" />
     <Compile Include="Framework\Data\EntityFramework\DataContextBase.cs" />
     <Compile Include="Framework\Data\EntityFramework\RepositoryBase.cs" />
-    <Compile Include="Framework\Data\IDataContext.cs" />
+    <Compile Include="Framework\Data\Contract\IDataContext.cs" />
     <Compile Include="Framework\Data\UnitOfWork.cs" />
-    <Compile Include="Framework\Data\IRepository.cs" />
-    <Compile Include="Framework\Data\IUnitOfWork.cs" />
+    <Compile Include="Framework\Data\Contract\IRepository.cs" />
+    <Compile Include="Framework\Data\Contract\IUnitOfWork.cs" />
     <Compile Include="Framework\Model\IModel.cs" />
     <Compile Include="Framework\Model\ModelBase.cs" />
     <Compile Include="Framework\Model\ModelBase.IChangeTracking.cs" />
@@ -240,7 +237,6 @@
     <Folder Include="Designer\Service\Interface\" />
     <Folder Include="Framework\Data\Memory\" />
     <Folder Include="Framework\Data\nHibernate\" />
-    <Folder Include="Framework\Helper\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

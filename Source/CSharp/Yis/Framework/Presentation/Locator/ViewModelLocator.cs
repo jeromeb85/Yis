@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Presentation.Locator.Contract;
 using Yis.Framework.Presentation.ViewModel;
 
 namespace Yis.Framework.Presentation.Locator

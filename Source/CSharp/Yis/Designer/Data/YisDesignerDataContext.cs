@@ -17,7 +17,7 @@ namespace Yis.Designer.Data
         public YisDesignerDataContext()
             : base("Yis")
         {
-            DependencyResolver.Register<IWorkSpaceProvider>(new WorkSpaceProvider(this));
+            DependencyResolverManager.Default.Register<IWorkSpaceProvider>(new WorkSpaceProvider(this));
            // Database.SetInitializer<YisDbContext>(new CreateDatabaseIfNotExists<YisDbContext>());
 
             //Database.SetInitializer<YisDbContext>(new DropCreateDatabaseIfModelChanges<YisDbContext>());
