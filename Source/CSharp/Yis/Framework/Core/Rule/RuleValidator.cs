@@ -11,7 +11,7 @@ using Yis.Framework.Core.Rule.Contract;
 namespace Yis.Framework.Core.Rule
 {
 
-    public class RuleValidator
+    public class RuleValidator : IRuleValidator
     {
         private Dictionary<string, List<IRule>> _ruleCache;
         private Dictionary<string, List<IRule>> RuleCache

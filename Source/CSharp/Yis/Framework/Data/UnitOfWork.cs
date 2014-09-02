@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Yis.Framework.Core.Helper;
 using Yis.Framework.Core.IoC;
+using Yis.Framework.Core.Locator.Contract;
+using Yis.Framework.Core.Logging.Contract;
 using Yis.Framework.Data.Contract;
 
 namespace Yis.Framework.Data
@@ -21,6 +23,32 @@ namespace Yis.Framework.Data
 
         #region Fields
         private bool _disposed;
+
+        private static IServiceLocator _locator;
+        protected static IServiceLocator Locator
+        {
+            get
+            {
+                if (_locator.IsNull()) _locator = Resolver.Resolve<IServiceLocator>();
+                return _locator;
+            }
+        }
+
+        private static ILog _log;
+        protected static ILog Log
+        {
+            get
+            {
+                if (_log.IsNull()) _log = Resolver.Resolve<ILog>();
+                return _log;
+            }
+        }
+
+        protected static IDependencyResolver Resolver
+        {
+            get { return DependencyResolverManager.Default; }
+        }
+
         #endregion
 
         #region Constructors
@@ -28,11 +56,11 @@ namespace Yis.Framework.Data
         {
             ArgumentHelper.IsNotNull("context", context);
 
-            Context = context;            
+            Context = context;
         }
 
         public UnitOfWork(string nameDataContext)
-            : this(DependencyResolverManager.Default.Resolve<IDataContext>(nameDataContext))
+            : this(Resolver.Resolve<IDataContext>(nameDataContext))
         {
 
         }
@@ -111,31 +139,36 @@ namespace Yis.Framework.Data
 
         public static TRepository GetRepository<TRepository>(IDataContext context)
         {
-            if (!DependencyResolverManager.Default.IsRegistered<TRepository>())
+            if (!Resolver.IsRegistered<TRepository>())
             {
-                string error = string.Format("The specified repository type '{0}' cannot be found. Make sure it is registered in the ServiceLocator.", typeof(TRepository).FullName);
-                throw new NotSupportedException(error);
+                var obj = Locator.ResolveAndCreateType<TRepository>(new object[] { context });
+
+                if (obj.IsNull())
+                {
+                    string error = string.Format("Le Provider '{0}' n'a pu être trouvé.", typeof(TRepository).FullName);
+                    Log.Error(error);
+                    throw new NotSupportedException(error);
+                }
+
+                Resolver.Register<TRepository>(obj);
             }
 
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("dataContext", context);
-            return DependencyResolverManager.Default.Resolve<TRepository>(param);
+            return Resolver.Resolve<TRepository>();
         }
 
         /// <summary>
         /// Saves the changes inside the unit of work.
         /// </summary>
-        /// <param name="saveOptions">The save options.</param>
-        /// <exception cref="InvalidOperationException">A transaction is running. Call CommitTransaction instead.</exception>
         public virtual void SaveChanges()
         {
-             if (IsInTransaction)
+            if (IsInTransaction)
             {
-                const string error = "A transaction is running. Call CommitTransaction instead.";
-                throw new InvalidOperationException(error);
+                CommitTransaction();
             }
-
-             Context.SaveChanges();
+            else
+            {
+                Context.SaveChanges();
+            }
         }
         #endregion
 

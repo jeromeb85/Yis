@@ -25,19 +25,6 @@ public static class Boot
         get { return ServiceLocatorManager.Default; }
     }
 
-    private static IEnumerable<IShell> _shell;
-    private static IEnumerable<IShell> Shell
-    {
-        get 
-        {
-            if (_shell.IsNull())
-            {
-                _shell = Locator.ResolveAndCreateAllType<IShell>();
-            }
-            return _shell;
-        }
-    }
-        
 
     #endregion
 
@@ -49,7 +36,7 @@ public static class Boot
         Log.Debug("Starting");
 
         //Initialize tous les Shell trouvés
-        foreach (IShell item in Shell)
+        foreach (IShell item in Locator.ResolveAndCreateAllType<IShell>())
         {
             item.Initialize();
         }

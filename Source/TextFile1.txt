@@ -1,6 +1,4 @@
 Localization
 Collection
-BootStrapper
-
-LogFramework
-Shell
+message Bus MessengerManager
+Gestion des Context

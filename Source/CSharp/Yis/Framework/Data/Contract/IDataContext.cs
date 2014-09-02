@@ -9,7 +9,7 @@ namespace Yis.Framework.Data.Contract
 {
     public interface IDataContext
     {
-        #region Properties
+        #region Fields
         bool IsInTransaction { get; }
         #endregion
 

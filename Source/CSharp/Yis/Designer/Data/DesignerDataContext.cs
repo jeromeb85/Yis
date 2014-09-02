@@ -11,13 +11,13 @@ using Yis.Framework.Data.EntityFramework;
 
 namespace Yis.Designer.Data
 {
-    public class YisDesignerDataContext : DataContextBase
+    public class DesignerDataContext : DataContextBase
     {
 
-        public YisDesignerDataContext()
+        public DesignerDataContext()
             : base("Yis")
         {
-            DependencyResolverManager.Default.Register<IWorkSpaceProvider>(new WorkSpaceProvider(this));
+            //DependencyResolverManager.Default.Register<IWorkSpaceProvider>(new WorkSpaceProvider(this));
            // Database.SetInitializer<YisDbContext>(new CreateDatabaseIfNotExists<YisDbContext>());
 
             //Database.SetInitializer<YisDbContext>(new DropCreateDatabaseIfModelChanges<YisDbContext>());

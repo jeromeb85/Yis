@@ -170,19 +170,6 @@ namespace Yis.Framework.Core.IoC
 
 
 
-        public T Resolve<T>(IDictionary<string, object> paramConstructor)
-        {
-            int i = 0;
-            ResolverOverride[] toto = new ResolverOverride[paramConstructor.Count()];
-
-            foreach (var param in paramConstructor)
-            {
-                toto[i] = new ParameterOverride(param.Key, param.Value);
-                i++;
-            }
-
-            return _container.Resolve<T>(toto);
-        }
 
         public bool IsRegistered<T>()
         {

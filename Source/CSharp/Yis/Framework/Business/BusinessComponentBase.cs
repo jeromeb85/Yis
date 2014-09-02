@@ -9,6 +9,9 @@ using Yis.Framework.Model;
 using Yis.Framework.Core.Rule;
 using Yis.Framework.Business.Contract;
 using Yis.Framework.Data.Contract;
+using Yis.Framework.Core.Locator.Contract;
+using Yis.Framework.Core.Logging.Contract;
+using Yis.Framework.Core.Rule.Contract;
 
 namespace Yis.Framework.Business
 {
@@ -16,8 +19,34 @@ namespace Yis.Framework.Business
         where TProvider : IRepository<TModel>
         where TModel : ModelBase
     {
+        #region Fields
+
         private IDataContext DataContext { get; set; }
 
+        private static IServiceLocator _locator;
+        protected static IServiceLocator Locator
+        {
+            get
+            {
+                if (_locator.IsNull()) _locator = Resolver.Resolve<IServiceLocator>();
+                return _locator;
+            }
+        }
+
+        private static ILog _log;
+        protected static ILog Log
+        {
+            get
+            {
+                if (_log.IsNull()) _log = Resolver.Resolve<ILog>();
+                return _log;
+            }
+        }
+
+        protected static IDependencyResolver Resolver
+        {
+            get { return DependencyResolverManager.Default; }
+        }
 
         private TProvider _provider;
         protected TProvider Provider
@@ -34,30 +63,32 @@ namespace Yis.Framework.Business
         }
 
 
-        private RuleValidator _validator;
-        protected RuleValidator Validator
+        private IRuleValidator _validator;
+        protected IRuleValidator Validator
         {
             get
             {
                 if (_validator == null)
-                    _validator = new RuleValidator();
+                    _validator = Locator.ResolveAndCreateType<IRuleValidator>();
                 return _validator;
             }
         }
-      
-        #region Constructeurs
+        #endregion
 
-        public BusinessComponentBase(string nameDataContext) : this()
+        #region Constructors
+
+        public BusinessComponentBase(string nameDataContext)
+            : this()
         {
-            DataContext = DependencyResolverManager.Default.Resolve<IDataContext>(nameDataContext);            
+            DataContext = Resolver.Resolve<IDataContext>(nameDataContext);
         }
 
         private BusinessComponentBase()
         {
-         
+
         }
 
-#endregion
+        #endregion
 
         public IEnumerable<TModel> GetAll()
         {
