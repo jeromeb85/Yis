@@ -9,7 +9,7 @@ using Yis.Framework.Presentation.View;
 
 namespace Yis.Framework.Presentation.Locator
 {
-    public class ViewLocator : IViewLocator
+    internal class ViewLocator : IViewLocator
     {
         List<Type> _cache;
 

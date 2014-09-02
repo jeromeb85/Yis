@@ -9,7 +9,7 @@ using Yis.Framework.Presentation.ViewModel;
 
 namespace Yis.Framework.Presentation.Locator
 {
-    public class ViewModelLocator : IViewModelLocator
+    internal class ViewModelLocator : IViewModelLocator
     {
         List<Type> _cache;
 

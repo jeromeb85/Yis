@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yis.Framework.Presentation.View;
 
-namespace Yis.Framework.Presentation.Navigation
+namespace Yis.Framework.Presentation.Navigation.Contract
 {
     public interface INavigation
     {

@@ -35,8 +35,7 @@ namespace Yis
         static void Main(string[] args)
         {
             Boot.Start();
-
-            RunConsole();
+            //RunConsole();
             //RunWindows();
         }
 
@@ -177,4 +176,6 @@ namespace Yis
 
 
     }
+
+    
 }

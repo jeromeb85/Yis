@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Yis.Framework.Core.IoC;
-using Yis.Framework.Presentation.Navigation;
 using Yis.Framework.Core.Rule;
+using Yis.Framework.Presentation.Navigation.Contract;
 
 namespace Yis.Framework.Presentation.ViewModel
 {

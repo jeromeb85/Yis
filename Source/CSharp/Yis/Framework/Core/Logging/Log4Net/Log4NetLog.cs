@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Core.Helper;
 
 
 namespace Yis.Framework.Core.Logging.Log4Net
@@ -41,7 +42,13 @@ namespace Yis.Framework.Core.Logging.Log4Net
             }
 
             IsFrameworkEnabled = true;
-            //_log4net = log4net.LogManager.GetLogger( LogManager.GetLogger("FleuryMichonLog");
+            _log4net = log4net.LogManager.GetLogger("root");
+        }
+
+        private bool IsFrameworkType()
+        {
+            Type item = StackTraceHelper.GetCallingNoAbstractOrPrivateMethodType();
+            return item.Namespace.Contains("Yis.Framework");
         }
 
 
@@ -53,7 +60,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// <param name="message">Le message à logger.</param>
         public void Debug(string message)
         {
-            if (_log4net.IsDebugEnabled)
+            if (_log4net.IsDebugEnabled && (!IsFrameworkType() || IsFrameworkEnabled))
             {
                 _log4net.Debug(message);
             }
@@ -66,7 +73,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// <param name="args">Les arguments pour le formatage.</param>
         public void Debug(string message, params object[] args)
         {
-            if (_log4net.IsDebugEnabled)
+            if (_log4net.IsDebugEnabled && (!IsFrameworkType() || IsFrameworkEnabled))
             {
                 Debug(message.FormatWith(args));
             }
@@ -86,7 +93,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// <param name="message">Le message à logger.</param>
         public void Info(string message)
         {
-            if (_log4net.IsInfoEnabled)
+            if (_log4net.IsInfoEnabled && (!IsFrameworkType() || IsFrameworkEnabled))
             {
                 _log4net.Info(message);
             }
@@ -99,7 +106,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// <param name="args">Les arguments pour le formatage.</param>
         public void Info(string message, params object[] args)
         {
-            if (_log4net.IsInfoEnabled)
+            if (_log4net.IsInfoEnabled && (!IsFrameworkType() || IsFrameworkEnabled))
             {
                 Info(message.FormatWith(args));
             }
@@ -119,7 +126,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// <param name="message">Le message à logger.</param>
         public void Warning(string message)
         {
-            if (_log4net.IsWarnEnabled)
+            if (_log4net.IsWarnEnabled && (!IsFrameworkType() || IsFrameworkEnabled))
             {
                 _log4net.Warn(message);
             }
@@ -132,7 +139,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// <param name="args">Les arguments pour le formatage.</param>
         public void Warning(string message, params object[] args)
         {
-            if (_log4net.IsWarnEnabled)
+            if (_log4net.IsWarnEnabled && (!IsFrameworkType() || IsFrameworkEnabled))
             {
                 Warning(message.FormatWith(args));
             }
@@ -200,6 +207,9 @@ namespace Yis.Framework.Core.Logging.Log4Net
             get { return _log4net.IsErrorEnabled; }
         }
 
+        /// <summary>
+        /// Retourne true si le Framework est autorisé à Logger
+        /// </summary>
         public bool IsFrameworkEnabled
         {
             get;

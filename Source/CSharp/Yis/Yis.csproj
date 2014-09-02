@@ -112,6 +112,7 @@
     <Compile Include="Framework\Core\Locator\Contract\IServiceLocator.cs" />
     <Compile Include="Framework\Core\Locator\ServiceLocator.cs" />
     <Compile Include="Framework\Core\Locator\ServiceLocatorManager.cs" />
+    <Compile Include="Framework\Core\Shell\ShellFramework.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Designer\Presentation\Command\RelayCommand.cs" />
     <Compile Include="Designer\Presentation\ViewModel\MainViewModel.cs" />
@@ -129,12 +130,11 @@
     <Compile Include="Framework\Business\Contract\IBusinessComponentBase.cs" />
     <Compile Include="Framework\Core\Shell\Contract\IShell.cs" />
     <Compile Include="Framework\Core\Shell\Contract\IShellBootable.cs" />
-    <Compile Include="Framework\Core\Shell\Contract\IShellLoadable.cs" />
     <Compile Include="Framework\Presentation\Locator\Contract\IViewLocator.cs" />
     <Compile Include="Framework\Presentation\Locator\Contract\IViewModelLocator.cs" />
     <Compile Include="Framework\Presentation\Locator\ViewLocator.cs" />
     <Compile Include="Framework\Presentation\Locator\ViewModelLocator.cs" />
-    <Compile Include="Framework\Presentation\Navigation\INavigation.cs" />
+    <Compile Include="Framework\Presentation\Navigation\Contract\INavigation.cs" />
     <Compile Include="Framework\Presentation\Navigation\Navigation.cs" />
     <Compile Include="Framework\Presentation\View\IView.cs" />
     <Compile Include="Framework\Presentation\View\IWindowView.cs" />

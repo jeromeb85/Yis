@@ -59,7 +59,7 @@ namespace Yis.Framework.Core.Locator
             return ResolveType(typeof(TInterface));
         }
 
-        public object ResolveAndCreateType(Type typeInterface)
+        public object ResolveAndCreateType(Type typeInterface, object[] param = null)
         {
             if (ResolveType(typeInterface).Count() == 0)
             {
@@ -71,12 +71,24 @@ namespace Yis.Framework.Core.Locator
                 throw new Exception("Plusieurs classes trouvées pour l'interface : " + typeInterface.Name);
             }
 
-            return Activator.CreateInstance(ResolveType(typeInterface).First());
+            return Activator.CreateInstance(ResolveType(typeInterface).First(), param);
         }
 
-        public TInterface ResolveAndCreateType<TInterface>()
+        public TInterface ResolveAndCreateType<TInterface>(object[] param = null)
         {
             return (TInterface)ResolveAndCreateType(typeof(TInterface));
+        }
+
+        public IEnumerable<TInterface> ResolveAndCreateAllType<TInterface>(object[] param = null)
+        {
+            List<TInterface> list = new List<TInterface>();
+
+            foreach (Type type in ResolveType<TInterface>())
+            {
+                list.Add((TInterface) Activator.CreateInstance(type, param));
+            }
+
+            return list;
         }
 
         public void Build()

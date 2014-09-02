@@ -9,6 +9,7 @@ using Yis.Framework.Core.IoC;
 using Yis.Framework.Presentation.Locator;
 using Yis.Framework.Presentation.View;
 using Yis.Framework.Presentation.Locator.Contract;
+using Yis.Framework.Presentation.Navigation.Contract;
 
 namespace Yis.Framework.Presentation.Navigation
 {

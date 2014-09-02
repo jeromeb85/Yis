@@ -8,6 +8,8 @@ namespace Yis.Framework.Core.Locator.Contract
 {
     public interface IServiceLocator
     {
-        TInterface ResolveAndCreateType<TInterface>();
+        TInterface ResolveAndCreateType<TInterface>(object[] param = null);
+        IEnumerable<Type> ResolveType<TInterface>();
+        IEnumerable<TInterface> ResolveAndCreateAllType<TInterface>(object[] param = null);
     }
 }
