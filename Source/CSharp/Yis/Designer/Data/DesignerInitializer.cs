@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Designer.Model;
 
 namespace Yis.Designer.Data
@@ -20,14 +16,9 @@ namespace Yis.Designer.Data
 //                new WorkSpace{Id= IdWorkSpace, Name="TestMaster", AspectSemantic = new AspectSemantic { Id = Guid.NewGuid() }},
 new WorkSpace{Id= IdWorkSpace, Name="TestMaster"},
             };
-            
+
             WorkSpace.ForEach(s => context.WorkSpace.Add(s));
             context.SaveChanges();
-
-
-
-
-
 
             //var Groupe = new List<Groupe>
             //{
@@ -36,6 +27,5 @@ new WorkSpace{Id= IdWorkSpace, Name="TestMaster"},
             //Groupe.ForEach(s => context.Groupe.Add(s));
             //context.SaveChanges();
         }
-
     }
 }

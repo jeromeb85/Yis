@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Data.Contract;
 
 namespace Yis.Framework.Data.Database
@@ -11,7 +9,7 @@ namespace Yis.Framework.Data.Database
     public abstract class RepositoryBase : IRepository
     {
         private IDbConnection _connection;
- 
+
         public RepositoryBase(IDataContext dataContext)
         {
             if (dataContext == null)
@@ -19,8 +17,7 @@ namespace Yis.Framework.Data.Database
                 throw new ArgumentNullException("pas de context donné");
             }
 
-            DataContext = ((DataContextBase) dataContext);
- 
+            DataContext = ((DataContextBase)dataContext);
         }
 
         /// <summary>
@@ -37,11 +34,9 @@ namespace Yis.Framework.Data.Database
 
     public abstract class RepositoryBase<TEntity> : RepositoryBase, IRepository<TEntity> where TEntity : class
     {
-
         public RepositoryBase(IDataContext dataContext)
             : base(dataContext)
         {
-
         }
 
         #region "Méthodes utilitaires"
@@ -83,7 +78,6 @@ namespace Yis.Framework.Data.Database
                     try
                     {
                         return MapSingle(reader);
-
                     }
                     catch (Exception)
                     {
@@ -145,7 +139,6 @@ namespace Yis.Framework.Data.Database
                     try
                     {
                         return MapCollection(reader);
-
                     }
                     catch (Exception)
                     {
@@ -156,7 +149,6 @@ namespace Yis.Framework.Data.Database
                         reader.Close();
                     }
                 }
-
             }
             catch (Exception)
             {
@@ -220,7 +212,7 @@ namespace Yis.Framework.Data.Database
             return true;
         }
 
-        #endregion
+        #endregion "Méthodes utilitaires"
 
         #region "Méthode de Mapping (Fonction abstraite)"
 
@@ -247,7 +239,6 @@ namespace Yis.Framework.Data.Database
                 try
                 {
                     collection.Add(Map(reader));
-
                 }
                 catch (Exception)
                 {
@@ -258,7 +249,7 @@ namespace Yis.Framework.Data.Database
             return collection;
         }
 
-        #endregion
+        #endregion "Méthode de Mapping (Fonction abstraite)"
 
         #region "Implémentaion IRepository"
 
@@ -272,7 +263,6 @@ namespace Yis.Framework.Data.Database
             throw new NotImplementedException();
         }
 
-
         public virtual void Update(TEntity Entity)
         {
             throw new NotImplementedException();
@@ -283,7 +273,7 @@ namespace Yis.Framework.Data.Database
             throw new NotImplementedException();
         }
 
-        #endregion
+        #endregion "Implémentaion IRepository"
 
         public IQueryable<TEntity> GetQuery()
         {
@@ -340,11 +330,9 @@ namespace Yis.Framework.Data.Database
             throw new NotImplementedException();
         }
 
-
         IEnumerable<TEntity> IRepository<TEntity>.GetAll()
         {
             throw new NotImplementedException();
         }
     }
-
 }

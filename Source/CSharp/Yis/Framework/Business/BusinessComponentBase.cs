@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yis.Framework.Core.IoC;
-using Yis.Framework.Data;
-using Yis.Framework.Model;
-using Yis.Framework.Core.Rule;
+﻿using System.Collections.Generic;
 using Yis.Framework.Business.Contract;
-using Yis.Framework.Data.Contract;
+using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator.Contract;
 using Yis.Framework.Core.Logging.Contract;
 using Yis.Framework.Core.Rule.Contract;
+using Yis.Framework.Data;
+using Yis.Framework.Data.Contract;
+using Yis.Framework.Model;
 
 namespace Yis.Framework.Business
 {
     public abstract class BusinessComponentBase<TModel, TProvider> : IBusinessComponentBase<TModel>
         where TProvider : IRepository<TModel>
-        where TModel : ModelBase
+        where TModel : IModel
     {
         #region Fields
 
-        private IDataContext DataContext { get; set; }
+        protected IDataContext DataContext { get; set; }
 
         private static IServiceLocator _locator;
+
         protected static IServiceLocator Locator
         {
             get
@@ -34,6 +30,7 @@ namespace Yis.Framework.Business
         }
 
         private static ILog _log;
+
         protected static ILog Log
         {
             get
@@ -49,6 +46,7 @@ namespace Yis.Framework.Business
         }
 
         private TProvider _provider;
+
         protected TProvider Provider
         {
             get
@@ -62,8 +60,8 @@ namespace Yis.Framework.Business
             private set { _provider = value; }
         }
 
-
         private IRuleValidator _validator;
+
         protected IRuleValidator Validator
         {
             get
@@ -73,26 +71,48 @@ namespace Yis.Framework.Business
                 return _validator;
             }
         }
-        #endregion
+
+        #endregion Fields
 
         #region Constructors
 
-        public BusinessComponentBase(string nameDataContext)
-            : this()
+        public BusinessComponentBase(IDataContext dataContext)
         {
-            DataContext = Resolver.Resolve<IDataContext>(nameDataContext);
         }
 
-        private BusinessComponentBase()
-        {
+        #endregion Constructors
 
-        }
-
-        #endregion
+        #region Methods
 
         public IEnumerable<TModel> GetAll()
         {
             return Provider.GetAll();
+        }
+
+        #endregion Methods
+    }
+
+    public abstract class BusinessComponentBase<TModel, TProvider, TDataContext> : BusinessComponentBase<TModel, TProvider>
+        where TProvider : IRepository<TModel>
+        where TModel : IModel
+        where TDataContext : IDataContext
+    {
+        public BusinessComponentBase()
+            : base(Resolver.IsRegistered<TDataContext>() ? Locator.ResolveAndCreateType<TDataContext>() : Resolver.Resolve<TDataContext>())
+        {
+            if (!Resolver.IsRegistered<TDataContext>())
+            {
+                Resolver.Register<TDataContext>((TDataContext)DataContext);
+            }
+        }
+
+        public BusinessComponentBase(string nameOrConnectionString)
+            : base(Resolver.IsRegistered<TDataContext>() ? Locator.ResolveAndCreateType<TDataContext>(new object[] { nameOrConnectionString }) : Resolver.Resolve<TDataContext>())
+        {
+            if (!Resolver.IsRegistered<TDataContext>())
+            {
+                Resolver.Register<TDataContext>((TDataContext)DataContext);
+            }
         }
     }
 }

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Yis.Framework.Model
 {
-    public  abstract partial class ModelBase : IEditableObject
+    public abstract partial class ModelBase : IEditableObject
     {
-
         #region Implementation de IEditableObject
 
         public void BeginEdit()
@@ -22,10 +15,12 @@ namespace Yis.Framework.Model
         {
             RejectChanges();
         }
+
         public void EndEdit()
         {
             AcceptChanges();
         }
-        #endregion
+
+        #endregion Implementation de IEditableObject
     }
 }

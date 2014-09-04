@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Yis.Designer.Presentation
 {
@@ -16,6 +10,7 @@ namespace Yis.Designer.Presentation
         protected override void OnStartup(StartupEventArgs e)
         {
             #region CaTAL CODE
+
             //CATEL CODE
             //Catel.Logging.LogManager.AddDebugListener();// .RegisterDebugListener(); //Mis en commebntaire
 
@@ -25,7 +20,6 @@ namespace Yis.Designer.Presentation
             //// Catel.IoC.ServiceLocator.Instance.RegisterExternalContainer(MyUnityContainer);
 
             //var serviceLocator = ServiceLocator.Default;
-
 
             //serviceLocator.RegisterType<IViewLocator, ViewLocator>();
             //var viewLocator = serviceLocator.ResolveType<IViewLocator>();
@@ -39,19 +33,16 @@ namespace Yis.Designer.Presentation
             //viewLocator.NamingConventions.Add("[UP].Views.LogicInViewBase.[VM]View");
             //viewLocator.NamingConventions.Add("[UP].Views.LogicInViewBase.[VM]Window");
 
-
             //serviceLocator.RegisterType<IViewModelLocator, ViewModelLocator>();
             //var viewModelLocator = serviceLocator.ResolveType<IViewModelLocator>();
             ////viewModelLocator.NamingConventions.Add("Yis.Designer.Presentation.ViewModel.[VW]ViewModel");
             //viewModelLocator.NamingConventions.Add("[UP].ViewModel.[VW]ViewModel");
             //viewModelLocator.NamingConventions.Add("[AS].ViewModel.[VW]ViewModel");
-            
 
             //viewModelLocator.NamingConventions.ForEach(s => (s = new string("r"));
 
             //viewModelLocator.NamingConventions.Add("[AS].toto.ViewModels.[VW]ViewModel");
             //viewModelLocator.NamingConventions.Add("[UP].toto.ViewModels.[VW]ViewModel");
-
 
             // Register several different external IoC containers for demo purposes
             //IoCHelper.MefContainer = new CompositionContainer();
@@ -59,11 +50,8 @@ namespace Yis.Designer.Presentation
             //serviceLocator.RegisterExternalContainer(IoCHelper.MefContainer);
             //serviceLocator.RegisterExternalContainer(IoCHelper.UnityContainer);
 
-            #endregion
-            
+            #endregion CaTAL CODE
 
-
-            
             base.OnStartup(e);
         }
     }

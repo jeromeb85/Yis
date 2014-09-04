@@ -1,13 +1,8 @@
-﻿
-using Yis.Framework.Core.Locator;
-using Yis.Framework.Core.IoC;
-using Yis.Framework.Core.Logging;
+﻿using Yis.Framework.Core.Locator;
 using Yis.Framework.Core.Locator.Contract;
-using Yis.Framework.Presentation.Locator.Contract;
-using Yis.Framework.Presentation.Navigation.Contract;
+using Yis.Framework.Core.Logging;
 using Yis.Framework.Core.Logging.Contract;
 using Yis.Framework.Core.Shell.Contract;
-using System.Collections.Generic;
 
 /// <summary>
 /// Gère le démarrage de tous l'environnement
@@ -15,6 +10,7 @@ using System.Collections.Generic;
 public static class Boot
 {
     #region Propriétés privées
+
     private static ILog Log
     {
         get { return LogManager.Default; }
@@ -25,8 +21,7 @@ public static class Boot
         get { return ServiceLocatorManager.Default; }
     }
 
-
-    #endregion
+    #endregion Propriétés privées
 
     /// <summary>
     /// Démarrage
@@ -41,8 +36,6 @@ public static class Boot
             item.Initialize();
         }
 
-
         Log.Debug("Started");
     }
 }
-

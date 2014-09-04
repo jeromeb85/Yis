@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+
 //using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Data.Contract;
-using Yis.Framework.Model;
 
 namespace Yis.Framework.Data.EntityFramework
 {
@@ -16,13 +13,16 @@ namespace Yis.Framework.Data.EntityFramework
            where TEntity : class
     {
         #region Fields
+
         private readonly DbContext _dbContext;
         private readonly IDbSet<TEntity> _dbSet;
 
-       // private readonly string _entitySetName;
-        #endregion
+        // private readonly string _entitySetName;
+
+        #endregion Fields
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityRepositoryBase{TModel, TKey}" /> class.
         /// </summary>
@@ -36,11 +36,13 @@ namespace Yis.Framework.Data.EntityFramework
             }
 
             _dbContext = (DbContext)dataContext;
-            _dbSet = _dbContext.Set<TEntity>();       
+            _dbSet = _dbContext.Set<TEntity>();
         }
-        #endregion
+
+        #endregion Constructors
 
         #region IEntityRepository<TEntity,TPrimaryKey> Members
+
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -65,10 +67,10 @@ namespace Yis.Framework.Data.EntityFramework
         public virtual IQueryable<TEntity> GetQuery()
         {
             //_dbContext.cre
-    
-            //var objectContext = ((IObjectContextAdapter) _dbContext).ObjectContext; 
+
+            //var objectContext = ((IObjectContextAdapter) _dbContext).ObjectContext;
             //var objectContext = _dbContext.GetObjectContext();
-           //return objectContext.CreateQuery<TModel>(_entitySetName);
+            //return objectContext.CreateQuery<TModel>(_entitySetName);
             return _dbContext.Set<TEntity>();
         }
 
@@ -212,7 +214,7 @@ namespace Yis.Framework.Data.EntityFramework
 
             _dbContext.Set<TEntity>().Attach(entity);
 
-            //var objectContext = ((IObjectContextAdapter)_dbContext).ObjectContext; 
+            //var objectContext = ((IObjectContextAdapter)_dbContext).ObjectContext;
 
             //object originalItem;
             //var key = objectContext.CreateEntityKey(_entitySetName, entity);
@@ -257,9 +259,11 @@ namespace Yis.Framework.Data.EntityFramework
 
             return GetQuery().Count(predicate);
         }
-        #endregion
+
+        #endregion IEntityRepository<TEntity,TPrimaryKey> Members
 
         #region Methods
+
         /// <summary>
         /// Ensures a validate predicate.
         /// <para />
@@ -277,8 +281,8 @@ namespace Yis.Framework.Data.EntityFramework
 
             return predicate;
         }
-        #endregion
 
+        #endregion Methods
 
         IEnumerable<TEntity> IRepository<TEntity>.GetAll()
         {

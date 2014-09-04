@@ -4,14 +4,13 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yis.Framework.Model
 {
-    public  abstract partial class ModelBase : IDataErrorInfo
+    public abstract partial class ModelBase : IDataErrorInfo
     {
         #region IDataErrorInfo
+
         [IgnoreDataMember]
         public string Error
         {
@@ -40,9 +39,7 @@ namespace Yis.Framework.Model
                     return string.Join(Environment.NewLine, errors.Select(e => e.ErrorMessage));
             }
         }
-        #endregion
 
-
+        #endregion IDataErrorInfo
     }
-
 }

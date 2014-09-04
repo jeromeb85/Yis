@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity.Core.Objects;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yis.Framework.Data.Contract
 {
-
     /// <summary>
     /// Définition d'une UnitOfWork
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
         #region Properties
+
         bool IsInTransaction { get; }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
+
         TRepository GetRepository<TRepository>()
             where TRepository : IRepository;
 
@@ -43,6 +40,7 @@ namespace Yis.Framework.Data.Contract
         /// Commits all the changes inside a transaction.
         /// </summary>
         void CommitTransaction();
-        #endregion
+
+        #endregion Methods
     }
 }

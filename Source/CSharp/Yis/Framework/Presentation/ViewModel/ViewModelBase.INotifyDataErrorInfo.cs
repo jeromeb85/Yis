@@ -4,21 +4,21 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yis.Framework.Presentation.ViewModel
 {
     public abstract partial class ViewModelBase : INotifyDataErrorInfo
     {
-
         #region variables privées
+
         private static readonly ValidationResult[] _noErrors = new ValidationResult[0];
         private Dictionary<string, List<ValidationResult>> _errors;
         private bool _hasErrors;
-        #endregion
+
+        #endregion variables privées
 
         #region prorpriétés
+
         private Dictionary<string, List<ValidationResult>> Errors
         {
             get
@@ -30,9 +30,11 @@ namespace Yis.Framework.Presentation.ViewModel
                 return _errors;
             }
         }
-#endregion
+
+        #endregion prorpriétés
 
         #region méthodes
+
         public IEnumerable<ValidationResult> GetErrors()
         {
             return GetErrors(null);
@@ -55,7 +57,6 @@ namespace Yis.Framework.Presentation.ViewModel
             }
         }
 
-
         private EventHandler<DataErrorsChangedEventArgs> _errorsChanged;
 
         protected virtual void OnErrorsChanged(DataErrorsChangedEventArgs e)
@@ -69,7 +70,8 @@ namespace Yis.Framework.Presentation.ViewModel
             OnErrorsChanged(args);
             if (_errorsChanged != null) { _errorsChanged(this, args); }
         }
-        #endregion
+
+        #endregion méthodes
 
         #region Implementation de INotifyDataErrorInfoGetErrors(propertyName).Select(e => e.ErrorMessage).ToArray()
 
@@ -80,8 +82,8 @@ namespace Yis.Framework.Presentation.ViewModel
         }
 
         IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
-        {           
-            return GetErrors(propertyName).Select(e => e.ErrorMessage);         
+        {
+            return GetErrors(propertyName).Select(e => e.ErrorMessage);
         }
 
         public bool HasErrors
@@ -90,6 +92,6 @@ namespace Yis.Framework.Presentation.ViewModel
             private set { SetValue<bool>(ref _hasErrors, value, false); }
         }
 
-        #endregion
+        #endregion Implementation de INotifyDataErrorInfoGetErrors(propertyName).Select(e => e.ErrorMessage).ToArray()
     }
 }

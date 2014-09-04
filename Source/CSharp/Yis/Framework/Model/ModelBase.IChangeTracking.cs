@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Yis.Framework.Model
 {
@@ -12,7 +7,7 @@ namespace Yis.Framework.Model
         private bool _isChanged;
 
         public void AcceptChanges()
-        {            
+        {
             _cacheBackup = null;
             _isChanged = false;
         }
@@ -30,7 +25,6 @@ namespace Yis.Framework.Model
                     _isChanged = value;
                 }
             }
-
         }
     }
 }

@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Reflection;
 using Yis.Framework.Core.IoC;
-using Yis.Framework.Presentation.Locator;
-using Yis.Framework.Presentation.View;
 using Yis.Framework.Presentation.Locator.Contract;
 using Yis.Framework.Presentation.Navigation.Contract;
+using Yis.Framework.Presentation.View;
 
 namespace Yis.Framework.Presentation.Navigation
 {
     public class Navigation : INavigation
     {
-        IViewLocator _locator;
+        private IViewLocator _locator;
 
         protected IViewLocator Locator
         {
@@ -30,9 +26,6 @@ namespace Yis.Framework.Presentation.Navigation
             }
         }
 
-
-
-
         public void Show<T>(object context = null) where T : View.IView
         {
             Type viewtype = Locator.ResolveView<T>();
@@ -46,7 +39,6 @@ namespace Yis.Framework.Presentation.Navigation
             IWindowView window = CreateWindow(viewtype);
             return window.ShowModal(context);
         }
-
 
         protected virtual IWindowView CreateWindow(Type viewType)
         {
@@ -65,8 +57,8 @@ namespace Yis.Framework.Presentation.Navigation
             return (IWindowView)window;
         }
 
-
         /*Application Extension*/
+
         private static System.Windows.Window GetActiveWindowForApplication(System.Windows.Application application)
         {
             System.Windows.Window activeWindow = null;
@@ -83,8 +75,6 @@ namespace Yis.Framework.Presentation.Navigation
 
             return activeWindow;
         }
-
-
 
         //public static FrameworkElement ConstructViewWithViewModel(Type viewType, object dataContext)
         //{
@@ -135,6 +125,5 @@ namespace Yis.Framework.Presentation.Navigation
 
         //    return view;
         //}
-
     }
 }

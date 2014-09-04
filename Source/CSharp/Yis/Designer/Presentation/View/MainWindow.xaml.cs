@@ -7,7 +7,8 @@ namespace Yis.Designer.Presentation.View
     /// </summary>
     public partial class MainWindow : WindowBase
     {
-        public MainWindow() : base(true)
+        public MainWindow()
+            : base(true)
         {
             InitializeComponent();
         }

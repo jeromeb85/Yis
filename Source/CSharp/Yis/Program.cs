@@ -1,60 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Yis.Designer.Business;
-using Yis.Designer.Data;
 using Yis.Designer.Model;
 using Yis.Designer.Presentation;
-using Yis.Designer.Presentation.View;
-using Yis.Framework;
-using Yis.Framework.Core;
 using Yis.Framework.Core.IoC;
-using Yis.Framework.Core.Logging;
-using Yis.Framework.Data;
-using Yis.Framework.Presentation.Locator;
-using Yis.Framework.Core.Rule;
-using Yis.Framework.Helper;
 using Yis.Framework.Core.Locator;
 using Yis.Framework.Core.Logging;
+using Yis.Framework.Helper;
+using Yis.Framework.Presentation.Locator;
 using Yis.Framework.Presentation.Locator.Contract;
 
 namespace Yis
 {
-    class Program
+    internal class Program
     {
-
-
         //--private static YisDesignerDbContext db = ;
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Boot.Start();
             //RunConsole();
             //RunWindows();
         }
 
-
         private static void RunWindows()
         {
-
             App.Main();
         }
 
         private static string _toto;
+
         public static string Toto { get { return _toto; } set { _toto = value; } }
-
-
 
         private static void tata(Expression<Func<object>> func, Func<WorkSpace, bool> func2)
         {
-
         }
+
         private static void RunConsole()
         {
             LogManager.Default.Debug("toto");
@@ -69,7 +49,7 @@ namespace Yis
 
             loc.Build();
 
-            foreach(Type item in loc.ResolveType(typeof(IDependencyResolver)))
+            foreach (Type item in loc.ResolveType(typeof(IDependencyResolver)))
             {
                 Console.WriteLine(item.Name);
             }
@@ -87,12 +67,10 @@ namespace Yis
             // ws.Name = "12345";
             //// ws = null;
 
-
             // foreach (var item in rv.Validate(ws2,(t) => t.Name))
             // {
             //     Console.WriteLine(item.ErrorMessage);
             // }
-
 
             //DependencyResolver.Register<IDataContext>("YisDataContext", new YisDesignerDataContext());
 
@@ -103,10 +81,8 @@ namespace Yis
             //    Console.WriteLine(item.Name);
             //}
 
-
             //using (UnitOfWork uow = new UnitOfWork("YisDataContext"))
             //{
-
             //    IWorkSpaceProvider _workSpaceProvider = uow.GetRepository<IWorkSpaceProvider>();
             //    WorkSpace newWS = _workSpaceProvider.Create();
 
@@ -120,15 +96,12 @@ namespace Yis
             //    {
             //        Console.WriteLine(item.Name);
 
-
             //        //db.Entry(WorkSpace).Reference(WorkSpace.AspectSemantic).Load();
 
             //        //Console.WriteLine(item.AspectSemantic.Id.ToString());
             //        //  Console.WriteLine(item.AspectSemantic.WorkSpace.Id.ToString());
             //    }
             //}
-
-
 
             Console.ReadLine();
             /*
@@ -142,7 +115,6 @@ namespace Yis
                 {
                     Console.WriteLine(item.Name);
 
-
                     //db.Entry(WorkSpace).Reference(WorkSpace.AspectSemantic).Load();
 
                     Console.WriteLine(item.AspectSemantic.Id.ToString());
@@ -154,28 +126,16 @@ namespace Yis
                 {
                     Console.WriteLine(WorkSpace.Name);
 
-
                     //db.Entry(WorkSpace).Reference(WorkSpace.AspectSemantic).Load();
 
                     Console.WriteLine(WorkSpace.AspectSemantic.Id.ToString());
                     //Console.WriteLine(WorkSpace.AspectSemantic.WorkSpace.Id.ToString());
-
-
                 }
-
             }
 
             Console.ReadKey();*/
 
             ConsoleHelper.HideConsoleWindow();
         }
-
-
-
-
-
-
     }
-
-    
 }

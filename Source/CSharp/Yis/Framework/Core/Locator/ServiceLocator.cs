@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Core.Locator.Contract;
 
 namespace Yis.Framework.Core.Locator
@@ -11,6 +9,7 @@ namespace Yis.Framework.Core.Locator
     internal class ServiceLocator : IServiceLocator
     {
         private List<Assembly> _catalogAssembly;
+
         protected List<Assembly> CatalogAssembly
         {
             get
@@ -23,8 +22,8 @@ namespace Yis.Framework.Core.Locator
             }
         }
 
-
         private Dictionary<Type, List<Type>> _catalog;
+
         protected Dictionary<Type, List<Type>> Catalog
         {
             get
@@ -85,7 +84,7 @@ namespace Yis.Framework.Core.Locator
 
             foreach (Type type in ResolveType<TInterface>())
             {
-                list.Add((TInterface) Activator.CreateInstance(type, param));
+                list.Add((TInterface)Activator.CreateInstance(type, param));
             }
 
             return list;

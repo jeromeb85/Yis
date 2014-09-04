@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Core.Rule.Contract;
 
 namespace Yis.Framework.Core.Rule
 {
-
     public class RuleValidator : IRuleValidator
     {
         private Dictionary<string, List<IRule>> _ruleCache;
+
         private Dictionary<string, List<IRule>> RuleCache
         {
             get
@@ -71,7 +68,6 @@ namespace Yis.Framework.Core.Rule
                                                               expression));
         }
 
-
         private void AddDataAnnotationsFromType(Type metadataType)
         {
             var attList = metadataType.GetCustomAttributes(typeof(ValidationAttribute), true);
@@ -109,7 +105,6 @@ namespace Yis.Framework.Core.Rule
                     {
                         result.Add(new ValidationResult(error.ErrorMessage, new string[] { dico.Key }));
                     }
-
                 }
             }
 
@@ -143,7 +138,6 @@ namespace Yis.Framework.Core.Rule
                 }
             }
 
-
             return result;
         }
 
@@ -151,6 +145,7 @@ namespace Yis.Framework.Core.Rule
         {
             AddRule(GetMemberName(property.Body), validateDelegate, errorMessage);
         }
+
         public void AddRule<TTarget>(string propertyName, Func<TTarget, bool> validateDelegate, string errorMessage)
         {
             RegisterRule(propertyName, new RuleDelegate<TTarget>(validateDelegate, errorMessage));
@@ -170,6 +165,5 @@ namespace Yis.Framework.Core.Rule
         {
             return Validate(new RuleContext(target), GetMemberName(property.Body));
         }
-
     }
 }

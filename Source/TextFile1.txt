@@ -2,3 +2,5 @@ Localization
 Collection
 message Bus MessengerManager
 Gestion des Context
+
+Suffit dans le Buisness Component de pouvoir changer le contexte et que dans ce cas il libère le Provider pour en recréer un nouveau.

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yis.Framework.Core.Rule
+﻿namespace Yis.Framework.Core.Rule
 {
-    class RuleResult
+    internal class RuleResult
     {
     }
 }

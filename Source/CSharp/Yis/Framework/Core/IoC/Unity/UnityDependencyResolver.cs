@@ -2,11 +2,7 @@
 using Microsoft.Practices.Unity.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
-using System.Collections.ObjectModel;
 
 namespace Yis.Framework.Core.IoC
 {
@@ -15,16 +11,14 @@ namespace Yis.Framework.Core.IoC
     /// </summary>
     internal class UnityDependencyResolver : IDisposable, IDependencyResolver
     {
-
-
         private readonly IUnityContainer _container;
+
         /// <summary>
         /// Initialise une nouvelle instance de <see cref="UnityDependencyResolver"/> class.
         /// </summary>
         public UnityDependencyResolver()
             : this(new UnityContainer())
         {
-
             UnityConfigurationSection configuration = ConfigurationManager.GetSection("Unity") as UnityConfigurationSection;
 
             if (configuration != null)
@@ -42,7 +36,6 @@ namespace Yis.Framework.Core.IoC
             _container = container;
         }
 
-
         #region "Implémentation de IDependencyResolver"
 
         /// <summary>
@@ -53,14 +46,11 @@ namespace Yis.Framework.Core.IoC
         public void Register<T>(T instance)
         {
             _container.RegisterInstance(instance);
-
         }
-
 
         public void Register<T>(string name, T instance)
         {
             _container.RegisterInstance(name, instance);
-
         }
 
         /// <summary>
@@ -109,7 +99,6 @@ namespace Yis.Framework.Core.IoC
         /// </returns>
         public T Resolve<T>()
         {
-
             return _container.Resolve<T>();
         }
 
@@ -157,7 +146,8 @@ namespace Yis.Framework.Core.IoC
 
             return null;
         }
-        #endregion
+
+        #endregion "Implémentation de IDependencyResolver"
 
         #region "Implementation de IDisposable"
 
@@ -166,15 +156,12 @@ namespace Yis.Framework.Core.IoC
             _container.Dispose();
             GC.SuppressFinalize(this);
         }
-        #endregion
 
-
-
+        #endregion "Implementation de IDisposable"
 
         public bool IsRegistered<T>()
         {
             return _container.IsRegistered<T>();
         }
     }
-
 }

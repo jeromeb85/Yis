@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace Yis.Framework.Data.Contract
 {
     public interface IDataContext
     {
         #region Fields
+
         bool IsInTransaction { get; }
-        #endregion
+
+        #endregion Fields
 
         #region Methods
 
@@ -32,6 +29,7 @@ namespace Yis.Framework.Data.Contract
         /// Commits all the changes inside a transaction.
         /// </summary>
         void CommitTransaction();
-        #endregion
+
+        #endregion Methods
     }
 }

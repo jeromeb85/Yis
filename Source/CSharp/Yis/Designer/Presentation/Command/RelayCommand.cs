@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Yis.Designer.Presentation.Command
@@ -12,20 +8,25 @@ namespace Yis.Designer.Presentation.Command
         private readonly Action<object> execute;
         private readonly Func<object, bool> canExecute;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RelayCommand"/> class.
+        /// </summary>
+        /// <param name="execute">Delegate to execute when Execute is called on the command.</param>
+        /// <exception cref="ArgumentNullException">The execute argument must not be null.</exception>
+        public RelayCommand(Action execute)
+            : this(execute, null)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RelayCommand"/> class.
         /// </summary>
         /// <param name="execute">Delegate to execute when Execute is called on the command.</param>
         /// <exception cref="ArgumentNullException">The execute argument must not be null.</exception>
-        public RelayCommand(Action execute) : this(execute, null) { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RelayCommand"/> class.
-        /// </summary>
-        /// <param name="execute">Delegate to execute when Execute is called on the command.</param>
-        /// <exception cref="ArgumentNullException">The execute argument must not be null.</exception>
-        public RelayCommand(Action<object> execute) : this(execute, null) { }
+        public RelayCommand(Action<object> execute)
+            : this(execute, null)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RelayCommand"/> class.
@@ -51,12 +52,10 @@ namespace Yis.Designer.Presentation.Command
             this.canExecute = canExecute;
         }
 
-
         /// <summary>
         /// Occurs when changes occur that affect whether or not the command should execute.
         /// </summary>
         public event EventHandler CanExecuteChanged;
-
 
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.

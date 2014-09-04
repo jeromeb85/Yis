@@ -1,14 +1,9 @@
 ﻿using log4net;
 using log4net.Config;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Core.Helper;
-
 
 namespace Yis.Framework.Core.Logging.Log4Net
 {
@@ -29,8 +24,6 @@ namespace Yis.Framework.Core.Logging.Log4Net
 
             string configFile = ConfigurationManager.AppSettings["LogFileConfName"];
 
-
-
             if ((string.IsNullOrEmpty(configFile)))
             {
                 XmlConfigurator.Configure();
@@ -50,7 +43,6 @@ namespace Yis.Framework.Core.Logging.Log4Net
             Type item = StackTraceHelper.GetCallingNoAbstractOrPrivateMethodType();
             return item.Namespace.Contains("Yis.Framework");
         }
-
 
         #region Implémentation de Ilog
 
@@ -215,7 +207,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
             get;
             set;
         }
-        #endregion
-    }
 
+        #endregion Implémentation de Ilog
+    }
 }

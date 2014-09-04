@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Rule;
 using Yis.Framework.Presentation.Navigation.Contract;
 
 namespace Yis.Framework.Presentation.ViewModel
 {
-    public  abstract partial class ViewModelBase : IViewModel
+    public abstract partial class ViewModelBase : IViewModel
     {
         #region Propriétés
+
         private bool _isChanged;
+
         public bool IsChanged
         {
             get
@@ -25,13 +24,12 @@ namespace Yis.Framework.Presentation.ViewModel
             {
                 SetValue<bool>(ref _isChanged, value, false);
             }
-
         }
 
         public bool AutoValidateProperty { get; set; }
 
-
         private RuleValidator _validator;
+
         public RuleValidator Validator
         {
             get
@@ -46,7 +44,7 @@ namespace Yis.Framework.Presentation.ViewModel
             }
         }
 
-        INavigation _navigation;
+        private INavigation _navigation;
 
         protected INavigation Navigation
         {
@@ -61,19 +59,19 @@ namespace Yis.Framework.Presentation.ViewModel
             }
         }
 
-        #endregion
+        #endregion Propriétés
 
         #region Constructeurs
+
         protected ViewModelBase()
         {
-            AutoValidateProperty = true;            
+            AutoValidateProperty = true;
             _hasErrors = false;
 
             OnRuleInialize();
-
         }
-        #endregion
 
+        #endregion Constructeurs
 
         protected void SetValue<T>(ref T property, T newValue, [CallerMemberName] string name = null)
         {
@@ -104,8 +102,7 @@ namespace Yis.Framework.Presentation.ViewModel
 
         public bool Validate()
         {
-
-            IEnumerable<ValidationResult> validationResults = Validator.Validate(this); 
+            IEnumerable<ValidationResult> validationResults = Validator.Validate(this);
             //Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true);
             if (validationResults.Any())
             {
@@ -122,7 +119,6 @@ namespace Yis.Framework.Presentation.ViewModel
                         else
                         {
                             Errors[propertyName].Add(validationResult);
-   
                         }
                         RaiseErrorsChanged(propertyName);
                     }
@@ -160,12 +156,8 @@ namespace Yis.Framework.Presentation.ViewModel
                         else
                         {
                             Errors[item].Add(validationResult);
-
                         }
-                        
                     }
-
-                    
                 }
 
                 RaiseErrorsChanged(propertyName);
@@ -174,7 +166,7 @@ namespace Yis.Framework.Presentation.ViewModel
             else
             {
                 if (Errors.Remove(propertyName))
-                {                    
+                {
                     RaiseErrorsChanged(propertyName);
                 }
             }
@@ -200,9 +192,9 @@ namespace Yis.Framework.Presentation.ViewModel
             //    return true;
             //}
         }
+
         protected virtual void OnRuleInialize()
         {
-
         }
     }
 }

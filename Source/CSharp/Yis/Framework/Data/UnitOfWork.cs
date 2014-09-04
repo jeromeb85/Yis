@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Core.Helper;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator.Contract;
@@ -20,11 +14,12 @@ namespace Yis.Framework.Data
     /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
-
         #region Fields
+
         private bool _disposed;
 
         private static IServiceLocator _locator;
+
         protected static IServiceLocator Locator
         {
             get
@@ -35,6 +30,7 @@ namespace Yis.Framework.Data
         }
 
         private static ILog _log;
+
         protected static ILog Log
         {
             get
@@ -49,9 +45,10 @@ namespace Yis.Framework.Data
             get { return DependencyResolverManager.Default; }
         }
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
+
         public UnitOfWork(IDataContext context)
         {
             ArgumentHelper.IsNotNull("context", context);
@@ -62,16 +59,18 @@ namespace Yis.Framework.Data
         public UnitOfWork(string nameDataContext)
             : this(Resolver.Resolve<IDataContext>(nameDataContext))
         {
-
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Properties
+
         protected IDataContext Context { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region IUnitOfWork Members
+
         /// <summary>
         /// Gets a value indicating whether this instance is currently in a transaction.
         /// </summary>
@@ -134,7 +133,6 @@ namespace Yis.Framework.Data
             where TRepository : IRepository
         {
             return GetRepository<TRepository>(Context);
-
         }
 
         public static TRepository GetRepository<TRepository>(IDataContext context)
@@ -170,9 +168,11 @@ namespace Yis.Framework.Data
                 Context.SaveChanges();
             }
         }
-        #endregion
+
+        #endregion IUnitOfWork Members
 
         #region Implementation of IDisposable
+
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -210,8 +210,6 @@ namespace Yis.Framework.Data
         {
         }
 
-        #endregion
-
-
+        #endregion Implementation of IDisposable
     }
 }

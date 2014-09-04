@@ -1,18 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Data.Contract;
 
 namespace Yis.Framework.Data.EntityFramework
 {
     public class DataContextBase : DbContext, IDataContext
     {
-        public DataContextBase(string nameOrConnection) : base(nameOrConnection) { }
-        public DataContextBase() : base() { }
+        public DataContextBase(string nameOrConnection)
+            : base(nameOrConnection)
+        {
+        }
+
+        public DataContextBase()
+            : base()
+        {
+        }
 
         protected IDbTransaction Transaction { get; set; }
 
@@ -25,7 +28,6 @@ namespace Yis.Framework.Data.EntityFramework
         {
             base.SaveChanges();
         }
-
 
         public void BeginTransaction(System.Data.IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
@@ -43,11 +45,9 @@ namespace Yis.Framework.Data.EntityFramework
 
         public void RollBackTransaction()
         {
-
             if (Transaction == null)
             {
                 const string error = "Cannot roll back a transaction when there is no transaction running.";
-
 
                 throw new InvalidOperationException(error);
             }
@@ -102,6 +102,7 @@ namespace Yis.Framework.Data.EntityFramework
                 Transaction = null;
             }
         }
-        #endregion
+
+        #endregion Methods
     }
 }

@@ -1,72 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yis.Framework.Core.IoC
 {
+    /// <summary>
+    /// Interface de tous les les résolveurs de dépendances.
+    /// </summary>
+    public interface IDependencyResolver : IDisposable
+    {
         /// <summary>
-        /// Interface de tous les les résolveurs de dépendances.
+        /// Enregistre une instance spécifiée.
         /// </summary>
-        public interface IDependencyResolver : IDisposable
-        {
-            /// <summary>
-            /// Enregistre une instance spécifiée.
-            /// </summary>
-            /// <typeparam name="T">Type de l'instance.</typeparam>
-            /// <param name="instance">L'instance.</param>
-            void Register<T>(T instance);
-            void Register<T>(string name,T instance);
+        /// <typeparam name="T">Type de l'instance.</typeparam>
+        /// <param name="instance">L'instance.</param>
+        void Register<T>(T instance);
 
-            /// <summary>
-            /// Injection sur un type existant.
-            /// </summary>
-            /// <typeparam name="T">Le type de l'existant</typeparam>
-            /// <param name="existing">L'existant.</param>
+        void Register<T>(string name, T instance);
 
-            void Inject<T>(T existing);
-            /// <summary>
-            /// Résoudre un type spécifié.
-            /// </summary>
-            /// <typeparam name="T">Type à résoudre.</typeparam>
-            /// <param name="type">Le Type.</param>
-            /// <returns>Retourne une instance du type à résoudre.</returns>
-            T Resolve<T>(Type type);
+        /// <summary>
+        /// Injection sur un type existant.
+        /// </summary>
+        /// <typeparam name="T">Le type de l'existant</typeparam>
+        /// <param name="existing">L'existant.</param>
 
-            /// <summary>
-            /// Résoudre le type spécifié.
-            /// </summary>
-            /// <typeparam name="T">Le type à résoudre</typeparam>
-            /// <param name="type">Le Type.</param>
-            /// <param name="name">Le nom.</param>
-            /// <returns>Retourne une instance du type à résoudre.</returns>
-            T Resolve<T>(Type type, string name);
+        void Inject<T>(T existing);
 
-            /// <summary>
-            /// Résoudre le type spécifié.
-            /// </summary>
-            /// <typeparam name="T">Le type à résoudre.</typeparam>
-            /// <returns>Retourne une instance du type à résoudre.</returns>
-            T Resolve<T>();
+        /// <summary>
+        /// Résoudre un type spécifié.
+        /// </summary>
+        /// <typeparam name="T">Type à résoudre.</typeparam>
+        /// <param name="type">Le Type.</param>
+        /// <returns>Retourne une instance du type à résoudre.</returns>
+        T Resolve<T>(Type type);
 
-            /// <summary>
-            /// Résoudre le typé spécifié.
-            /// </summary>
-            /// <typeparam name="T">Le type à résoudre.</typeparam>
-            /// <param name="name">Le nom.</param>
-            /// <returns>Retourne une instance du type à résoudre.</returns>
-            T Resolve<T>(string name);
+        /// <summary>
+        /// Résoudre le type spécifié.
+        /// </summary>
+        /// <typeparam name="T">Le type à résoudre</typeparam>
+        /// <param name="type">Le Type.</param>
+        /// <param name="name">Le nom.</param>
+        /// <returns>Retourne une instance du type à résoudre.</returns>
+        T Resolve<T>(Type type, string name);
 
+        /// <summary>
+        /// Résoudre le type spécifié.
+        /// </summary>
+        /// <typeparam name="T">Le type à résoudre.</typeparam>
+        /// <returns>Retourne une instance du type à résoudre.</returns>
+        T Resolve<T>();
 
-            bool IsRegistered<T>();
+        /// <summary>
+        /// Résoudre le typé spécifié.
+        /// </summary>
+        /// <typeparam name="T">Le type à résoudre.</typeparam>
+        /// <param name="name">Le nom.</param>
+        /// <returns>Retourne une instance du type à résoudre.</returns>
+        T Resolve<T>(string name);
 
-            /// <summary>
-            /// Résoudre un ensemble
-            /// </summary>
-            /// <typeparam name="T">Le type à résoudre.</typeparam>
-            /// <returns>Retourne des instances de type à résoudre.</returns>
-            IEnumerable<T> ResolveAll<T>();
-        }
-    
+        bool IsRegistered<T>();
+
+        /// <summary>
+        /// Résoudre un ensemble
+        /// </summary>
+        /// <typeparam name="T">Le type à résoudre.</typeparam>
+        /// <returns>Retourne des instances de type à résoudre.</returns>
+        IEnumerable<T> ResolveAll<T>();
+    }
 }

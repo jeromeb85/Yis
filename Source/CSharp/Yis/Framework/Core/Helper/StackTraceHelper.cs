@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Linq;
 
-
 namespace Yis.Framework.Core.Helper
 {
     public static class StackTraceHelper

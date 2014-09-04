@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Data.Contract;
 
 namespace Yis.Framework.Data.Database
 {
     public class DataContextBase : IDataContext
     {
-
         private IDbConnection _connection;
         private IDbTransaction _transaction;
 
@@ -20,10 +15,9 @@ namespace Yis.Framework.Data.Database
             string providerName = ConfigurationManager.ConnectionStrings[nameOrConnection].ProviderName;
             string connectionString = ConfigurationManager.ConnectionStrings[nameOrConnection].ConnectionString;
 
-            
             if (!string.IsNullOrEmpty(connectionString))
             {
-                _connection = new ConnectionFactory(providerName,connectionString).DbConnection;                
+                _connection = new ConnectionFactory(providerName, connectionString).DbConnection;
             }
         }
 
@@ -56,12 +50,10 @@ namespace Yis.Framework.Data.Database
             _connection.Dispose();
         }
 
-
-
         public void BeginTransaction()
         {
             _connection.Open();
-            _transaction = _connection.BeginTransaction();            
+            _transaction = _connection.BeginTransaction();
         }
 
         public bool IsInTransaction
@@ -100,9 +92,5 @@ namespace Yis.Framework.Data.Database
                 throw;
             }
         }
-
-
-
     }
-
 }

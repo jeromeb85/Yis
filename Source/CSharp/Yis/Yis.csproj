@@ -101,17 +101,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Designer\Business\WorkSpaceManager.cs" />
-    <Compile Include="Designer\Data\IWorkSpaceProvider.cs" />
-    <Compile Include="Designer\Data\IYisDesignerDataContext.cs" />
+    <Compile Include="Designer\Data\Contract\IWorkSpaceProvider.cs" />
+    <Compile Include="Designer\Data\Contract\IDesignerDataContext.cs" />
     <Compile Include="Designer\Data\WorkSpaceProvider.cs" />
     <Compile Include="Designer\Data\DesignerInitializer.cs" />
     <Compile Include="Designer\Model\WorkSpace.cs" />
+    <Compile Include="Framework\Core\Messaging\Contract\IBus.cs" />
     <Compile Include="Framework\Core\Extension\ObjectExt.cs" />
     <Compile Include="Framework\Core\Helper\ConsoleHelper.cs" />
     <Compile Include="Framework\Core\Helper\StackTraceHelper.cs" />
     <Compile Include="Framework\Core\Locator\Contract\IServiceLocator.cs" />
     <Compile Include="Framework\Core\Locator\ServiceLocator.cs" />
     <Compile Include="Framework\Core\Locator\ServiceLocatorManager.cs" />
+    <Compile Include="Framework\Core\Messaging\Bus.cs" />
     <Compile Include="Framework\Core\Rule\Contract\IRuleValidator.cs" />
     <Compile Include="Framework\Core\Shell\ShellFramework.cs" />
     <Compile Include="Program.cs" />

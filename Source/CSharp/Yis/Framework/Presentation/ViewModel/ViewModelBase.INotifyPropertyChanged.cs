@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yis.Framework.Presentation.ViewModel
 {
-
     public abstract partial class ViewModelBase : INotifyPropertyChanged
     {
         #region Implementation de INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged
         {
             add { _propertyChanged += value; }
             remove { _propertyChanged -= value; }
         }
-        #endregion
+
+        #endregion Implementation de INotifyPropertyChanged
 
         [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
@@ -31,10 +27,9 @@ namespace Yis.Framework.Presentation.ViewModel
         }
 
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-        { 
+        {
         }
 
         private PropertyChangedEventHandler _propertyChanged;
-
     }
 }

@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yis.Framework.Model
 {
     public abstract partial class ModelBase : IModel
     {
-
         private Dictionary<string, object> _cacheBackup;
 
         private void Backup()
@@ -40,28 +35,27 @@ namespace Yis.Framework.Model
             {
                 if (!newValue.Equals(value))
                 {
-                    value = newValue;                    
+                    value = newValue;
                 }
             }
             else
             {
                 value = default(T);
             }
-        }       
+        }
     }
 
     public class ModelBase<TKey> : ModelBase
     {
-
         private TKey _id;
+
         [Key]
-        [Column("Id")]    
+        [Column("Id")]
         public TKey Id { get { return _id; } set { SetValue<TKey>(ref _id, value); } }
 
         //[Column("CreatedDate")]
         //public DateTime DateCreated { get; set; }
         //[Column("LastModifiedDate")]
         //public DateTime DateLastModified { get; set; }
-
     }
 }
