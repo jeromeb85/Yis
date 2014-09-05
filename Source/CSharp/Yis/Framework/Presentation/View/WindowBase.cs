@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using Yis.Framework.Core.Factory;
+﻿using System;
+using System.Windows;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Presentation.Locator.Contract;
 
@@ -28,7 +28,7 @@ namespace Yis.Framework.Presentation.View
 
         protected WindowBase(bool searchViewModel)
         {
-            DataContext = (new Factory(Locator.ResolveViewModel(this.GetType()))).CreateInstance();
+            DataContext = Activator.CreateInstance(Locator.ResolveViewModel(this.GetType()));
         }
 
         public void Show(object context = null)
@@ -39,7 +39,7 @@ namespace Yis.Framework.Presentation.View
             }
             else
             {
-                DataContext = (new Factory(Locator.ResolveViewModel(this.GetType()))).CreateInstance();
+                DataContext = Activator.CreateInstance(Locator.ResolveViewModel(this.GetType()));
             }
 
             base.Show();
@@ -53,7 +53,7 @@ namespace Yis.Framework.Presentation.View
             }
             else
             {
-                DataContext = (new Factory(Locator.ResolveViewModel(this.GetType()))).CreateInstance();
+                DataContext = Activator.CreateInstance(Locator.ResolveViewModel(this.GetType()));
             }
 
             return base.ShowDialog();

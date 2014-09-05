@@ -1,18 +1,35 @@
 ﻿using System.Globalization;
 
-/// <summary>
-/// Extension de String
-/// </summary>
-public static class StringExt
+namespace Yis.Framework.Core.Extension
 {
     /// <summary>
-    ///     Appel string.Format(CultureInfo.CurrentCulture, value, args);
+    /// Extension de String
     /// </summary>
-    /// <param name = "value">La valeur.</param>
-    /// <param name = "args">Tableau d'arguments.</param>
-    /// <returns></returns>
-    public static string FormatWith(this string value, params object[] args)
+    public static class StringExt
     {
-        return string.Format(CultureInfo.CurrentCulture, value, args);
+        #region Methods
+
+        /// <summary>
+        ///     Appel string.Format(CultureInfo.CurrentCulture, value, args);
+        /// </summary>
+        /// <param name = "value">La valeur.</param>
+        /// <param name = "args">Tableau d'arguments.</param>
+        /// <returns></returns>
+        public static string FormatWith(this string value, params object[] args)
+        {
+            return string.Format(CultureInfo.CurrentCulture, value, args);
+        }
+
+        /// <summary>
+        /// Teste si une String est Null ou vide
+        /// </summary>
+        /// <param name="value">String à tester</param>
+        /// <returns>Retourne True si la String est null ou vide</returns>
+        public static bool IsNotNullNorEmpty(this string value)
+        {
+            return !string.IsNullOrEmpty(value);
+        }
+
+        #endregion Methods
     }
 }

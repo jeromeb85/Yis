@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq.Expressions;
-using Yis.Framework.Core.Rule.Contract;
+using Yis.Framework.Core.Validation.Contract;
+using Yis.Framework.Core.Validation.Rule;
 
-namespace Yis.Framework.Core.Rule
+namespace Yis.Framework.Core.Validation
 {
     public class RuleValidator : IRuleValidator
     {

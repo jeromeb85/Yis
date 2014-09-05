@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Yis.Framework.Core.Locator.Contract;
 
-namespace Yis.Framework.Core.Locator
+namespace Yis.Framework.Core.Locator.Internal
 {
     internal class ServiceLocator : IServiceLocator
     {

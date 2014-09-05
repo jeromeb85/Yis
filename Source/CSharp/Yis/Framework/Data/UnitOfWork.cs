@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Entity;
+using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.Helper;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator.Contract;

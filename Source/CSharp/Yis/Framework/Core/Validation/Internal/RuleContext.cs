@@ -1,6 +1,6 @@
-﻿using Yis.Framework.Core.Rule.Contract;
+﻿using Yis.Framework.Core.Validation.Contract;
 
-namespace Yis.Framework.Core.Rule
+namespace Yis.Framework.Core.Validation
 {
     public class RuleContext : IRuleContext
     {

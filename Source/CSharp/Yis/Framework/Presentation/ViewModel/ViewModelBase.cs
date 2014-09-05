@@ -3,16 +3,38 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Yis.Framework.Core.IoC;
-using Yis.Framework.Core.Rule;
+using Yis.Framework.Core.Validation;
 using Yis.Framework.Presentation.Navigation.Contract;
 
 namespace Yis.Framework.Presentation.ViewModel
 {
     public abstract partial class ViewModelBase : IViewModel
     {
-        #region Propriétés
+        #region Fields
 
         private bool _isChanged;
+
+        private INavigation _navigation;
+
+        private RuleValidator _validator;
+
+        #endregion Fields
+
+        #region Constructors
+
+        protected ViewModelBase()
+        {
+            AutoValidateProperty = true;
+            _hasErrors = false;
+
+            OnRuleInialize();
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        public bool AutoValidateProperty { get; set; }
 
         public bool IsChanged
         {
@@ -25,10 +47,6 @@ namespace Yis.Framework.Presentation.ViewModel
                 SetValue<bool>(ref _isChanged, value, false);
             }
         }
-
-        public bool AutoValidateProperty { get; set; }
-
-        private RuleValidator _validator;
 
         public RuleValidator Validator
         {
@@ -44,8 +62,6 @@ namespace Yis.Framework.Presentation.ViewModel
             }
         }
 
-        private INavigation _navigation;
-
         protected INavigation Navigation
         {
             get
@@ -59,46 +75,9 @@ namespace Yis.Framework.Presentation.ViewModel
             }
         }
 
-        #endregion Propriétés
+        #endregion Properties
 
-        #region Constructeurs
-
-        protected ViewModelBase()
-        {
-            AutoValidateProperty = true;
-            _hasErrors = false;
-
-            OnRuleInialize();
-        }
-
-        #endregion Constructeurs
-
-        protected void SetValue<T>(ref T property, T newValue, [CallerMemberName] string name = null)
-        {
-            SetValue<T>(ref property, newValue, AutoValidateProperty, name);
-        }
-
-        private void SetValue<T>(ref T property, T newValue, bool validate, [CallerMemberName] string name = null)
-        {
-            if (newValue != null)
-            {
-                if (!newValue.Equals(property))
-                {
-                    RaisePropertyChanging(name);
-                    property = newValue;
-                    RaisePropertyChanged(name);
-
-                    if (validate)
-                    {
-                        Validate(name);
-                    }
-                }
-            }
-            else
-            {
-                property = default(T);
-            }
-        }
+        #region Methods
 
         public bool Validate()
         {
@@ -136,6 +115,15 @@ namespace Yis.Framework.Presentation.ViewModel
             return true;
         }
 
+        protected virtual void OnRuleInialize()
+        {
+        }
+
+        protected void SetValue<T>(ref T property, T newValue, [CallerMemberName] string name = null)
+        {
+            SetValue<T>(ref property, newValue, AutoValidateProperty, name);
+        }
+
         protected bool Validate([CallerMemberName] string propertyName = null)
         {
             IEnumerable<ValidationResult> validationResults = Validator.Validate(this, propertyName);
@@ -171,30 +159,49 @@ namespace Yis.Framework.Presentation.ViewModel
                 }
             }
             return true;
-
-            //    if (string.IsNullOrEmpty(propertyName)) { throw new ArgumentException("The argument propertyName must not be null or empty."); }
-
-            //    IEnumerable<ValidationResult> validationResults = Validator.Validate(this, propertyName);
-            //    //Validator.TryValidateProperty(value, new ValidationContext(this) { MemberName = propertyName }, validationResults);
-            //    if (validationResults.Any())
-            //    {
-            //        Errors[propertyName] = validationResults.ToList();
-            //        RaiseErrorsChanged(propertyName);
-            //        return false;
-            //    }
-            //    else
-            //    {
-            //        if (Errors.Remove(propertyName))
-            //        {
-            //            RaiseErrorsChanged(propertyName);
-            //        }
-            //    }
-            //    return true;
-            //}
         }
 
-        protected virtual void OnRuleInialize()
+        private void SetValue<T>(ref T property, T newValue, bool validate, [CallerMemberName] string name = null)
         {
+            if (newValue != null)
+            {
+                if (!newValue.Equals(property))
+                {
+                    RaisePropertyChanging(name);
+                    property = newValue;
+                    RaisePropertyChanged(name);
+
+                    if (validate)
+                    {
+                        Validate(name);
+                    }
+                }
+            }
+            else
+            {
+                property = default(T);
+            }
         }
+
+        #endregion Methods
+    }
+
+    public abstract partial class ViewModelBase<TModel> : ViewModelBase
+    {
+        #region Constructors
+
+        protected ViewModelBase(TModel model)
+            : base()
+        {
+            Model = model;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        protected TModel Model { get; private set; }
+
+        #endregion Properties
     }
 }

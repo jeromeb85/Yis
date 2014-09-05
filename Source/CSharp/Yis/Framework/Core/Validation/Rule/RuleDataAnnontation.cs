@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using Yis.Framework.Core.Rule.Contract;
+using Yis.Framework.Core.Validation.Contract;
 
-namespace Yis.Framework.Core.Rule
+namespace Yis.Framework.Core.Validation.Rule
 {
     public class RuleDataAnnotation : IRule
     {

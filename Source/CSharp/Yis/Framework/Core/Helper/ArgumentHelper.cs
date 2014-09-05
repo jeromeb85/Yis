@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Yis.Framework.Core.Extension;
+using Yis.Framework.Core.IoC;
+using Yis.Framework.Core.Logging.Contract;
 
 namespace Yis.Framework.Core.Helper
 {
@@ -11,6 +14,25 @@ namespace Yis.Framework.Core.Helper
     /// </summary>
     public static class ArgumentHelper
     {
+        private static ILog _log;
+
+        private static ILog Log
+        {
+            get
+            {
+                if (_log.IsNull())
+                {
+                    _log = Resolver.Resolve<ILog>();
+                }
+                return _log;
+            }
+        }
+
+        private static IDependencyResolver Resolver
+        {
+            get { return DependencyResolverManager.Default; }
+        }
+
         #region Methods
 
         /// <summary>
@@ -25,6 +47,7 @@ namespace Yis.Framework.Core.Helper
         {
             if (paramValue == null)
             {
+                Log.Error("L'argument '{0}' ne peut être null", paramName);
                 throw new ArgumentNullException(paramName);
             }
         }

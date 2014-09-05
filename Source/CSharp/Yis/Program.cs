@@ -5,12 +5,39 @@ using Yis.Designer.Presentation;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator;
 using Yis.Framework.Core.Logging;
+using Yis.Framework.Core.Messaging;
+using Yis.Framework.Core.Messaging.Contract;
+using Yis.Framework.Core.Messaging.Event;
+using Yis.Framework.Core.Shell;
 using Yis.Framework.Helper;
 using Yis.Framework.Presentation.Locator;
 using Yis.Framework.Presentation.Locator.Contract;
 
 namespace Yis
 {
+    internal class test
+    {
+        public test()
+        {
+            IBus bus = BusManager.Default;
+            bus.Publish<NotificationMessage>(new NotificationMessage(this, "supppper"));
+        }
+    }
+
+    internal class test2
+    {
+        public test2()
+        {
+            IBus bus = BusManager.Default;
+            bus.Subscribe<NotificationMessage>((e) => { OnMessage(e.Message); });
+        }
+
+        private void OnMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
+    }
+
     internal class Program
     {
         //--private static YisDesignerDbContext db = ;
@@ -18,7 +45,7 @@ namespace Yis
         private static void Main(string[] args)
         {
             Boot.Start();
-            //RunConsole();
+            RunConsole();
             //RunWindows();
         }
 
@@ -37,22 +64,32 @@ namespace Yis
 
         private static void RunConsole()
         {
-            LogManager.Default.Debug("toto");
-
             ConsoleHelper.ShowConsoleWindow();
 
-            IViewModelLocator vml = new ViewModelLocator();
+            test tt = null;
+            test2 uu = null;
 
-            //Console.WriteLine(vml.ResolveViewModel(typeof(MainWindow)));
+            uu = new test2();
+            tt = new test();
 
-            ServiceLocator loc = new ServiceLocator();
+            Console.ReadLine();
 
-            loc.Build();
+            //LogManager.Default.Debug("toto");
 
-            foreach (Type item in loc.ResolveType(typeof(IDependencyResolver)))
-            {
-                Console.WriteLine(item.Name);
-            }
+            //ConsoleHelper.ShowConsoleWindow();
+
+            //IViewModelLocator vml = new ViewModelLocator();
+
+            ////Console.WriteLine(vml.ResolveViewModel(typeof(MainWindow)));
+
+            //ServiceLocator loc = new ServiceLocator();
+
+            //loc.Build();
+
+            //foreach (Type item in loc.ResolveType(typeof(IDependencyResolver)))
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
 
             //WorkSpace ws = new WorkSpace();
             //ws.Name = "12345";
@@ -103,7 +140,6 @@ namespace Yis
             //    }
             //}
 
-            Console.ReadLine();
             /*
             using (var db = new YisDesignerDbContext())
             {

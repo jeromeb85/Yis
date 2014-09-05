@@ -1,4 +1,4 @@
-﻿namespace Yis.Framework.Core.Rule
+﻿namespace Yis.Framework.Core.Validation
 {
     internal class RuleResult
     {

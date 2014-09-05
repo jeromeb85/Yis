@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
-using Yis.Designer.Presentation.Command;
 using Yis.Designer.Presentation.View;
+using Yis.Framework.Presentation.Commanding;
 using Yis.Framework.Presentation.ViewModel;
 
 namespace Yis.Designer.Presentation.ViewModel
@@ -22,7 +22,7 @@ namespace Yis.Designer.Presentation.ViewModel
         [StringLength(50, MinimumLength = 5, ErrorMessage = "La longueur doit être comprise entre 5 et 50")]
         public string TestText { get { return _testText; } set { SetValue<string>(ref _testText, value); } }
 
-        private RelayCommand _commandTest;
+        private ICommand _commandTest;
 
         public ICommand CommandTest
         {
@@ -30,7 +30,7 @@ namespace Yis.Designer.Presentation.ViewModel
             {
                 if (_commandTest == null)
                 {
-                    _commandTest = new RelayCommand(ProcedureTest);
+                    _commandTest = new Command(ProcedureTest);
                 }
                 return _commandTest;
             }

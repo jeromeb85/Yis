@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Yis.Framework.Business.Contract;
+using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator.Contract;
 using Yis.Framework.Core.Logging.Contract;
-using Yis.Framework.Core.Rule.Contract;
+using Yis.Framework.Core.Validation.Contract;
 using Yis.Framework.Data;
 using Yis.Framework.Data.Contract;
 using Yis.Framework.Model;
@@ -12,13 +13,48 @@ namespace Yis.Framework.Business
 {
     public abstract class BusinessComponentBase<TModel, TProvider> : IBusinessComponentBase<TModel>
         where TProvider : IRepository<TModel>
-        where TModel : IModel
+        where TModel : class,IModel
     {
         #region Fields
 
-        protected IDataContext DataContext { get; set; }
-
         private static IServiceLocator _locator;
+
+        private static ILog _log;
+
+        private TProvider _provider;
+
+        private IRuleValidator _validator;
+
+        private IDataContext _dataContext;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public BusinessComponentBase(IDataContext dataContext)
+        {
+            DataContext = dataContext;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        public IDataContext DataContext
+        {
+            get
+            {
+                return _dataContext;
+            }
+            set
+            {
+                if (value != _dataContext)
+                {
+                    _dataContext = value;
+                    _provider = default(TProvider);
+                }
+            }
+        }
 
         protected static IServiceLocator Locator
         {
@@ -28,8 +64,6 @@ namespace Yis.Framework.Business
                 return _locator;
             }
         }
-
-        private static ILog _log;
 
         protected static ILog Log
         {
@@ -45,13 +79,11 @@ namespace Yis.Framework.Business
             get { return DependencyResolverManager.Default; }
         }
 
-        private TProvider _provider;
-
         protected TProvider Provider
         {
             get
             {
-                if (_provider == null)
+                if (_provider.IsNull())
                 {
                     _provider = UnitOfWork.GetRepository<TProvider>(DataContext);
                 }
@@ -59,8 +91,6 @@ namespace Yis.Framework.Business
             }
             private set { _provider = value; }
         }
-
-        private IRuleValidator _validator;
 
         protected IRuleValidator Validator
         {
@@ -72,15 +102,7 @@ namespace Yis.Framework.Business
             }
         }
 
-        #endregion Fields
-
-        #region Constructors
-
-        public BusinessComponentBase(IDataContext dataContext)
-        {
-        }
-
-        #endregion Constructors
+        #endregion Properties
 
         #region Methods
 
@@ -94,9 +116,11 @@ namespace Yis.Framework.Business
 
     public abstract class BusinessComponentBase<TModel, TProvider, TDataContext> : BusinessComponentBase<TModel, TProvider>
         where TProvider : IRepository<TModel>
-        where TModel : IModel
+        where TModel : class,IModel
         where TDataContext : IDataContext
     {
+        #region Constructors
+
         public BusinessComponentBase()
             : base(Resolver.IsRegistered<TDataContext>() ? Locator.ResolveAndCreateType<TDataContext>() : Resolver.Resolve<TDataContext>())
         {
@@ -114,5 +138,7 @@ namespace Yis.Framework.Business
                 Resolver.Register<TDataContext>((TDataContext)DataContext);
             }
         }
+
+        #endregion Constructors
     }
 }

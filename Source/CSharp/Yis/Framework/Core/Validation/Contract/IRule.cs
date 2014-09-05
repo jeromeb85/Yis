@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Yis.Framework.Core.Rule.Contract
+namespace Yis.Framework.Core.Validation.Contract
 {
     public interface IRule
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using Yis.Designer.Data.Contract;
 using Yis.Designer.Model;
 using Yis.Framework.Data.Contract;
 using Yis.Framework.Data.EntityFramework;

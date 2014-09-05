@@ -1,6 +1,12 @@
-Localization
 Collection
-message Bus MessengerManager
-Gestion des Context
+Localization / Globalization
+DialogWindows
+Les composants qui utilisent le Bus doivent être IDisposable
 
-Suffit dans le Buisness Component de pouvoir changer le contexte et que dans ce cas il libère le Provider pour en recréer un nouveau.
+
+++
+WeakEventManager
+Task
+async
+lock
+

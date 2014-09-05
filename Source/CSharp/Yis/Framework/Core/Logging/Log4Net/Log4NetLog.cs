@@ -3,6 +3,7 @@ using log4net.Config;
 using System;
 using System.Configuration;
 using System.IO;
+using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.Helper;
 
 namespace Yis.Framework.Core.Logging.Log4Net
@@ -12,10 +13,17 @@ namespace Yis.Framework.Core.Logging.Log4Net
     /// </summary>
     public class Log4NetLog : Yis.Framework.Core.Logging.Contract.ILog
     {
+        #region Fields
+
         private readonly ILog _log4net;
+
+        #endregion Fields
+
         /// <summary>
         /// Initialise une nouvelle instance de <see cref="Log4NetTrace"/> classe.
         /// </summary>
+
+        #region Constructors
 
         public Log4NetLog()
         {
@@ -38,13 +46,60 @@ namespace Yis.Framework.Core.Logging.Log4Net
             _log4net = log4net.LogManager.GetLogger("root");
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         private bool IsFrameworkType()
         {
-            Type item = StackTraceHelper.GetCallingNoAbstractOrPrivateMethodType();
+            Type item = ReflectionHelper.GetCallingNoAbstractOrPrivateMethodType();
             return item.Namespace.Contains("Yis.Framework");
         }
 
+        #endregion Methods
+
         #region Implémentation de Ilog
+
+        /// <summary>
+        /// Retourne true si le niveau "Debug" est activé.
+        /// </summary>
+        public bool IsDebugEnabled
+        {
+            get { return _log4net.IsDebugEnabled; }
+        }
+
+        /// <summary>
+        /// Retourne true si le niveau "Error" est activé
+        /// </summary>
+        public bool IsErrorEnabled
+        {
+            get { return _log4net.IsErrorEnabled; }
+        }
+
+        /// <summary>
+        /// Retourne true si le Framework est autorisé à Logger
+        /// </summary>
+        public bool IsFrameworkEnabled
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Retourne true si le niveau "Info" est activé.
+        /// </summary>
+        public bool IsInfoEnabled
+        {
+            get { return _log4net.IsInfoEnabled; }
+        }
+
+        /// <summary>
+        /// Retourne true si le niveau "Warning" est activé.
+        /// </summary>
+        public bool IsWarningEnabled
+        {
+            get { return _log4net.IsWarnEnabled; }
+        }
 
         /// <summary>
         /// Log un message au niveau "Debug".
@@ -72,11 +127,36 @@ namespace Yis.Framework.Core.Logging.Log4Net
         }
 
         /// <summary>
-        /// Retourne true si le niveau "Debug" est activé.
+        /// Log un message au niveau "Error".
         /// </summary>
-        public bool IsDebugEnabled
+        /// <param name="message">Le message à logger.</param>
+        public void Error(string message)
         {
-            get { return _log4net.IsDebugEnabled; }
+            if (_log4net.IsErrorEnabled)
+            {
+                _log4net.Error(message);
+            }
+        }
+
+        public void Error(string message, System.Exception ex)
+        {
+            if (_log4net.IsErrorEnabled)
+            {
+                _log4net.Error(message, ex);
+            }
+        }
+
+        /// <summary>
+        /// Log un message formaté au niveau "Error".
+        /// </summary>
+        /// <param name="message">Le message contenant le format à logger.</param>
+        /// <param name="args">Les arguments pour le formatage.</param>
+        public void Error(string message, params object[] args)
+        {
+            if (_log4net.IsErrorEnabled)
+            {
+                Error(message.FormatWith(args));
+            }
         }
 
         /// <summary>
@@ -102,14 +182,6 @@ namespace Yis.Framework.Core.Logging.Log4Net
             {
                 Info(message.FormatWith(args));
             }
-        }
-
-        /// <summary>
-        /// Retourne true si le niveau "Info" est activé.
-        /// </summary>
-        public bool IsInfoEnabled
-        {
-            get { return _log4net.IsInfoEnabled; }
         }
 
         /// <summary>
@@ -148,64 +220,6 @@ namespace Yis.Framework.Core.Logging.Log4Net
             {
                 _log4net.Warn(message, Ex);
             }
-        }
-
-        /// <summary>
-        /// Retourne true si le niveau "Warning" est activé.
-        /// </summary>
-        public bool IsWarningEnabled
-        {
-            get { return _log4net.IsWarnEnabled; }
-        }
-
-        /// <summary>
-        /// Log un message au niveau "Error".
-        /// </summary>
-        /// <param name="message">Le message à logger.</param>
-        public void Error(string message)
-        {
-            if (_log4net.IsErrorEnabled)
-            {
-                _log4net.Error(message);
-            }
-        }
-
-        public void Error(string message, System.Exception ex)
-        {
-            if (_log4net.IsErrorEnabled)
-            {
-                _log4net.Error(message, ex);
-            }
-        }
-
-        /// <summary>
-        /// Log un message formaté au niveau "Error".
-        /// </summary>
-        /// <param name="message">Le message contenant le format à logger.</param>
-        /// <param name="args">Les arguments pour le formatage.</param>
-        public void Error(string message, params object[] args)
-        {
-            if (_log4net.IsErrorEnabled)
-            {
-                Error(message.FormatWith(args));
-            }
-        }
-
-        /// <summary>
-        /// Retourne true si le niveau "Error" est activé
-        /// </summary>
-        public bool IsErrorEnabled
-        {
-            get { return _log4net.IsErrorEnabled; }
-        }
-
-        /// <summary>
-        /// Retourne true si le Framework est autorisé à Logger
-        /// </summary>
-        public bool IsFrameworkEnabled
-        {
-            get;
-            set;
         }
 
         #endregion Implémentation de Ilog

@@ -106,18 +106,33 @@
     <Compile Include="Designer\Data\WorkSpaceProvider.cs" />
     <Compile Include="Designer\Data\DesignerInitializer.cs" />
     <Compile Include="Designer\Model\WorkSpace.cs" />
+    <Compile Include="Framework\Core\Extension\ICollectionExt.cs" />
+    <Compile Include="Framework\Core\Extension\IEnumerableExt.cs" />
+    <Compile Include="Framework\Core\Messaging\BusManager.cs" />
+    <Compile Include="Framework\Core\Messaging\Contract\IMessage.cs" />
+    <Compile Include="Framework\Core\Messaging\Event\Message.cs" />
+    <Compile Include="Framework\Core\Messaging\Event\NotificationMessage.cs" />
+    <Compile Include="Framework\Core\Messaging\Internal\Subscription.cs" />
     <Compile Include="Framework\Core\Messaging\Contract\IBus.cs" />
     <Compile Include="Framework\Core\Extension\ObjectExt.cs" />
     <Compile Include="Framework\Core\Helper\ConsoleHelper.cs" />
-    <Compile Include="Framework\Core\Helper\StackTraceHelper.cs" />
+    <Compile Include="Framework\Core\Helper\ReflectionHelper.cs" />
     <Compile Include="Framework\Core\Locator\Contract\IServiceLocator.cs" />
-    <Compile Include="Framework\Core\Locator\ServiceLocator.cs" />
+    <Compile Include="Framework\Core\Locator\Internal\ServiceLocator.cs" />
     <Compile Include="Framework\Core\Locator\ServiceLocatorManager.cs" />
-    <Compile Include="Framework\Core\Messaging\Bus.cs" />
-    <Compile Include="Framework\Core\Rule\Contract\IRuleValidator.cs" />
+    <Compile Include="Framework\Core\Messaging\Internal\Bus.cs" />
+    <Compile Include="Framework\Core\Messaging\Contract\ThreadingStrategy.cs" />
+    <Compile Include="Framework\Core\Weak\WeakAction.cs" />
+    <Compile Include="Framework\Core\Weak\WeakDelegate.cs" />
+    <Compile Include="Framework\Core\Validation\Contract\IRuleEngine.cs" />
+    <Compile Include="Framework\Core\Validation\Contract\IRuleValidator.cs" />
     <Compile Include="Framework\Core\Shell\ShellFramework.cs" />
+    <Compile Include="Framework\Core\Validation\Internal\RuleEngine.cs" />
+    <Compile Include="Framework\Core\Validation\RuleEngineManager.cs" />
+    <Compile Include="Framework\Core\Weak\WeakFunc.cs" />
+    <Compile Include="Framework\Presentation\Commanding\Command.cs" />
+    <Compile Include="Framework\Presentation\ViewModel\ViewModelCollectionBase.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Designer\Presentation\Command\RelayCommand.cs" />
     <Compile Include="Designer\Presentation\ViewModel\MainViewModel.cs" />
     <Compile Include="Designer\Presentation\ViewModel\WorkSpaceCollectionViewModel.cs" />
     <Compile Include="Designer\Presentation\ViewModel\WorkSpaceViewModel.cs" />
@@ -128,7 +143,7 @@
     <Compile Include="Designer\Presentation\View\WorkSpaceView.xaml.cs">
       <DependentUpon>WorkSpaceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Framework\Core\Boot\Boot.cs" />
+    <Compile Include="Framework\Core\Shell\Boot.cs" />
     <Compile Include="Framework\Business\BusinessComponentBase.cs" />
     <Compile Include="Framework\Business\Contract\IBusinessComponentBase.cs" />
     <Compile Include="Framework\Core\Shell\Contract\IShell.cs" />
@@ -142,16 +157,14 @@
     <Compile Include="Framework\Presentation\View\IView.cs" />
     <Compile Include="Framework\Presentation\View\IWindowView.cs" />
     <Compile Include="Framework\Presentation\View\UserControlBase.cs" />
-    <Compile Include="Framework\Core\Rule\Contract\IRule.cs" />
-    <Compile Include="Framework\Core\Rule\Contract\IRuleContext.cs" />
-    <Compile Include="Framework\Core\Rule\RuleContext.cs" />
-    <Compile Include="Framework\Core\Rule\RuleDataAnnontation.cs" />
-    <Compile Include="Framework\Core\Rule\RuleDelegate.cs" />
-    <Compile Include="Framework\Core\Rule\RuleResult.cs" />
-    <Compile Include="Framework\Core\Rule\RuleValidator.cs" />
+    <Compile Include="Framework\Core\Validation\Contract\IRule.cs" />
+    <Compile Include="Framework\Core\Validation\Contract\IRuleContext.cs" />
+    <Compile Include="Framework\Core\Validation\Internal\RuleContext.cs" />
+    <Compile Include="Framework\Core\Validation\Rule\RuleDataAnnontation.cs" />
+    <Compile Include="Framework\Core\Validation\Rule\RuleDelegate.cs" />
+    <Compile Include="Framework\Core\Validation\Internal\RuleResult.cs" />
+    <Compile Include="Framework\Core\Validation\Internal\RuleValidator.cs" />
     <Compile Include="Framework\Core\Extension\StringExt.cs" />
-    <Compile Include="Framework\Core\Factory\Factory.cs" />
-    <Compile Include="Framework\Core\Factory\Contract\IFactory.cs" />
     <Compile Include="Framework\Core\Helper\ArgumentHelper.cs" />
     <Compile Include="Framework\Core\IoC\Unity\UnityDependencyResolver.cs" />
     <Compile Include="Framework\Core\IoC\Contract\IDependencyResolver.cs" />
@@ -237,6 +250,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Designer\Presentation\Command\" />
     <Folder Include="Designer\Service\Interface\" />
     <Folder Include="Framework\Data\Memory\" />
     <Folder Include="Framework\Data\nHibernate\" />

@@ -1,4 +1,4 @@
-﻿namespace Yis.Framework.Core.Rule.Contract
+﻿namespace Yis.Framework.Core.Validation.Contract
 {
     public interface IRuleContext
     {

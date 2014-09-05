@@ -1,4 +1,5 @@
-﻿using Yis.Framework.Core.IoC;
+﻿using Yis.Framework.Core.Extension;
+using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator;
 using Yis.Framework.Core.Logging.Contract;
 
@@ -7,7 +8,7 @@ namespace Yis.Framework.Core.Logging
     /// <summary>
     /// Classe fournissant les instances de logs
     /// </summary>
-    public static class LogManager
+    internal static class LogManager
     {
         private static ILog _default;
 

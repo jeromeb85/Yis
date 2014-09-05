@@ -1,4 +1,5 @@
-﻿using Yis.Framework.Core.Locator;
+﻿using Yis.Framework.Core.Extension;
+using Yis.Framework.Core.Locator;
 
 namespace Yis.Framework.Core.IoC
 {
