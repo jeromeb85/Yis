@@ -14,33 +14,33 @@ namespace Yis.Framework.Data.Contract
     {
         #region Methods
 
-        IQueryable<TModel> GetQuery();
+        //    IQueryable<TModel> GetQuery();
 
-        IQueryable<TModel> GetQuery(Expression<Func<TModel, bool>> predicate);
+        //   IQueryable<TModel> GetQuery(Expression<Func<TModel, bool>> predicate);
 
-        TModel Single(Expression<Func<TModel, bool>> predicate = null);
+        //        TModel Single(Expression<Func<TModel, bool>> predicate = null);
 
-        TModel SingleOrDefault(Expression<Func<TModel, bool>> predicate = null);
+        //      TModel SingleOrDefault(Expression<Func<TModel, bool>> predicate = null);
 
-        TModel First(Expression<Func<TModel, bool>> predicate = null);
+        //    TModel First(Expression<Func<TModel, bool>> predicate = null);
 
-        TModel FirstOrDefault(Expression<Func<TModel, bool>> predicate = null);
+        //      TModel FirstOrDefault(Expression<Func<TModel, bool>> predicate = null);
 
-        TModel Create();
+        //        TModel Create();
 
-        void Add(TModel entity);
+        //void Add(TModel entity);
 
-        void Delete(TModel entity);
+        //void Delete(TModel entity);
 
-        void Delete(Expression<Func<TModel, bool>> predicate);
+        //void Delete(Expression<Func<TModel, bool>> predicate);
 
-        void Update(TModel entity);
+        // void Update(TModel entity);
 
-        IQueryable<TModel> Find(Expression<Func<TModel, bool>> predicate);
+        //  IQueryable<TModel> Find(Expression<Func<TModel, bool>> predicate);
 
         IEnumerable<TModel> GetAll();
 
-        int Count(Expression<Func<TModel, bool>> predicate = null);
+        // int Count(Expression<Func<TModel, bool>> predicate = null);
 
         #endregion Methods
     }

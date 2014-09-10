@@ -100,12 +100,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Designer\Business\WorkSpaceManager.cs" />
-    <Compile Include="Designer\Data\Contract\IWorkSpaceProvider.cs" />
-    <Compile Include="Designer\Data\Contract\IDesignerDataContext.cs" />
-    <Compile Include="Designer\Data\WorkSpaceProvider.cs" />
-    <Compile Include="Designer\Data\DesignerInitializer.cs" />
-    <Compile Include="Designer\Model\WorkSpace.cs" />
+    <Compile Include="Designer\Shell\Business\WorkSpaceManager.cs" />
+    <Compile Include="Designer\Shell\Data\Contract\IWorkSpaceProvider.cs" />
+    <Compile Include="Designer\Shell\Data\Contract\IDesignerDataContext.cs" />
+    <Compile Include="Designer\Shell\Data\WorkSpaceProvider.cs" />
+    <Compile Include="Designer\Shell\Data\DesignerInitializer.cs" />
+    <Compile Include="Designer\Shell\Model\WorkSpace.cs" />
+    <Compile Include="Designer\Software\Model\Class.cs" />
+    <Compile Include="Designer\Software\Model\NameSpace.cs" />
+    <Compile Include="Designer\Technic\Contract\IGenerator.cs" />
+    <Compile Include="Designer\Technic\Contract\ITransformator.cs" />
+    <Compile Include="Designer\Technic\Standard\Generator.cs" />
     <Compile Include="Framework\Core\Extension\ICollectionExt.cs" />
     <Compile Include="Framework\Core\Extension\IEnumerableExt.cs" />
     <Compile Include="Framework\Core\Messaging\BusManager.cs" />
@@ -130,17 +135,18 @@
     <Compile Include="Framework\Core\Validation\Internal\RuleEngine.cs" />
     <Compile Include="Framework\Core\Validation\RuleEngineManager.cs" />
     <Compile Include="Framework\Core\Weak\WeakFunc.cs" />
+    <Compile Include="Framework\Data\Memory\RepositoryBase.cs" />
     <Compile Include="Framework\Presentation\Commanding\Command.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelCollectionBase.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Designer\Presentation\ViewModel\MainViewModel.cs" />
-    <Compile Include="Designer\Presentation\ViewModel\WorkSpaceCollectionViewModel.cs" />
-    <Compile Include="Designer\Presentation\ViewModel\WorkSpaceViewModel.cs" />
-    <Compile Include="Designer\Presentation\View\IWorkSpaceCollectionView.cs" />
-    <Compile Include="Designer\Presentation\View\WorkSpaceCollectionWindow.xaml.cs">
+    <Compile Include="Designer\Shell\Presentation\ViewModel\MainViewModel.cs" />
+    <Compile Include="Designer\Shell\Presentation\ViewModel\WorkSpaceCollectionViewModel.cs" />
+    <Compile Include="Designer\Shell\Presentation\ViewModel\WorkSpaceViewModel.cs" />
+    <Compile Include="Designer\Shell\Presentation\View\IWorkSpaceCollectionView.cs" />
+    <Compile Include="Designer\Shell\Presentation\View\WorkSpaceCollectionWindow.xaml.cs">
       <DependentUpon>WorkSpaceCollectionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Designer\Presentation\View\WorkSpaceView.xaml.cs">
+    <Compile Include="Designer\Shell\Presentation\View\WorkSpaceView.xaml.cs">
       <DependentUpon>WorkSpaceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Framework\Core\Shell\Boot.cs" />
@@ -197,28 +203,28 @@
     <Compile Include="Framework\Presentation\ViewModel\IViewModel.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Designer\Data\DesignerDataContext.cs" />
-    <ApplicationDefinition Include="Designer\Presentation\App.xaml">
+    <Compile Include="Designer\Shell\Data\DesignerDataContext.cs" />
+    <ApplicationDefinition Include="Designer\Shell\Presentation\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Designer\Presentation\View\WorkSpaceCollectionWindow.xaml">
+    <Page Include="Designer\Shell\Presentation\View\WorkSpaceCollectionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Designer\Presentation\View\MainWindow.xaml">
+    <Page Include="Designer\Shell\Presentation\View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Designer\Presentation\App.xaml.cs">
+    <Compile Include="Designer\Shell\Presentation\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Designer\Presentation\View\MainWindow.xaml.cs">
+    <Compile Include="Designer\Shell\Presentation\View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Designer\Presentation\View\WorkSpaceView.xaml">
+    <Page Include="Designer\Shell\Presentation\View\WorkSpaceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -250,9 +256,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Designer\Presentation\Command\" />
-    <Folder Include="Designer\Service\Interface\" />
-    <Folder Include="Framework\Data\Memory\" />
+    <Folder Include="Designer\Logic\" />
+    <Folder Include="Designer\Pragmatic\" />
+    <Folder Include="Designer\Semantic\" />
+    <Folder Include="Designer\Shell\Presentation\Command\" />
+    <Folder Include="Designer\Shell\Service\Interface\" />
+    <Folder Include="Designer\Software\Business\" />
     <Folder Include="Framework\Data\nHibernate\" />
   </ItemGroup>
   <ItemGroup>

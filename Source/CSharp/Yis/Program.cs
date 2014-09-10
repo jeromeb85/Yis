@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Yis.Designer.Model;
 using Yis.Designer.Presentation;
+using Yis.Designer.Software.Model;
+using Yis.Designer.Technic.Standard;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator;
 using Yis.Framework.Core.Logging;
@@ -45,8 +48,26 @@ namespace Yis
         private static void Main(string[] args)
         {
             Boot.Start();
-            RunConsole();
+            RunGenerator();
+            //RunConsole();
             //RunWindows();
+        }
+
+        private static void RunGenerator()
+        {
+            ConsoleHelper.ShowConsoleWindow();
+
+            Generator gen = new Generator();
+            NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis", ChrildrenNameSpace = new List<NameSpace>() };
+            NameSpace child = new NameSpace() { Id = Guid.NewGuid(), Name = "Sample", Class = new List<Class>() };
+            Class test = new Class() { Id = Guid.NewGuid(), Name = "testclass", NameSpaceId = child.Id };
+
+            root.ChrildrenNameSpace.Add(child);
+            child.Class.Add(test);
+
+            gen.Generate(root, @"C:\TestGen");
+
+            Console.ReadKey();
         }
 
         private static void RunWindows()
