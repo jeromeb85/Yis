@@ -111,7 +111,17 @@
     <Compile Include="Designer\Technic\Contract\IGenerator.cs" />
     <Compile Include="Designer\Technic\Contract\ITransformator.cs" />
     <Compile Include="Designer\Technic\Standard\Generator.cs" />
+    <Compile Include="Framework\Core\Caching\CacheStorage.cs" />
+    <Compile Include="Framework\Core\Caching\CacheStorageValueInfo.cs" />
+    <Compile Include="Framework\Core\Caching\Contract\ICacheStorage.cs" />
+    <Compile Include="Framework\Core\Caching\Contract\IExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\AbsoluteExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\CustomExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\DurationExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\ExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Caching\Policies\SlidingExpirationPolicy.cs" />
     <Compile Include="Framework\Core\Extension\ICollectionExt.cs" />
+    <Compile Include="Framework\Core\Extension\IDictionnaryExt.cs" />
     <Compile Include="Framework\Core\Extension\IEnumerableExt.cs" />
     <Compile Include="Framework\Core\Messaging\BusManager.cs" />
     <Compile Include="Framework\Core\Messaging\Contract\IMessage.cs" />
@@ -135,7 +145,8 @@
     <Compile Include="Framework\Core\Validation\Internal\RuleEngine.cs" />
     <Compile Include="Framework\Core\Validation\RuleEngineManager.cs" />
     <Compile Include="Framework\Core\Weak\WeakFunc.cs" />
-    <Compile Include="Framework\Data\Memory\RepositoryBase.cs" />
+    <Compile Include="Framework\Data\Cache\DataContextBase.cs" />
+    <Compile Include="Framework\Data\Cache\RepositoryBase.cs" />
     <Compile Include="Framework\Presentation\Commanding\Command.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelCollectionBase.cs" />
     <Compile Include="Program.cs" />
@@ -263,6 +274,7 @@
     <Folder Include="Designer\Shell\Service\Interface\" />
     <Folder Include="Designer\Software\Business\" />
     <Folder Include="Framework\Data\nHibernate\" />
+    <Folder Include="Framework\Data\Persistent\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

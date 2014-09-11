@@ -9,7 +9,28 @@ namespace Yis.Framework.Model
 {
     public abstract partial class ModelBase : IModel
     {
+        #region Fields
+
         private Dictionary<string, object> _cacheBackup;
+
+        #endregion Fields
+
+        #region Methods
+
+        protected void SetValue<T>(ref T value, T newValue, [CallerMemberName] string name = null)
+        {
+            if (newValue != null)
+            {
+                if (!newValue.Equals(value))
+                {
+                    value = newValue;
+                }
+            }
+            else
+            {
+                value = default(T);
+            }
+        }
 
         private void Backup()
         {
@@ -29,29 +50,24 @@ namespace Yis.Framework.Model
             }
         }
 
-        protected void SetValue<T>(ref T value, T newValue, [CallerMemberName] string name = null)
-        {
-            if (newValue != null)
-            {
-                if (!newValue.Equals(value))
-                {
-                    value = newValue;
-                }
-            }
-            else
-            {
-                value = default(T);
-            }
-        }
+        #endregion Methods
     }
 
-    public class ModelBase<TKey> : ModelBase
+    public class ModelBase<TKey> : ModelBase, IModel<TKey>
     {
+        #region Fields
+
         private TKey _id;
+
+        #endregion Fields
+
+        #region Properties
 
         [Key]
         [Column("Id")]
         public TKey Id { get { return _id; } set { SetValue<TKey>(ref _id, value); } }
+
+        #endregion Properties
 
         //[Column("CreatedDate")]
         //public DateTime DateCreated { get; set; }
