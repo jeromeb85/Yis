@@ -200,7 +200,7 @@
     <Compile Include="Framework\Data\UnitOfWork.cs" />
     <Compile Include="Framework\Data\Contract\IRepository.cs" />
     <Compile Include="Framework\Data\Contract\IUnitOfWork.cs" />
-    <Compile Include="Framework\Model\IModel.cs" />
+    <Compile Include="Framework\Model\Contract\IModel.cs" />
     <Compile Include="Framework\Model\ModelBase.cs" />
     <Compile Include="Framework\Model\ModelBase.IChangeTracking.cs" />
     <Compile Include="Framework\Model\ModelBase.IDataErrorInfo.cs" />

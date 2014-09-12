@@ -1,4 +1,4 @@
-﻿namespace Yis.Framework.Model
+﻿namespace Yis.Framework.Model.Contract
 {
     public interface IModel
     {

@@ -7,7 +7,7 @@ using Yis.Framework.Core.Logging.Contract;
 using Yis.Framework.Core.Validation.Contract;
 using Yis.Framework.Data;
 using Yis.Framework.Data.Contract;
-using Yis.Framework.Model;
+using Yis.Framework.Model.Contract;
 
 namespace Yis.Framework.Business
 {
@@ -21,11 +21,10 @@ namespace Yis.Framework.Business
 
         private static ILog _log;
 
+        private IDataContext _dataContext;
         private TProvider _provider;
 
         private IRuleValidator _validator;
-
-        private IDataContext _dataContext;
 
         #endregion Fields
 

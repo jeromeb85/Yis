@@ -58,17 +58,6 @@ namespace Yis.Framework.Core.Caching.Contract
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <param name="override">Indicates if the key exists the value will be overridden.</param>
-        /// <param name="expiration">The timespan in which the cache item should expire when added.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="key" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="key" /> is <c>null</c>.</exception>
-        void Add(TKey key, TValue @value, bool @override = false, TimeSpan expiration = default(TimeSpan));
-
-        /// <summary>
-        /// Adds a value to the cache associated with to a key.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
         /// <param name="expirationPolicy">The expiration policy</param>
         /// <param name="override">Indicates if the key exists the value will be overridden.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="key" /> is <c>null</c>.</exception>
@@ -101,19 +90,6 @@ namespace Yis.Framework.Core.Caching.Contract
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="code">The deferred initialization code of the value.</param>
-        /// <param name="override">Indicates if the key exists the value will be overridden.</param>
-        /// <param name="expiration">The timespan in which the cache item should expire when added.</param>
-        /// <returns>The instance initialized by the <paramref name="code" />.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="key" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="key" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="key" /> is <c>null</c>.</exception>
-        TValue GetFromCacheOrFetch(TKey key, Func<TValue> code, bool @override = false, TimeSpan expiration = default(TimeSpan));
-
-        /// <summary>
-        /// Adds a value to the cache associated with to a key.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="code">The deferred initialization code of the value.</param>
         /// <param name="expirationPolicy">The expiration policy</param>
         /// <param name="override">Indicates if the key exists the value will be overridden</param>
         /// <returns>The instance initialized by the <paramref name="code" />.</returns>
@@ -135,19 +111,5 @@ namespace Yis.Framework.Core.Caching.Contract
         /// <exception cref="ArgumentNullException">If <paramref name="key" /> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">If <paramref name="code" /> is <c>null</c>.</exception>
         Task<TValue> GetFromCacheOrFetchAsync(TKey key, Func<TValue> code, IExpirationPolicy expirationPolicy, bool @override = false);
-
-        /// <summary>
-        /// Adds a value to the cache associated with to a key asynchronously.
-        /// <para />
-        /// Note that this is a wrapper around <see cref="CacheStorage{TKey,TValue}.GetFromCacheOrFetch(TKey,System.Func{TValue},bool,System.TimeSpan)"/>.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="code">The deferred initialization code of the value.</param>
-        /// <param name="override">Indicates if the key exists the value will be overridden.</param>
-        /// <param name="expiration">The timespan in which the cache item should expire when added.</param>
-        /// <returns>The instance initialized by the <paramref name="code" />.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="key" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="code" /> is <c>null</c>.</exception>
-        Task<TValue> GetFromCacheOrFetchAsync(TKey key, Func<TValue> code, bool @override = false, TimeSpan expiration = default(TimeSpan));
     }
 }
