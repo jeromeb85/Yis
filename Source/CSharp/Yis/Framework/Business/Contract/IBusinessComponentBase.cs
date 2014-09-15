@@ -8,6 +8,12 @@ namespace Yis.Framework.Business.Contract
 
     public interface IBusinessComponentBase<TModel>
     {
+        #region Methods
+
+        TModel Create();
+
         IEnumerable<TModel> GetAll();
+
+        #endregion Methods
     }
 }

@@ -106,6 +106,11 @@
     <Compile Include="Designer\Shell\Data\WorkSpaceProvider.cs" />
     <Compile Include="Designer\Shell\Data\DesignerInitializer.cs" />
     <Compile Include="Designer\Shell\Model\WorkSpace.cs" />
+    <Compile Include="Designer\Software\Business\NameSpaceManager.cs" />
+    <Compile Include="Designer\Software\Data\Contract\INameSpaceProvider.cs" />
+    <Compile Include="Designer\Software\Data\Contract\ISoftwareDataContext.cs" />
+    <Compile Include="Designer\Software\Data\MemoryPersistent\NameSpaceProvider.cs" />
+    <Compile Include="Designer\Software\Data\MemoryPersistent\SoftwareDataContext.cs" />
     <Compile Include="Designer\Software\Model\Class.cs" />
     <Compile Include="Designer\Software\Model\NameSpace.cs" />
     <Compile Include="Designer\Technic\Contract\IGenerator.cs" />
@@ -145,8 +150,14 @@
     <Compile Include="Framework\Core\Validation\Internal\RuleEngine.cs" />
     <Compile Include="Framework\Core\Validation\RuleEngineManager.cs" />
     <Compile Include="Framework\Core\Weak\WeakFunc.cs" />
-    <Compile Include="Framework\Data\Cache\DataContextBase.cs" />
-    <Compile Include="Framework\Data\Cache\RepositoryBase.cs" />
+    <Compile Include="Framework\Data\Memory\DataContextBase.cs" />
+    <Compile Include="Framework\Data\Memory\DataStore.cs" />
+    <Compile Include="Framework\Data\Memory\RepositoryBase.cs" />
+    <Compile Include="Framework\Data\Memory\Transaction.cs" />
+    <Compile Include="Framework\Data\PersistentMemory\DataContextBase.cs" />
+    <Compile Include="Framework\Data\PersistentMemory\DataStore.cs" />
+    <Compile Include="Framework\Data\PersistentMemory\RepositoryBase.cs" />
+    <Compile Include="Framework\Data\PersistentMemory\Transaction.cs" />
     <Compile Include="Framework\Presentation\Commanding\Command.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelCollectionBase.cs" />
     <Compile Include="Program.cs" />
@@ -272,9 +283,7 @@
     <Folder Include="Designer\Semantic\" />
     <Folder Include="Designer\Shell\Presentation\Command\" />
     <Folder Include="Designer\Shell\Service\Interface\" />
-    <Folder Include="Designer\Software\Business\" />
     <Folder Include="Framework\Data\nHibernate\" />
-    <Folder Include="Framework\Data\Persistent\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

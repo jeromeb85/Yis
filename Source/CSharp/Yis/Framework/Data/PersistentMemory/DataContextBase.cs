@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,24 +12,29 @@ using Yis.Framework.Core.Helper;
 using Yis.Framework.Data.Contract;
 using Yis.Framework.Model.Contract;
 
-namespace Yis.Framework.Data.Cache
+namespace Yis.Framework.Data.PersistentMemory
 {
-    internal enum TransactionType
-    {
-        Add,
-        Update,
-        Delete
-    }
-
     public class DataContextBase : IDataContext
     {
         #region Fields
 
-        private IDictionary<Type, List<Object>> _cache;
+        private DataStore _store;
 
         private Stack<Queue<Transaction>> _transaction;
 
         #endregion Fields
+
+        #region Constructors
+
+        public DataContextBase(string path)
+        {
+            Path = path;
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+        }
+
+        #endregion Constructors
 
         #region Properties
 
@@ -37,15 +43,15 @@ namespace Yis.Framework.Data.Cache
             get { return Transaction.Count != 0; }
         }
 
-        private IDictionary<Type, List<Object>> Cache
+        private DataStore Store
         {
             get
             {
-                if (_cache.IsNull())
+                if (_store.IsNull())
                 {
-                    _cache = new Dictionary<Type, List<Object>>();
+                    _store = new DataStore(Path);
                 }
-                return _cache;
+                return _store;
             }
         }
 
@@ -79,19 +85,15 @@ namespace Yis.Framework.Data.Cache
 
                 foreach (Transaction tr in listTransaction)
                 {
-                    if (!Cache.ContainsKey(tr.Obj.GetType()))
-                        Cache.Add(tr.Obj.GetType(), new List<Object>());
-
                     if (tr.Type == TransactionType.Add)
-                        Cache[tr.Obj.GetType()].Add(tr.Obj);
+                        Store.Save(tr.Obj);
 
                     if (tr.Type == TransactionType.Delete)
-                        Cache[tr.Obj.GetType()].Remove(tr.Obj);
+                        Store.Remove(tr.Obj);
 
                     if (tr.Type == TransactionType.Update)
                     {
-                        Cache[tr.Obj.GetType()].Remove(tr.Obj);
-                        Cache[tr.Obj.GetType()].Add(tr.Obj);
+                        Store.Save(tr.Obj);
                     }
                 }
 
@@ -101,6 +103,11 @@ namespace Yis.Framework.Data.Cache
             {
                 RollBackTransaction();
             }
+        }
+
+        public IEnumerable<TEntity> Get<TEntity>()
+        {
+            return Store.List<TEntity>();
         }
 
         public void Remove<TEntity>(TEntity entity)
@@ -134,12 +141,6 @@ namespace Yis.Framework.Data.Cache
             Transaction.Peek().Enqueue(new Transaction(entity, TransactionType.Update));
         }
 
-        internal void Get<TEntity>()
-        {
-            if (!Cache.ContainsKey(typeof(TEntity)))
-                Cache.Add(typeof(TEntity), new List<Object>());
-        }
-
         private void Add<TEntity>(TEntity entity)
         {
             if (!IsInTransaction)
@@ -151,26 +152,7 @@ namespace Yis.Framework.Data.Cache
         }
 
         #endregion Methods
-    }
 
-    internal class Transaction
-    {
-        #region Fields
-
-        public readonly object Obj;
-
-        public readonly TransactionType Type;
-
-        #endregion Fields
-
-        #region Constructors
-
-        public Transaction(object obj, TransactionType type)
-        {
-            Obj = obj;
-            Type = type;
-        }
-
-        #endregion Constructors
+        private readonly string Path;
     }
 }

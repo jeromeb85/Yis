@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 using Yis.Framework.Core.Extension;
 using Yis.Framework.Data.Contract;
 
-namespace Yis.Framework.Data.Cache
+namespace Yis.Framework.Data.PersistentMemory
 {
     public abstract class RepositoryBase<TModel> : IRepository<TModel>
-           where TModel : class
+           where TModel : class,new()
     {
         #region Fields
-
-        private static List<TModel> _cache;
 
         private readonly DataContextBase Context;
 
@@ -33,25 +31,21 @@ namespace Yis.Framework.Data.Cache
 
         #endregion Constructors
 
-        #region Properties
-
-        public static List<TModel> Cache
-        {
-            get
-            {
-                if (_cache.IsNull())
-                    _cache = new List<TModel>();
-                return _cache;
-            }
-        }
-
-        #endregion Properties
-
         #region Methods
+
+        public TModel Create()
+        {
+            return new TModel();
+        }
 
         public IEnumerable<TModel> GetAll()
         {
-            throw new ArgumentNullException("pas");
+            return Context.Get<TModel>();
+        }
+
+        public IQueryable<TModel> GetQuery()
+        {
+            return Context.Get<TModel>().AsQueryable<TModel>();
         }
 
         #endregion Methods

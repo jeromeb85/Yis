@@ -14,7 +14,7 @@ namespace Yis.Framework.Data.Contract
     {
         #region Methods
 
-        //    IQueryable<TModel> GetQuery();
+        IEnumerable<TModel> GetAll();
 
         //   IQueryable<TModel> GetQuery(Expression<Func<TModel, bool>> predicate);
 
@@ -26,7 +26,9 @@ namespace Yis.Framework.Data.Contract
 
         //      TModel FirstOrDefault(Expression<Func<TModel, bool>> predicate = null);
 
-        //        TModel Create();
+        TModel Create();
+
+        #endregion Methods
 
         //void Add(TModel entity);
 
@@ -37,12 +39,7 @@ namespace Yis.Framework.Data.Contract
         // void Update(TModel entity);
 
         //  IQueryable<TModel> Find(Expression<Func<TModel, bool>> predicate);
-
-        IEnumerable<TModel> GetAll();
-
         // int Count(Expression<Func<TModel, bool>> predicate = null);
-
-        #endregion Methods
     }
 
     public interface IRepository<TModel, TKey> : IRepository<TModel>

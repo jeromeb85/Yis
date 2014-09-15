@@ -15,6 +15,15 @@ namespace Yis.Framework.Business
         where TProvider : IRepository<TModel>
         where TModel : class,IModel
     {
+        #region Methods
+
+        public IEnumerable<TModel> GetAll()
+        {
+            return Provider.GetAll();
+        }
+
+        #endregion Methods
+
         #region Fields
 
         private static IServiceLocator _locator;
@@ -22,6 +31,7 @@ namespace Yis.Framework.Business
         private static ILog _log;
 
         private IDataContext _dataContext;
+
         private TProvider _provider;
 
         private IRuleValidator _validator;
@@ -103,14 +113,10 @@ namespace Yis.Framework.Business
 
         #endregion Properties
 
-        #region Methods
-
-        public IEnumerable<TModel> GetAll()
+        public TModel Create()
         {
-            return Provider.GetAll();
+            return Provider.Create();
         }
-
-        #endregion Methods
     }
 
     public abstract class BusinessComponentBase<TModel, TProvider, TDataContext> : BusinessComponentBase<TModel, TProvider>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Yis.Designer.Model;
 using Yis.Designer.Presentation;
+using Yis.Designer.Software.Business;
 using Yis.Designer.Software.Model;
 using Yis.Designer.Technic.Standard;
 using Yis.Framework.Core.IoC;
@@ -18,31 +19,22 @@ using Yis.Framework.Presentation.Locator.Contract;
 
 namespace Yis
 {
-    internal class test
-    {
-        public test()
-        {
-            IBus bus = BusManager.Default;
-            bus.Publish<NotificationMessage>(new NotificationMessage(this, "supppper"));
-        }
-    }
-
-    internal class test2
-    {
-        public test2()
-        {
-            IBus bus = BusManager.Default;
-            bus.Subscribe<NotificationMessage>((e) => { OnMessage(e.Message); });
-        }
-
-        private void OnMessage(string message)
-        {
-            Console.WriteLine(message);
-        }
-    }
-
     internal class Program
     {
+        #region Fields
+
+        private static string _toto;
+
+        #endregion Fields
+
+        #region Properties
+
+        public static string Toto { get { return _toto; } set { _toto = value; } }
+
+        #endregion Properties
+
+        #region Methods
+
         //--private static YisDesignerDbContext db = ;
         [STAThread]
         private static void Main(string[] args)
@@ -51,36 +43,6 @@ namespace Yis
             RunGenerator();
             //RunConsole();
             //RunWindows();
-        }
-
-        private static void RunGenerator()
-        {
-            ConsoleHelper.ShowConsoleWindow();
-
-            Generator gen = new Generator();
-            NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis", ChrildrenNameSpace = new List<NameSpace>() };
-            NameSpace child = new NameSpace() { Id = Guid.NewGuid(), Name = "Sample", Class = new List<Class>() };
-            Class test = new Class() { Id = Guid.NewGuid(), Name = "testclass", NameSpaceId = child.Id };
-
-            root.ChrildrenNameSpace.Add(child);
-            child.Class.Add(test);
-
-            gen.Generate(root, @"C:\TestGen");
-
-            Console.ReadKey();
-        }
-
-        private static void RunWindows()
-        {
-            App.Main();
-        }
-
-        private static string _toto;
-
-        public static string Toto { get { return _toto; } set { _toto = value; } }
-
-        private static void tata(Expression<Func<object>> func, Func<WorkSpace, bool> func2)
-        {
         }
 
         private static void RunConsole()
@@ -194,5 +156,75 @@ namespace Yis
 
             ConsoleHelper.HideConsoleWindow();
         }
+
+        private static void RunGenerator()
+        {
+            ConsoleHelper.ShowConsoleWindow();
+
+            NameSpaceManager manag = new NameSpaceManager();
+
+            NameSpace root = manag.Create();
+
+            root.Id = Guid.NewGuid();
+            root.Name = "Yis";
+
+            //Generator gen = new Generator();
+            //NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis", ChrildrenNameSpace = new List<NameSpace>() };
+            //NameSpace child = new NameSpace() { Id = Guid.NewGuid(), Name = "Sample", Class = new List<Class>() };
+            //Class test = new Class() { Id = Guid.NewGuid(), Name = "testclass", NameSpaceId = child.Id };
+
+            //root.ChrildrenNameSpace.Add(child);
+            //child.Class.Add(test);
+
+            //gen.Generate(root, @"C:\TestGen");
+
+            Console.ReadKey();
+        }
+
+        private static void RunWindows()
+        {
+            App.Main();
+        }
+
+        private static void tata(Expression<Func<object>> func, Func<WorkSpace, bool> func2)
+        {
+        }
+
+        #endregion Methods
+    }
+
+    internal class test
+    {
+        #region Constructors
+
+        public test()
+        {
+            IBus bus = BusManager.Default;
+            bus.Publish<NotificationMessage>(new NotificationMessage(this, "supppper"));
+        }
+
+        #endregion Constructors
+    }
+
+    internal class test2
+    {
+        #region Constructors
+
+        public test2()
+        {
+            IBus bus = BusManager.Default;
+            bus.Subscribe<NotificationMessage>((e) => { OnMessage(e.Message); });
+        }
+
+        #endregion Constructors
+
+        #region Methods
+
+        private void OnMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        #endregion Methods
     }
 }
