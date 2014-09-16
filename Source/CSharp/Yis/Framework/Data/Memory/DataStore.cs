@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Yis.Framework.Core.Extension;
+using Yis.Framework.Model.Contract;
 
 namespace Yis.Framework.Data.Memory
 {
@@ -12,11 +15,36 @@ namespace Yis.Framework.Data.Memory
     {
         #region Fields
 
+        private readonly string Path;
+
         private IDictionary<Type, IList<object>> _data;
 
         #endregion Fields
 
+        #region Constructors
+
+        public DataStore(string path = null)
+        {
+            Path = path;
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            if (IsPersistent)
+                Load();
+        }
+
+        #endregion Constructors
+
         #region Properties
+
+        public bool IsPersistent
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(Path);
+            }
+        }
 
         private IDictionary<Type, IList<Object>> Data
         {
@@ -33,11 +61,6 @@ namespace Yis.Framework.Data.Memory
         #endregion Properties
 
         #region Methods
-
-        public void Clear()
-        {
-            this.Data.Clear();
-        }
 
         public bool Contains<T>(T entity)
         {
@@ -106,6 +129,25 @@ namespace Yis.Framework.Data.Memory
             }
         }
 
+        private void Load()
+        {
+            //var serializer = new XmlSerializer(typeof(List<Todo>));
+            //using (var stream = new FileStream(_filename, FileMode.Open)) {
+            //    _items = serializer.Deserialize(stream) as List<Todo>;
+        }
+
+        private void Persit(object entity)
+        {
+            var type = entity.GetType();
+            var list = this.Data[type];
+
+            var serializer = new XmlSerializer(list.GetType());
+            using (var stream = new FileStream(Path + @"\" + type.FullName + @".xml", FileMode.Create))
+            {
+                serializer.Serialize(stream, list);
+            }
+        }
+
         private void SaveToInternalStore(object entity)
         {
             var type = entity.GetType();
@@ -125,6 +167,9 @@ namespace Yis.Framework.Data.Memory
                 var index = list.IndexOf(entity);
                 list[index] = entity;
             }
+
+            if (IsPersistent)
+                Persit(entity);
         }
 
         #endregion Methods

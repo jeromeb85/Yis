@@ -14,7 +14,14 @@ namespace Yis.Framework.Data.Contract
     {
         #region Methods
 
+        //      TModel FirstOrDefault(Expression<Func<TModel, bool>> predicate = null);
+        void Add(TModel entity);
+
+        TModel Create();
+
         IEnumerable<TModel> GetAll();
+
+        #endregion Methods
 
         //   IQueryable<TModel> GetQuery(Expression<Func<TModel, bool>> predicate);
 
@@ -23,15 +30,6 @@ namespace Yis.Framework.Data.Contract
         //      TModel SingleOrDefault(Expression<Func<TModel, bool>> predicate = null);
 
         //    TModel First(Expression<Func<TModel, bool>> predicate = null);
-
-        //      TModel FirstOrDefault(Expression<Func<TModel, bool>> predicate = null);
-
-        TModel Create();
-
-        #endregion Methods
-
-        //void Add(TModel entity);
-
         //void Delete(TModel entity);
 
         //void Delete(Expression<Func<TModel, bool>> predicate);

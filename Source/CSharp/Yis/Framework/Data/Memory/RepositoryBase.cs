@@ -33,6 +33,11 @@ namespace Yis.Framework.Data.Memory
 
         #region Methods
 
+        public void Add(TModel entity)
+        {
+            Context.Add<TModel>(entity);
+        }
+
         public TModel Create()
         {
             return new TModel();

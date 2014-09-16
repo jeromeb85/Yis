@@ -168,6 +168,8 @@ namespace Yis
             root.Id = Guid.NewGuid();
             root.Name = "Yis";
 
+            manag.Add(root);
+
             //Generator gen = new Generator();
             //NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis", ChrildrenNameSpace = new List<NameSpace>() };
             //NameSpace child = new NameSpace() { Id = Guid.NewGuid(), Name = "Sample", Class = new List<Class>() };

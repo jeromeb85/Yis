@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yis.Designer.Software.Data.Contract;
-using Yis.Framework.Data.PersistentMemory;
+using Yis.Framework.Data.Memory;
 
-namespace Yis.Designer.Software.Data.MemoryPersistent
+namespace Yis.Designer.Software.Data.Memory
 {
     public class SoftwareDataContext : DataContextBase, ISoftwareDataContext
     {
         #region Constructors
 
         public SoftwareDataContext()
-            : base(@"E:\DataYis\Software\")
+            : base(@"D:\DataYis\Software\")
         {
         }
 

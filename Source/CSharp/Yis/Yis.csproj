@@ -109,8 +109,8 @@
     <Compile Include="Designer\Software\Business\NameSpaceManager.cs" />
     <Compile Include="Designer\Software\Data\Contract\INameSpaceProvider.cs" />
     <Compile Include="Designer\Software\Data\Contract\ISoftwareDataContext.cs" />
-    <Compile Include="Designer\Software\Data\MemoryPersistent\NameSpaceProvider.cs" />
-    <Compile Include="Designer\Software\Data\MemoryPersistent\SoftwareDataContext.cs" />
+    <Compile Include="Designer\Software\Data\Memory\NameSpaceProvider.cs" />
+    <Compile Include="Designer\Software\Data\Memory\SoftwareDataContext.cs" />
     <Compile Include="Designer\Software\Model\Class.cs" />
     <Compile Include="Designer\Software\Model\NameSpace.cs" />
     <Compile Include="Designer\Technic\Contract\IGenerator.cs" />
@@ -154,10 +154,6 @@
     <Compile Include="Framework\Data\Memory\DataStore.cs" />
     <Compile Include="Framework\Data\Memory\RepositoryBase.cs" />
     <Compile Include="Framework\Data\Memory\Transaction.cs" />
-    <Compile Include="Framework\Data\PersistentMemory\DataContextBase.cs" />
-    <Compile Include="Framework\Data\PersistentMemory\DataStore.cs" />
-    <Compile Include="Framework\Data\PersistentMemory\RepositoryBase.cs" />
-    <Compile Include="Framework\Data\PersistentMemory\Transaction.cs" />
     <Compile Include="Framework\Presentation\Commanding\Command.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelCollectionBase.cs" />
     <Compile Include="Program.cs" />

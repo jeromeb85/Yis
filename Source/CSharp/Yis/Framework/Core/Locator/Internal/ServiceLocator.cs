@@ -8,21 +8,23 @@ namespace Yis.Framework.Core.Locator.Internal
 {
     internal class ServiceLocator : IServiceLocator
     {
-        private List<Assembly> _catalogAssembly;
-
-        protected List<Assembly> CatalogAssembly
-        {
-            get
-            {
-                if (_catalogAssembly == null)
-                {
-                    _catalogAssembly = new List<Assembly>();
-                }
-                return _catalogAssembly;
-            }
-        }
+        #region Fields
 
         private Dictionary<Type, List<Type>> _catalog;
+        private List<Assembly> _catalogAssembly;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public ServiceLocator()
+        {
+            Build();
+        }
+
+        #endregion Constructors
+
+        #region Properties
 
         protected Dictionary<Type, List<Type>> Catalog
         {
@@ -36,26 +38,38 @@ namespace Yis.Framework.Core.Locator.Internal
             }
         }
 
-        public ServiceLocator()
+        protected List<Assembly> CatalogAssembly
         {
-            Build();
+            get
+            {
+                if (_catalogAssembly == null)
+                {
+                    _catalogAssembly = new List<Assembly>();
+                }
+                return _catalogAssembly;
+            }
         }
 
-        public IEnumerable<Type> ResolveType(Type typeInterface)
-        {
-            List<Type> typeClasse = new List<Type>();
+        #endregion Properties
 
-            if (Catalog.ContainsKey(typeInterface))
+        #region Methods
+
+        public void Build()
+        {
+            DiscoverAssemblies();
+            BuildCatalog();
+        }
+
+        public IEnumerable<TInterface> ResolveAndCreateAllType<TInterface>(object[] param = null)
+        {
+            List<TInterface> list = new List<TInterface>();
+
+            foreach (Type type in ResolveType<TInterface>())
             {
-                typeClasse.AddRange(Catalog[typeInterface]);
+                list.Add((TInterface)Activator.CreateInstance(type, param));
             }
 
-            return typeClasse;
-        }
-
-        public IEnumerable<Type> ResolveType<TInterface>()
-        {
-            return ResolveType(typeof(TInterface));
+            return list;
         }
 
         public object ResolveAndCreateType(Type typeInterface, object[] param = null)
@@ -75,31 +89,34 @@ namespace Yis.Framework.Core.Locator.Internal
 
         public TInterface ResolveAndCreateType<TInterface>(object[] param = null)
         {
-            return (TInterface)ResolveAndCreateType(typeof(TInterface));
+            return (TInterface)ResolveAndCreateType(typeof(TInterface), param);
         }
 
-        public IEnumerable<TInterface> ResolveAndCreateAllType<TInterface>(object[] param = null)
+        public IEnumerable<Type> ResolveType(Type typeInterface)
         {
-            List<TInterface> list = new List<TInterface>();
+            List<Type> typeClasse = new List<Type>();
 
-            foreach (Type type in ResolveType<TInterface>())
+            if (Catalog.ContainsKey(typeInterface))
             {
-                list.Add((TInterface)Activator.CreateInstance(type, param));
+                typeClasse.AddRange(Catalog[typeInterface]);
             }
 
-            return list;
+            return typeClasse;
         }
 
-        public void Build()
+        public IEnumerable<Type> ResolveType<TInterface>()
         {
-            DiscoverAssemblies();
-            BuildCatalog();
+            return ResolveType(typeof(TInterface));
         }
 
-        private void DiscoverAssemblies()
+        private void AddCatalog(Type typeInterface, Type typeClasse)
         {
-            //Définir les règles de détection et chargement des assemblies
-            CatalogAssembly.Add(Assembly.GetExecutingAssembly());
+            if (!Catalog.ContainsKey(typeInterface))
+            {
+                Catalog.Add(typeInterface, new List<Type>());
+            }
+
+            Catalog[typeInterface].Add(typeClasse);
         }
 
         private void BuildCatalog()
@@ -119,14 +136,12 @@ namespace Yis.Framework.Core.Locator.Internal
             }
         }
 
-        private void AddCatalog(Type typeInterface, Type typeClasse)
+        private void DiscoverAssemblies()
         {
-            if (!Catalog.ContainsKey(typeInterface))
-            {
-                Catalog.Add(typeInterface, new List<Type>());
-            }
-
-            Catalog[typeInterface].Add(typeClasse);
+            //Définir les règles de détection et chargement des assemblies
+            CatalogAssembly.Add(Assembly.GetExecutingAssembly());
         }
+
+        #endregion Methods
     }
 }

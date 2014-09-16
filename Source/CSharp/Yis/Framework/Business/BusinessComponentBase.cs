@@ -15,15 +15,6 @@ namespace Yis.Framework.Business
         where TProvider : IRepository<TModel>
         where TModel : class,IModel
     {
-        #region Methods
-
-        public IEnumerable<TModel> GetAll()
-        {
-            return Provider.GetAll();
-        }
-
-        #endregion Methods
-
         #region Fields
 
         private static IServiceLocator _locator;
@@ -113,10 +104,29 @@ namespace Yis.Framework.Business
 
         #endregion Properties
 
+        #region Methods
+
+        public void Add(TModel entity)
+        {
+            using (var uow = new UnitOfWork(DataContext))
+            {
+                Provider.Add(entity);
+
+                uow.SaveChanges();
+            }
+        }
+
         public TModel Create()
         {
             return Provider.Create();
         }
+
+        public IEnumerable<TModel> GetAll()
+        {
+            return Provider.GetAll();
+        }
+
+        #endregion Methods
     }
 
     public abstract class BusinessComponentBase<TModel, TProvider, TDataContext> : BusinessComponentBase<TModel, TProvider>
@@ -127,7 +137,7 @@ namespace Yis.Framework.Business
         #region Constructors
 
         public BusinessComponentBase()
-            : base(Resolver.IsRegistered<TDataContext>() ? Locator.ResolveAndCreateType<TDataContext>() : Resolver.Resolve<TDataContext>())
+            : base(!Resolver.IsRegistered<TDataContext>() ? Locator.ResolveAndCreateType<TDataContext>() : Resolver.Resolve<TDataContext>())
         {
             if (!Resolver.IsRegistered<TDataContext>())
             {
@@ -136,7 +146,7 @@ namespace Yis.Framework.Business
         }
 
         public BusinessComponentBase(string nameOrConnectionString)
-            : base(Resolver.IsRegistered<TDataContext>() ? Locator.ResolveAndCreateType<TDataContext>(new object[] { nameOrConnectionString }) : Resolver.Resolve<TDataContext>())
+            : base(!Resolver.IsRegistered<TDataContext>() ? Locator.ResolveAndCreateType<TDataContext>(new object[] { nameOrConnectionString }) : Resolver.Resolve<TDataContext>())
         {
             if (!Resolver.IsRegistered<TDataContext>())
             {

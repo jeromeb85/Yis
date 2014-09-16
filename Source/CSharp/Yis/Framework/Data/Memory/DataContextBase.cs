@@ -17,11 +17,22 @@ namespace Yis.Framework.Data.Memory
     {
         #region Fields
 
+        private readonly string Path = String.Empty;
+
         private DataStore _store;
 
         private Stack<Queue<Transaction>> _transaction;
 
         #endregion Fields
+
+        #region Constructors
+
+        public DataContextBase(string path = null)
+        {
+            Path = path;
+        }
+
+        #endregion Constructors
 
         #region Properties
 
@@ -36,7 +47,7 @@ namespace Yis.Framework.Data.Memory
             {
                 if (_store.IsNull())
                 {
-                    _store = new DataStore();
+                    _store = new DataStore(Path);
                 }
                 return _store;
             }
@@ -97,16 +108,6 @@ namespace Yis.Framework.Data.Memory
             return Store.List<TEntity>();
         }
 
-        public void Remove<TEntity>(TEntity entity)
-        {
-            if (!IsInTransaction)
-            {
-                BeginTransaction();
-            }
-
-            Transaction.Peek().Enqueue(new Transaction(entity, TransactionType.Delete));
-        }
-
         public void RollBackTransaction()
         {
             Transaction.Pop();
@@ -118,17 +119,7 @@ namespace Yis.Framework.Data.Memory
                 CommitTransaction();
         }
 
-        public void Update<TEntity>(TEntity entity)
-        {
-            if (!IsInTransaction)
-            {
-                BeginTransaction();
-            }
-
-            Transaction.Peek().Enqueue(new Transaction(entity, TransactionType.Update));
-        }
-
-        private void Add<TEntity>(TEntity entity)
+        internal void Add<TEntity>(TEntity entity)
         {
             if (!IsInTransaction)
             {
@@ -136,6 +127,26 @@ namespace Yis.Framework.Data.Memory
             }
 
             Transaction.Peek().Enqueue(new Transaction(entity, TransactionType.Add));
+        }
+
+        internal void Remove<TEntity>(TEntity entity)
+        {
+            if (!IsInTransaction)
+            {
+                BeginTransaction();
+            }
+
+            Transaction.Peek().Enqueue(new Transaction(entity, TransactionType.Delete));
+        }
+
+        internal void Update<TEntity>(TEntity entity)
+        {
+            if (!IsInTransaction)
+            {
+                BeginTransaction();
+            }
+
+            Transaction.Peek().Enqueue(new Transaction(entity, TransactionType.Update));
         }
 
         #endregion Methods
