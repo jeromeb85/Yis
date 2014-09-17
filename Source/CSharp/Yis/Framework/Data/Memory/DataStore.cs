@@ -5,8 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using YAXLib;
 using Yis.Framework.Core.Extension;
+using Yis.Framework.Core.Serialization;
 using Yis.Framework.Model.Contract;
 
 namespace Yis.Framework.Data.Memory
@@ -141,11 +142,13 @@ namespace Yis.Framework.Data.Memory
             var type = entity.GetType();
             var list = this.Data[type];
 
-            var serializer = new XmlSerializer(list.GetType());
-            using (var stream = new FileStream(Path + @"\" + type.FullName + @".xml", FileMode.Create))
-            {
-                serializer.Serialize(stream, list);
-            }
+            YAXSerializer serializer2 = new YAXSerializer(list.GetType());
+            serializer2.SerializeToFile(list, Path + @"\" + type.FullName + @".xml");
+            //var serializer = new XmlSerializer();
+            //using (var stream = new FileStream(Path + @"\" + type.FullName + @".xml", FileMode.Create))
+            //{
+            //    serializer.Serialize<IList<object>>(list, stream);
+            //}
         }
 
         private void SaveToInternalStore(object entity)
