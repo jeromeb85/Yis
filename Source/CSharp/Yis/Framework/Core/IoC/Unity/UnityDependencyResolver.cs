@@ -3,6 +3,7 @@ using Microsoft.Practices.Unity.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using Yis.Framework.Core.IoC.Contract;
 
 namespace Yis.Framework.Core.IoC
 {
@@ -11,7 +12,13 @@ namespace Yis.Framework.Core.IoC
     /// </summary>
     internal class UnityDependencyResolver : IDisposable, IDependencyResolver
     {
+        #region Fields
+
         private readonly IUnityContainer _container;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initialise une nouvelle instance de <see cref="UnityDependencyResolver"/> class.
@@ -36,7 +43,9 @@ namespace Yis.Framework.Core.IoC
             _container = container;
         }
 
-        #region "Implémentation de IDependencyResolver"
+        #endregion Constructors
+
+        #region Methods
 
         /// <summary>
         /// Enregistre une instance spécifiée.
@@ -51,16 +60,6 @@ namespace Yis.Framework.Core.IoC
         public void Register<T>(string name, T instance)
         {
             _container.RegisterInstance(name, instance);
-        }
-
-        /// <summary>
-        /// Injection sur un type existant.
-        /// </summary>
-        /// <typeparam name="T">Le type de l'existant</typeparam>
-        /// <param name="existing">L'existant.</param>
-        public void Inject<T>(T existing)
-        {
-            _container.BuildUp(existing);
         }
 
         /// <summary>
@@ -147,21 +146,27 @@ namespace Yis.Framework.Core.IoC
             return null;
         }
 
-        #endregion "Implémentation de IDependencyResolver"
-
-        #region "Implementation de IDisposable"
-
         public void Dispose()
         {
             _container.Dispose();
             GC.SuppressFinalize(this);
         }
 
-        #endregion "Implementation de IDisposable"
+        /// <summary>
+        /// Injection sur un type existant.
+        /// </summary>
+        /// <typeparam name="T">Le type de l'existant</typeparam>
+        /// <param name="existing">L'existant.</param>
+        public void Inject<T>(T existing)
+        {
+            _container.BuildUp(existing);
+        }
 
         public bool IsRegistered<T>()
         {
             return _container.IsRegistered<T>();
         }
+
+        #endregion Methods
     }
 }

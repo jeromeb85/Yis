@@ -7,7 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using YAXLib;
 using Yis.Framework.Core.Extension;
+using Yis.Framework.Core.IoC;
+using Yis.Framework.Core.IoC.Contract;
+using Yis.Framework.Core.Logging.Contract;
 using Yis.Framework.Core.Serialization;
+using Yis.Framework.Core.Serialization.Contract;
 using Yis.Framework.Model.Contract;
 
 namespace Yis.Framework.Data.Memory
@@ -16,6 +20,9 @@ namespace Yis.Framework.Data.Memory
     {
         #region Fields
 
+        private static ILog _log;
+
+        private static ISerializer _serializer;
         private readonly string Path;
 
         private IDictionary<Type, IList<object>> _data;
@@ -44,6 +51,29 @@ namespace Yis.Framework.Data.Memory
             get
             {
                 return !String.IsNullOrEmpty(Path);
+            }
+        }
+
+        protected static ILog Log
+        {
+            get
+            {
+                if (_log.IsNull()) _log = Resolver.Resolve<ILog>();
+                return _log;
+            }
+        }
+
+        protected static IDependencyResolver Resolver
+        {
+            get { return DependencyResolverManager.Default; }
+        }
+
+        protected static ISerializer Serializer
+        {
+            get
+            {
+                if (_serializer.IsNull()) _serializer = Resolver.Resolve<ISerializer>();
+                return _serializer;
             }
         }
 
@@ -142,8 +172,7 @@ namespace Yis.Framework.Data.Memory
             var type = entity.GetType();
             var list = this.Data[type];
 
-            YAXSerializer serializer2 = new YAXSerializer(list.GetType());
-            serializer2.SerializeToFile(list, Path + @"\" + type.FullName + @".xml");
+            Serializer.Serialize<IList<Object>>(list, Path + @"\" + type.FullName + @".xml");
             //var serializer = new XmlSerializer();
             //using (var stream = new FileStream(Path + @"\" + type.FullName + @".xml", FileMode.Create))
             //{

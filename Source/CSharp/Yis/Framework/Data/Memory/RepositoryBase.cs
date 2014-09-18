@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yis.Framework.Core.Extension;
+using Yis.Framework.Core.IoC;
+using Yis.Framework.Core.IoC.Contract;
+using Yis.Framework.Core.Locator.Contract;
+using Yis.Framework.Core.Logging.Contract;
 using Yis.Framework.Data.Contract;
 
 namespace Yis.Framework.Data.Memory
@@ -12,6 +16,10 @@ namespace Yis.Framework.Data.Memory
            where TModel : class,new()
     {
         #region Fields
+
+        private static IServiceLocator _locator;
+
+        private static ILog _log;
 
         private readonly DataContextBase Context;
 
@@ -30,6 +38,33 @@ namespace Yis.Framework.Data.Memory
         }
 
         #endregion Constructors
+
+        #region Properties
+
+        protected static IServiceLocator Locator
+        {
+            get
+            {
+                if (_locator.IsNull()) _locator = Resolver.Resolve<IServiceLocator>();
+                return _locator;
+            }
+        }
+
+        protected static ILog Log
+        {
+            get
+            {
+                if (_log.IsNull()) _log = Resolver.Resolve<ILog>();
+                return _log;
+            }
+        }
+
+        protected static IDependencyResolver Resolver
+        {
+            get { return DependencyResolverManager.Default; }
+        }
+
+        #endregion Properties
 
         #region Methods
 

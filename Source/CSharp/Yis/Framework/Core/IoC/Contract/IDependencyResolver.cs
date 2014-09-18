@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Yis.Framework.Core.IoC
+namespace Yis.Framework.Core.IoC.Contract
 {
     /// <summary>
     /// Interface de tous les les résolveurs de dépendances.
     /// </summary>
     public interface IDependencyResolver : IDisposable
     {
+        #region Methods
+
+        void Inject<T>(T existing);
+
+        bool IsRegistered<T>();
+
         /// <summary>
         /// Enregistre une instance spécifiée.
         /// </summary>
@@ -22,9 +28,6 @@ namespace Yis.Framework.Core.IoC
         /// </summary>
         /// <typeparam name="T">Le type de l'existant</typeparam>
         /// <param name="existing">L'existant.</param>
-
-        void Inject<T>(T existing);
-
         /// <summary>
         /// Résoudre un type spécifié.
         /// </summary>
@@ -57,13 +60,13 @@ namespace Yis.Framework.Core.IoC
         /// <returns>Retourne une instance du type à résoudre.</returns>
         T Resolve<T>(string name);
 
-        bool IsRegistered<T>();
-
         /// <summary>
         /// Résoudre un ensemble
         /// </summary>
         /// <typeparam name="T">Le type à résoudre.</typeparam>
         /// <returns>Retourne des instances de type à résoudre.</returns>
         IEnumerable<T> ResolveAll<T>();
+
+        #endregion Methods
     }
 }

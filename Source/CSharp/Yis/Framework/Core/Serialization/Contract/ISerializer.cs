@@ -12,32 +12,7 @@ namespace Yis.Framework.Core.Serialization.Contract
     /// </summary>
     public interface ISerializer
     {
-        #region Method
-
-        /// <summary>
-        /// Serializes the specified obj.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The obj.</param>
-        /// <param name="file">The file.</param>
-        void Serialize<T>(T obj, string file);
-
-        /// <summary>
-        /// Serializes the specified obj.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The obj.</param>
-        /// <param name="file">The file.</param>
-        /// <param name="bufferSize">Size of the buffer.</param>
-        void Serialize<T>(T obj, string file, int bufferSize);
-
-        /// <summary>
-        /// Serializes the specified obj.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The obj.</param>
-        /// <param name="stream">The stream.</param>
-        void Serialize<T>(T obj, Stream stream);
+        #region Methods
 
         /// <summary>
         /// Des the serialize.
@@ -64,6 +39,31 @@ namespace Yis.Framework.Core.Serialization.Contract
         /// <returns></returns>
         T DeSerialize<T>(Stream stream);
 
-        #endregion Method
+        /// <summary>
+        /// Serializes the specified obj.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The obj.</param>
+        /// <param name="file">The file.</param>
+        void Serialize<T>(T obj, string file);
+
+        /// <summary>
+        /// Serializes the specified obj.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The obj.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="bufferSize">Size of the buffer.</param>
+        void Serialize<T>(T obj, string file, int bufferSize);
+
+        /// <summary>
+        /// Serializes the specified obj.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The obj.</param>
+        /// <param name="stream">The stream.</param>
+        void Serialize<T>(T obj, Stream stream);
+
+        #endregion Methods
     }
 }

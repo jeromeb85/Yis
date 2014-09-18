@@ -1,11 +1,18 @@
 ﻿using Yis.Framework.Core.Extension;
+using Yis.Framework.Core.IoC.Contract;
 using Yis.Framework.Core.Locator;
 
 namespace Yis.Framework.Core.IoC
 {
     public static class DependencyResolverManager
     {
+        #region Fields
+
         private static IDependencyResolver _default;
+
+        #endregion Fields
+
+        #region Properties
 
         public static IDependencyResolver Default
         {
@@ -18,5 +25,7 @@ namespace Yis.Framework.Core.IoC
                 return _default;
             }
         }
+
+        #endregion Properties
     }
 }
