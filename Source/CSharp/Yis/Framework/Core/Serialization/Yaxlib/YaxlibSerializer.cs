@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YAXLib;
+using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.Serialization.Contract;
 
 namespace Yis.Framework.Core.Serialization.Yaxlib
@@ -13,12 +15,8 @@ namespace Yis.Framework.Core.Serialization.Yaxlib
 
         public T DeSerialize<T>(string file)
         {
-            throw new NotImplementedException();
-        }
-
-        public T DeSerialize<T>(string file, int bufferSize)
-        {
-            throw new NotImplementedException();
+            YAXSerializer Yax = new YAXSerializer(typeof(T));
+            return (T)Yax.DeserializeFromFile(file);
         }
 
         public T DeSerialize<T>(System.IO.Stream stream)
@@ -28,12 +26,8 @@ namespace Yis.Framework.Core.Serialization.Yaxlib
 
         public void Serialize<T>(T obj, string file)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Serialize<T>(T obj, string file, int bufferSize)
-        {
-            throw new NotImplementedException();
+            YAXSerializer Yax = new YAXSerializer(typeof(T));
+            Yax.SerializeToFile(obj, file);
         }
 
         public void Serialize<T>(T obj, System.IO.Stream stream)

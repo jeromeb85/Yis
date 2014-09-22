@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace Yis.Framework.Model
 {
@@ -12,6 +13,7 @@ namespace Yis.Framework.Model
             _isChanged = false;
         }
 
+        [XmlIgnore]
         public bool IsChanged
         {
             get
