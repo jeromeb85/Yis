@@ -15,7 +15,7 @@ namespace Yis.Framework.Core.Serialization.Yaxlib
 
         public T DeSerialize<T>(string file)
         {
-            YAXSerializer Yax = new YAXSerializer(typeof(T));
+            YAXSerializer Yax = new YAXSerializer(typeof(T), YAXSerializationOptions.DontSerializeNullObjects);
             return (T)Yax.DeserializeFromFile(file);
         }
 
@@ -26,7 +26,7 @@ namespace Yis.Framework.Core.Serialization.Yaxlib
 
         public void Serialize<T>(T obj, string file)
         {
-            YAXSerializer Yax = new YAXSerializer(typeof(T));
+            YAXSerializer Yax = new YAXSerializer(typeof(T), YAXSerializationOptions.DontSerializeNullObjects);
             Yax.SerializeToFile(obj, file);
         }
 

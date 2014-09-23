@@ -166,9 +166,14 @@ namespace Yis
             NameSpace root = manag.Create();
 
             root.Id = Guid.NewGuid();
-            root.Name = "Yis";
+            root.Name = "Yis 2";
 
             manag.Add(root);
+
+            foreach (var item in manag.GetAll())
+            {
+                Console.WriteLine(item.Name);
+            }
 
             //Generator gen = new Generator();
             //NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis", ChrildrenNameSpace = new List<NameSpace>() };

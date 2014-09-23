@@ -4,14 +4,18 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
+using YAXLib;
 
 namespace Yis.Framework.Model
 {
     public abstract partial class ModelBase : IDataErrorInfo
     {
-        #region IDataErrorInfo
+        #region Properties
 
         [IgnoreDataMember]
+        [XmlIgnore]
+        [YAXDontSerialize]
         public string Error
         {
             get
@@ -24,6 +28,10 @@ namespace Yis.Framework.Model
                     return string.Join(Environment.NewLine, errors.Select(e => e.ErrorMessage));
             }
         }
+
+        #endregion Properties
+
+        #region Indexers
 
         public string this[string columnName]
         {
@@ -40,6 +48,6 @@ namespace Yis.Framework.Model
             }
         }
 
-        #endregion IDataErrorInfo
+        #endregion Indexers
     }
 }

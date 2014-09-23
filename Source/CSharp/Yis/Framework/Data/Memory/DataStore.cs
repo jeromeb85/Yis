@@ -16,30 +16,34 @@ using Yis.Framework.Model.Contract;
 
 namespace Yis.Framework.Data.Memory
 {
-    internal class DataStore : IEnumerable<KeyValuePair<Type, IList<object>>>
+    /// <summary>
+    /// Gestion du stockage des données pour le repository memory
+    /// Cette classe traite l'information en mémoire et peut persister les informations dans un fichier
+    /// </summary>
+    internal class DataStore
     {
         #region Fields
 
         private static ILog _log;
-
         private static ISerializer _serializer;
         private readonly string Path;
-
         private IDictionary<Type, IList<object>> _data;
+        private IList<Type> _typeLoaded;
 
         #endregion Fields
 
         #region Constructors
 
+        /// <summary>
+        /// Constructeur de <see cref="DataStore"/>
+        /// </summary>
+        /// <param name="path">Chemin pour persister les informations</param>
         public DataStore(string path = null)
         {
             Path = path;
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-
-            if (IsPersistent)
-                Load();
         }
 
         #endregion Constructors
@@ -89,6 +93,18 @@ namespace Yis.Framework.Data.Memory
             }
         }
 
+        private IList<Type> TypeLoaded
+        {
+            get
+            {
+                if (_typeLoaded.IsNull())
+                {
+                    _typeLoaded = new List<Type>();
+                }
+                return _typeLoaded;
+            }
+        }
+
         #endregion Properties
 
         #region Methods
@@ -101,6 +117,7 @@ namespace Yis.Framework.Data.Memory
         public bool Contains<T>(T entity, IEqualityComparer<T> comparer)
         {
             var type = entity.GetType();
+            if (!IsLoaded(type)) Load(type);
 
             if (this.Data.ContainsKey(type))
             {
@@ -111,18 +128,10 @@ namespace Yis.Framework.Data.Memory
             return false;
         }
 
-        public IEnumerator<KeyValuePair<Type, IList<object>>> GetEnumerator()
-        {
-            return this.Data.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
         public IEnumerable<T> List<T>()
         {
+            if (!IsLoaded(typeof(T))) Load(typeof(T));
+
             if (this.Data.ContainsKeyImplementing<T>())
             {
                 return this.Data.GetInstancesImplementing<T>();
@@ -136,53 +145,22 @@ namespace Yis.Framework.Data.Memory
         public void Remove(object entity)
         {
             var type = entity.GetType();
+            if (!IsLoaded(type)) Load(type);
 
             if (this.Data.ContainsKey(type))
             {
                 var list = this.Data[type];
                 list.Remove(entity);
             }
+
+            if (IsPersistent)
+                Persit(entity);
         }
 
         public void Save(object entity)
         {
-            this.SaveToInternalStore(entity);
-        }
-
-        internal void Merge(DataStore dataStore)
-        {
-            foreach (var store in dataStore.Data)
-            {
-                foreach (var d in store.Value)
-                {
-                    this.SaveToInternalStore(d);
-                }
-            }
-        }
-
-        private void Load()
-        {
-            //var serializer = new XmlSerializer(typeof(List<Todo>));
-            //using (var stream = new FileStream(_filename, FileMode.Open)) {
-            //    _items = serializer.Deserialize(stream) as List<Todo>;
-        }
-
-        private void Persit(object entity)
-        {
             var type = entity.GetType();
-            var list = this.Data[type];
-
-            Serializer.Serialize<IList<Object>>(list, Path + @"\" + type.FullName + @".xml");
-            //var serializer = new XmlSerializer();
-            //using (var stream = new FileStream(Path + @"\" + type.FullName + @".xml", FileMode.Create))
-            //{
-            //    serializer.Serialize<IList<object>>(list, stream);
-            //}
-        }
-
-        private void SaveToInternalStore(object entity)
-        {
-            var type = entity.GetType();
+            if (!IsLoaded(type)) Load(type);
 
             if (!this.Data.ContainsKey(type))
             {
@@ -202,6 +180,35 @@ namespace Yis.Framework.Data.Memory
 
             if (IsPersistent)
                 Persit(entity);
+        }
+
+        private bool IsLoaded(Type type)
+        {
+            if (!IsPersistent) return true;
+
+            return TypeLoaded.Contains(type);
+        }
+
+        private void Load(Type type)
+        {
+            if (!this.Data.ContainsKey(type))
+            {
+                this.Data.Add(type, new List<object>());
+            }
+
+            if (IsPersistent && File.Exists(Path + @"\" + type.FullName + @".xml"))
+            {
+                this.Data[type] = Serializer.DeSerialize<IList<Object>>(Path + @"\" + type.FullName + @".xml");
+            }
+            TypeLoaded.Add(type);
+        }
+
+        private void Persit(object entity)
+        {
+            var type = entity.GetType();
+            var list = this.Data[type];
+
+            Serializer.Serialize<IList<Object>>(list, Path + @"\" + type.FullName + @".xml");
         }
 
         #endregion Methods
