@@ -120,6 +120,10 @@
     <Compile Include="Designer\Technic\Contract\ITransformator.cs" />
     <Compile Include="Designer\Technic\Standard\Generator.cs" />
     <Compile Include="Framework\Business\BusinessObjectBase.cs" />
+    <Compile Include="Framework\Business\BusinessObjectCollectionBase.cs" />
+    <Compile Include="Framework\Business\BusinessWorkflowBase.cs" />
+    <Compile Include="Framework\Business\Contract\IBusinessObject.cs" />
+    <Compile Include="Framework\Business\Contract\IEditableBusinessObject.cs" />
     <Compile Include="Framework\Core\Caching\CacheStorage.cs" />
     <Compile Include="Framework\Core\Caching\CacheStorageValueInfo.cs" />
     <Compile Include="Framework\Core\Caching\Contract\ICacheStorage.cs" />
@@ -217,11 +221,6 @@
     <Compile Include="Framework\Data\Contract\IUnitOfWork.cs" />
     <Compile Include="Framework\Model\Contract\IModel.cs" />
     <Compile Include="Framework\Model\ModelBase.cs" />
-    <Compile Include="Framework\Model\ModelBase.IChangeTracking.cs" />
-    <Compile Include="Framework\Model\ModelBase.IDataErrorInfo.cs" />
-    <Compile Include="Framework\Model\ModelBase.IEditableObject.cs" />
-    <Compile Include="Framework\Model\ModelBase.IRevertibleChangeTracking.cs" />
-    <Compile Include="Framework\Model\ModelBase.IValidatableObject.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyDataErrorInfo.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyPropertyChanged.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyPropertyChanging.cs" />

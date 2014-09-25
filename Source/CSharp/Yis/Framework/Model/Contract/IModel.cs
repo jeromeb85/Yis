@@ -1,6 +1,8 @@
-﻿namespace Yis.Framework.Model.Contract
+﻿using Yis.Framework.Business.Contract;
+
+namespace Yis.Framework.Model.Contract
 {
-    public interface IModel
+    public interface IModel : IBusinessObject
     {
     }
 
