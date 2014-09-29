@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using Yis.Designer.Model;
 using Yis.Designer.Presentation;
 using Yis.Designer.Software.Business;
-using Yis.Designer.Software.Model;
 using Yis.Designer.Technic.Standard;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator;
@@ -161,16 +160,18 @@ namespace Yis
         {
             ConsoleHelper.ShowConsoleWindow();
 
-            NameSpaceManager manag = new NameSpaceManager();
+            // NameSpaceCollection manag = NameSpaceCollection.GetAll();
 
-            NameSpace root = manag.Create();
+            /* NameSpaceCollection manag = new NameSpaceCollection();
 
-            root.Id = Guid.NewGuid();
-            root.Name = "Yis 2";
+             NameSpace root = manag.Create();
 
-            manag.Add(root);
+             root.Id = Guid.NewGuid();
+             root.Name = "Yis 2";
 
-            foreach (var item in manag.GetAll())
+             manag.Add(root);*/
+
+            foreach (var item in NameSpaceCollection.GetAll())
             {
                 Console.WriteLine(item.Name);
             }

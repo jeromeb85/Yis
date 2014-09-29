@@ -9,14 +9,18 @@ namespace Yis.Designer.Software.Model
 {
     public class NameSpace : ModelBase<Guid>
     {
-        public string Name { get; set; }
-
-        public Guid ParentNameSpaceId { get; set; }
-
-        public NameSpace ParentNameSpace { get; set; }
+        #region Properties
 
         public virtual ICollection<NameSpace> ChrildrenNameSpace { get; set; }
 
         public virtual ICollection<Class> Class { get; set; }
+
+        public string Name { get; set; }
+
+        public NameSpace ParentNameSpace { get; set; }
+
+        public Guid ParentNameSpaceId { get; set; }
+
+        #endregion Properties
     }
 }

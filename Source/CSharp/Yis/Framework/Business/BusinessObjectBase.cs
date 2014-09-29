@@ -161,7 +161,7 @@ namespace Yis.Framework.Business
             yield break;
         }
 
-        protected void SetValue<T>(ref T value, T newValue)
+        protected void SetProperty<T>(T value, T newValue)
         {
             if (newValue != null)
             {
@@ -198,20 +198,20 @@ namespace Yis.Framework.Business
     }
 
     public abstract class BusinessObjectBase<TMe> : BusinessObjectBase
-        where TMe : BusinessObjectBase<TMe>, new()
+        where TMe : BusinessObjectBase<TMe>
     {
         #region Methods
 
         public static TMe New()
         {
-            return new TMe();
+            return Activator.CreateInstance<TMe>();
         }
 
         #endregion Methods
     }
 
     public abstract class BusinessObjectBase<TMe, TModel, TProvider, TDataContext> : BusinessObjectBase<TMe>
-        where TMe : BusinessObjectBase<TMe, TModel, TProvider, TDataContext>, new()
+        where TMe : BusinessObjectBase<TMe, TModel, TProvider, TDataContext>
         where TProvider : IRepository<TModel>
         where TModel : class,IModel
         where TDataContext : IDataContext
@@ -238,7 +238,7 @@ namespace Yis.Framework.Business
         public BusinessObjectBase(TModel model)
             : base()
         {
-            _model = model;
+            Model = model;
             IsNew = false;
         }
 
@@ -270,7 +270,7 @@ namespace Yis.Framework.Business
             }
         }
 
-        public bool IsNew { get; set; }
+        public bool IsNew { get; protected set; }
 
         protected static TProvider Provider
         {
@@ -291,6 +291,11 @@ namespace Yis.Framework.Business
             {
                 return _model;
             }
+
+            private set
+            {
+                _model = value;
+            }
         }
 
         #endregion Properties
@@ -300,6 +305,12 @@ namespace Yis.Framework.Business
         public TModel ToModel()
         {
             return Model;
+        }
+
+        internal void Load(TModel model)
+        {
+            Model = model;
+            IsNew = false;
         }
 
         #endregion Methods

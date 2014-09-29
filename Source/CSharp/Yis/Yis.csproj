@@ -109,7 +109,8 @@
     <Compile Include="Designer\Shell\Data\WorkSpaceProvider.cs" />
     <Compile Include="Designer\Shell\Data\DesignerInitializer.cs" />
     <Compile Include="Designer\Shell\Model\WorkSpace.cs" />
-    <Compile Include="Designer\Software\Business\NameSpaceManager.cs" />
+    <Compile Include="Designer\Software\Business\NameSpace.cs" />
+    <Compile Include="Designer\Software\Business\NameSpaceCollection.cs" />
     <Compile Include="Designer\Software\Data\Contract\INameSpaceProvider.cs" />
     <Compile Include="Designer\Software\Data\Contract\ISoftwareDataContext.cs" />
     <Compile Include="Designer\Software\Data\Memory\NameSpaceProvider.cs" />
