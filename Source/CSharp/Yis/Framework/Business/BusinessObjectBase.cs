@@ -32,8 +32,11 @@ namespace Yis.Framework.Business
 
         private Dictionary<string, object> _cacheBackup;
 
+        private Dictionary<string, object> _cacheProperty;
         private bool _isChanged;
-
+        private bool _isDelete;
+        private bool _isEditing;
+        private bool _isReadOnly;
         private IRuleValidator _validator;
 
         #endregion Fields
@@ -72,6 +75,56 @@ namespace Yis.Framework.Business
             }
         }
 
+        public bool IsDelete
+        {
+            get
+            {
+                return _isDelete;
+            }
+
+            protected set
+            {
+                if (_isDelete != value)
+                {
+                    _isDelete = value;
+                }
+            }
+        }
+
+        [XmlIgnore]
+        [IgnoreDataMember]
+        public bool IsEditing
+        {
+            get
+            {
+                return _isEditing;
+            }
+
+            private set
+            {
+                if (_isEditing != value)
+                {
+                    _isEditing = value;
+                }
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return _isReadOnly;
+            }
+
+            protected set
+            {
+                if (_isReadOnly != value)
+                {
+                    _isReadOnly = value;
+                }
+            }
+        }
+
         protected static IServiceLocator Locator
         {
             get
@@ -105,6 +158,19 @@ namespace Yis.Framework.Business
             }
         }
 
+        private Dictionary<string, object> CacheProperty
+        {
+            get
+            {
+                if (_cacheProperty.IsNull())
+                {
+                    _cacheProperty = new Dictionary<string, object>();
+                }
+
+                return _cacheProperty;
+            }
+        }
+
         #endregion Properties
 
         #region Indexers
@@ -131,12 +197,16 @@ namespace Yis.Framework.Business
         public void AcceptChanges()
         {
             _cacheBackup = null;
-            _isChanged = false;
+            IsEditing = false;
         }
 
         public void BeginEdit()
         {
+            if (IsDelete)
+                throw new Exception("Pas editable car delete");
+
             Backup();
+            IsEditing = true;
         }
 
         public void CancelEdit()
@@ -154,6 +224,7 @@ namespace Yis.Framework.Business
             Restore();
             _cacheBackup = null;
             IsChanged = false;
+            IsEditing = false;
         }
 
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -161,18 +232,72 @@ namespace Yis.Framework.Business
             yield break;
         }
 
-        protected void SetProperty<T>(T value, T newValue)
+        protected T GetProperty<T>(T value)
+        {
+            return value;
+        }
+
+        protected T GetProperty<T>(Func<T> load, [CallerMemberName] string propertyName = null)
+        {
+            T value = default(T);
+
+            if (CacheProperty.ContainsKey(propertyName))
+            {
+                value = (T)CacheProperty[propertyName];
+            }
+            else
+            {
+                value = load();
+                CacheProperty.Add(propertyName, value);
+            }
+
+            return value;
+        }
+
+        protected T GetProperty<T>(ref T value, Func<T> load)
+        {
+            if (value.IsNull())
+            {
+                value = load();
+            }
+            return value;
+        }
+
+        protected void SetProperty<T>(ref T value, T newValue)
         {
             if (newValue != null)
             {
                 if (!newValue.Equals(value))
                 {
+                    if (!IsEditing)
+                        BeginEdit();
+                    if (!IsChanged)
+                        IsChanged = true;
                     value = newValue;
                 }
             }
             else
             {
                 value = default(T);
+            }
+        }
+
+        protected void SetProperty<T>(Action<T> setValue, T actualValue, T newValue)
+        {
+            if (newValue != null)
+            {
+                if (!newValue.Equals(actualValue))
+                {
+                    if (!IsEditing)
+                        BeginEdit();
+                    if (!IsChanged)
+                        IsChanged = true;
+                    setValue(newValue);
+                }
+            }
+            else
+            {
+                setValue(default(T));
             }
         }
 
@@ -302,6 +427,43 @@ namespace Yis.Framework.Business
 
         #region Methods
 
+        public void Delete(bool directSave = true)
+        {
+            if (IsEditing)
+                CancelEdit();
+
+            IsDelete = true;
+
+            if (directSave)
+                Save();
+        }
+
+        public void Save()
+        {
+            if (IsEditing)
+                EndEdit();
+
+            if (IsDelete)
+            {
+            }
+            else if (IsNew)
+            {
+                IsNew = false;
+                IsChanged = false;
+
+                using (var uow = new UnitOfWork(DataContext))
+                {
+                    Provider.Add(ToModel());
+
+                    uow.SaveChanges();
+                }
+            }
+            else if (IsChanged)
+            {
+                IsChanged = false;
+            }
+        }
+
         public TModel ToModel()
         {
             return Model;
@@ -335,6 +497,22 @@ namespace Yis.Framework.Business
         }
 
         #endregion Constructors
+
+        #region Properties
+
+        public TKey Id
+        {
+            get { return Model.Id; }
+            set
+            {
+                if (!IsNew)
+                    throw new Exception("Impossible d'affecter un Id si pas isNew");
+
+                Model.Id = value;
+            }
+        }
+
+        #endregion Properties
 
         #region Methods
 

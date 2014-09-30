@@ -12,7 +12,7 @@ namespace Yis.Designer.Software.Business
     {
         #region Constructors
 
-        public NameSpaceCollection(IEnumerable<NameSpace> list)
+        public NameSpaceCollection(ICollection<NameSpace> list)
             : base(list)
         {
         }

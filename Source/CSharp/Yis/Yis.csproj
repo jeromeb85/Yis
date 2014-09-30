@@ -169,6 +169,7 @@
     <Compile Include="Framework\Data\Memory\Transaction.cs" />
     <Compile Include="Framework\Presentation\Commanding\Command.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelCollectionBase.cs" />
+    <Compile Include="InitializeData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Designer\Shell\Presentation\ViewModel\MainViewModel.cs" />
     <Compile Include="Designer\Shell\Presentation\ViewModel\WorkSpaceCollectionViewModel.cs" />

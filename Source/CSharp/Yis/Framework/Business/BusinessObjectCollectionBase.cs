@@ -54,17 +54,22 @@ namespace Yis.Framework.Business
 
     public abstract class BusinessObjectCollectionBase<TMe, TBusinessObject> : BusinessObjectCollectionBase, IEnumerable<TBusinessObject>
         where TMe : BusinessObjectCollectionBase<TMe, TBusinessObject>
-        where TBusinessObject : BusinessObjectBase
+        where TBusinessObject : BusinessObjectBase<TBusinessObject>
     {
         #region Fields
 
-        private IEnumerable<TBusinessObject> _list;
+        private ICollection<TBusinessObject> _list;
 
         #endregion Fields
 
         #region Constructors
 
-        public BusinessObjectCollectionBase(IEnumerable<TBusinessObject> businessObject)
+        public BusinessObjectCollectionBase()
+            : base()
+        {
+        }
+
+        public BusinessObjectCollectionBase(ICollection<TBusinessObject> businessObject)
             : base()
         {
             _list = businessObject;
@@ -74,7 +79,7 @@ namespace Yis.Framework.Business
 
         #region Properties
 
-        public IEnumerable<TBusinessObject> List
+        public ICollection<TBusinessObject> List
         {
             get
             {
@@ -96,6 +101,14 @@ namespace Yis.Framework.Business
 
         #region Methods
 
+        public TBusinessObject AddNew()
+        {
+            TBusinessObject item = Activator.CreateInstance<TBusinessObject>();
+            List.Add(item);
+
+            return item;
+        }
+
         public IEnumerator<TBusinessObject> GetEnumerator()
         {
             return List.GetEnumerator();
@@ -104,6 +117,11 @@ namespace Yis.Framework.Business
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        internal void Load(ICollection<TBusinessObject> list)
+        {
+            List = list;
         }
 
         #endregion Methods
@@ -126,7 +144,12 @@ namespace Yis.Framework.Business
 
         #region Constructors
 
-        public BusinessObjectCollectionBase(IEnumerable<TBusinessObject> businessObject)
+        public BusinessObjectCollectionBase()
+            : base()
+        {
+        }
+
+        public BusinessObjectCollectionBase(ICollection<TBusinessObject> businessObject)
             : base(businessObject)
         {
         }
@@ -187,7 +210,18 @@ namespace Yis.Framework.Business
                 list.Add(bo);
             }
 
-            return (TMe)Activator.CreateInstance(typeof(TMe), new object[] { list });
+            TMe result = Activator.CreateInstance<TMe>();
+            result.Load(list);
+
+            return result;
+        }
+
+        public void Save()
+        {
+            foreach (var item in List)
+            {
+                item.Save();
+            }
         }
 
         #endregion Methods
