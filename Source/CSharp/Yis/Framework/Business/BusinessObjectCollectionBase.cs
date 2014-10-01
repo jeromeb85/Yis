@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Framework.Business.Contract;
 using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.IoC.Contract;
@@ -127,7 +128,7 @@ namespace Yis.Framework.Business
         #endregion Methods
     }
 
-    public abstract class BusinessObjectCollectionBase<TMe, TBusinessObject, TModel, TProvider, TDataContext> : BusinessObjectCollectionBase<TMe, TBusinessObject>
+    public abstract class BusinessObjectCollectionBase<TMe, TBusinessObject, TModel, TProvider, TDataContext> : BusinessObjectCollectionBase<TMe, TBusinessObject>, ISavableBusinessObject
         where TMe : BusinessObjectCollectionBase<TMe, TBusinessObject, TModel, TProvider, TDataContext>
         where TBusinessObject : BusinessObjectBase<TBusinessObject, TModel, TProvider, TDataContext>
         where TModel : class,IModel
@@ -143,6 +144,11 @@ namespace Yis.Framework.Business
         #endregion Fields
 
         #region Constructors
+
+        public BusinessObjectCollectionBase(IEnumerable<TModel> model)
+            : this(new List<TBusinessObject>())
+        {
+        }
 
         public BusinessObjectCollectionBase()
             : base()
@@ -222,6 +228,25 @@ namespace Yis.Framework.Business
             {
                 item.Save();
             }
+        }
+
+        private TBusinessObject ModelToBusinessObject(TModel model)
+        {
+            TBusinessObject bo = Activator.CreateInstance<TBusinessObject>();
+            bo.Load(model);
+            return bo;
+        }
+
+        private ICollection<TBusinessObject> ModelToBusinessObject(ICollection<TModel> list)
+        {
+            ICollection<TBusinessObject> result = new List<TBusinessObject>();
+
+            foreach (var item in list)
+            {
+                result.Add(ModelToBusinessObject(item));
+            }
+
+            return result;
         }
 
         #endregion Methods

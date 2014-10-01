@@ -29,12 +29,12 @@ namespace Yis.Designer.Software.Business
 
         public NameSpaceCollection Child
         {
-            get { return GetProperty<NameSpaceCollection>(() =>  new NameSpaceCollection(); ); }
+            get { return GetProperty<NameSpaceCollection>(() => NameSpaceCollection.GetByParent(Id), true); }
         }
 
         public string Name
         {
-            get { return GetProperty(Model.Name); }
+            get { return GetProperty(() => Model.Name); }
             set { SetProperty(v => Model.Name = value, Model.Name, value); }
         }
 

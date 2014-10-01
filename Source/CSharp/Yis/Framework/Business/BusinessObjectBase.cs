@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -27,12 +28,10 @@ namespace Yis.Framework.Business
         #region Fields
 
         private static IServiceLocator _locator;
-
         private static ILog _log;
-
         private Dictionary<string, object> _cacheBackup;
-
         private Dictionary<string, object> _cacheProperty;
+        private List<object> _childAggregation;
         private bool _isChanged;
         private bool _isDelete;
         private bool _isEditing;
@@ -75,6 +74,8 @@ namespace Yis.Framework.Business
             }
         }
 
+        [XmlIgnore]
+        [IgnoreDataMember]
         public bool IsDelete
         {
             get
@@ -146,6 +147,18 @@ namespace Yis.Framework.Business
         protected static IDependencyResolver Resolver
         {
             get { return DependencyResolverManager.Default; }
+        }
+
+        protected IList<object> ChildAggregation
+        {
+            get
+            {
+                if (_childAggregation.IsNull())
+                {
+                    _childAggregation = new List<object>();
+                }
+                return _childAggregation;
+            }
         }
 
         protected IRuleValidator Validator
@@ -232,12 +245,12 @@ namespace Yis.Framework.Business
             yield break;
         }
 
-        protected T GetProperty<T>(T value)
-        {
-            return value;
-        }
+        //protected T GetProperty<T>(T value)
+        //{
+        //    return value;
+        //}
 
-        protected T GetProperty<T>(Func<T> load, [CallerMemberName] string propertyName = null)
+        protected T GetProperty<T>(Func<T> load, LinkedType link = LinkedType.None, [CallerMemberName] string propertyName = null)
         {
             T value = default(T);
 
@@ -248,6 +261,8 @@ namespace Yis.Framework.Business
             else
             {
                 value = load();
+                if (link == LinkedType.Aggregation)
+                    ChildAggregation.Add(value);
                 CacheProperty.Add(propertyName, value);
             }
 
@@ -335,7 +350,7 @@ namespace Yis.Framework.Business
         #endregion Methods
     }
 
-    public abstract class BusinessObjectBase<TMe, TModel, TProvider, TDataContext> : BusinessObjectBase<TMe>
+    public abstract class BusinessObjectBase<TMe, TModel, TProvider, TDataContext> : BusinessObjectBase<TMe>, IEditableBusinessObject<TProvider>, ISavableBusinessObject
         where TMe : BusinessObjectBase<TMe, TModel, TProvider, TDataContext>
         where TProvider : IRepository<TModel>
         where TModel : class,IModel
@@ -427,7 +442,7 @@ namespace Yis.Framework.Business
 
         #region Methods
 
-        public void Delete(bool directSave = true)
+        public void Delete(bool directSave = false)
         {
             if (IsEditing)
                 CancelEdit();
@@ -448,6 +463,12 @@ namespace Yis.Framework.Business
             }
             else if (IsNew)
             {
+                foreach (var item in ChildAggregation)
+                {
+                    if (item is ISavableBusinessObject)
+                        (item as ISavableBusinessObject).Save();
+                }
+
                 IsNew = false;
                 IsChanged = false;
 

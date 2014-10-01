@@ -8,7 +8,7 @@ using Yis.Framework.Business;
 
 namespace Yis.Designer.Software.Business
 {
-    public class NameSpaceCollection : BusinessObjectCollectionBase<NameSpaceCollection, NameSpace, Yis.Designer.Software.Model.NameSpace, INameSpaceProvider, ISoftwareDataContext>
+    public class NameSpaceCollection : BusinessObjectCollectionBase<NameSpaceCollection, NameSpace, Model.NameSpace, INameSpaceProvider, ISoftwareDataContext>
     {
         #region Constructors
 
@@ -17,6 +17,20 @@ namespace Yis.Designer.Software.Business
         {
         }
 
+        public NameSpaceCollection(IEnumerable<Model.NameSpace> list)
+            : base(list)
+        {
+        }
+
         #endregion Constructors
+
+        #region Methods
+
+        public static NameSpaceCollection GetByParent(Guid Id)
+        {
+            return new NameSpaceCollection(Provider.GetByParent(Id));
+        }
+
+        #endregion Methods
     }
 }

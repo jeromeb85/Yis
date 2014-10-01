@@ -11,4 +11,13 @@ namespace Yis.Framework.Business.Contract
     public interface IEditableBusinessObject : IBusinessObject, IEditableObject, IValidatableObject, IRevertibleChangeTracking
     {
     }
+
+    public interface IEditableBusinessObject<TProvider> : IEditableBusinessObject
+    {
+        #region Methods
+
+        void save();
+
+        #endregion Methods
+    }
 }
