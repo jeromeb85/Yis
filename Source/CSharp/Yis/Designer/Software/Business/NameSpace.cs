@@ -27,9 +27,9 @@ namespace Yis.Designer.Software.Business
 
         #region Properties
 
-        public NameSpaceCollection Child
+        public NameSpaceCollection Sub
         {
-            get { return GetProperty<NameSpaceCollection>(() => NameSpaceCollection.GetByParent(Id), true); }
+            get { return GetProperty<NameSpaceCollection>(() => NameSpaceCollection.GetByParent(Id), true, true); }
         }
 
         public string Name
@@ -53,7 +53,7 @@ namespace Yis.Designer.Software.Business
             return item;
         }
 
-        public static bool IsExsist(string name)
+        public static bool IsExists(string name)
         {
             return Provider.IsExists(name);
         }

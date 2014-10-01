@@ -124,9 +124,9 @@
     <Compile Include="Framework\Business\BusinessObjectCollectionBase.cs" />
     <Compile Include="Framework\Business\BusinessWorkflowBase.cs" />
     <Compile Include="Framework\Business\Contract\IBusinessObject.cs" />
+    <Compile Include="Framework\Business\Contract\IDeletableBusinessObject.cs" />
     <Compile Include="Framework\Business\Contract\IEditableBusinessObject.cs" />
     <Compile Include="Framework\Business\Contract\ISavableBusinessObject.cs" />
-    <Compile Include="Framework\Business\LinkedType.cs" />
     <Compile Include="Framework\Core\Caching\CacheStorage.cs" />
     <Compile Include="Framework\Core\Caching\CacheStorageValueInfo.cs" />
     <Compile Include="Framework\Core\Caching\Contract\ICacheStorage.cs" />

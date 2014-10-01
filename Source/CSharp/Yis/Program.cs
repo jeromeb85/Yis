@@ -160,11 +160,13 @@ namespace Yis
         {
             ConsoleHelper.ShowConsoleWindow();
 
-            NameSpaceCollection manag = new NameSpaceCollection();
-            NameSpace ns = manag.AddNew();
+            InitializeData.Run();
 
-            ns.Id = Guid.NewGuid();
-            ns.Name = "Yis : " + ns.Id.ToString();
+            //NameSpaceCollection manag = new NameSpaceCollection();
+            //NameSpace ns = manag.AddNew();
+
+            //ns.Id = Guid.NewGuid();
+            //ns.Name = "Yis : " + ns.Id.ToString();
 
             //manag.Save();
 

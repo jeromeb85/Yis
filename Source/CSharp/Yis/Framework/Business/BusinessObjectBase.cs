@@ -31,7 +31,7 @@ namespace Yis.Framework.Business
         private static ILog _log;
         private Dictionary<string, object> _cacheBackup;
         private Dictionary<string, object> _cacheProperty;
-        private List<object> _childAggregation;
+        private List<ISavableBusinessObject> _childSavable;
         private bool _isChanged;
         private bool _isDelete;
         private bool _isEditing;
@@ -149,15 +149,15 @@ namespace Yis.Framework.Business
             get { return DependencyResolverManager.Default; }
         }
 
-        protected IList<object> ChildAggregation
+        protected IList<ISavableBusinessObject> ChildSavable
         {
             get
             {
-                if (_childAggregation.IsNull())
+                if (_childSavable.IsNull())
                 {
-                    _childAggregation = new List<object>();
+                    _childSavable = new List<ISavableBusinessObject>();
                 }
-                return _childAggregation;
+                return _childSavable;
             }
         }
 
@@ -250,7 +250,7 @@ namespace Yis.Framework.Business
         //    return value;
         //}
 
-        protected T GetProperty<T>(Func<T> load, LinkedType link = LinkedType.None, [CallerMemberName] string propertyName = null)
+        protected T GetProperty<T>(Func<T> load, bool IsChildAutoSave = false, bool IsChildAutoDelete = false, [CallerMemberName] string propertyName = null)
         {
             T value = default(T);
 
@@ -261,8 +261,8 @@ namespace Yis.Framework.Business
             else
             {
                 value = load();
-                if (link == LinkedType.Aggregation)
-                    ChildAggregation.Add(value);
+                if (IsChildAutoSave && value is ISavableBusinessObject)
+                    ChildSavable.Add(value as ISavableBusinessObject);
                 CacheProperty.Add(propertyName, value);
             }
 
@@ -350,7 +350,7 @@ namespace Yis.Framework.Business
         #endregion Methods
     }
 
-    public abstract class BusinessObjectBase<TMe, TModel, TProvider, TDataContext> : BusinessObjectBase<TMe>, IEditableBusinessObject<TProvider>, ISavableBusinessObject
+    public abstract class BusinessObjectBase<TMe, TModel, TProvider, TDataContext> : BusinessObjectBase<TMe>, ISavableBusinessObject
         where TMe : BusinessObjectBase<TMe, TModel, TProvider, TDataContext>
         where TProvider : IRepository<TModel>
         where TModel : class,IModel
@@ -458,30 +458,25 @@ namespace Yis.Framework.Business
             if (IsEditing)
                 EndEdit();
 
-            if (IsDelete)
+            using (var uow = new UnitOfWork(DataContext))
             {
-            }
-            else if (IsNew)
-            {
-                foreach (var item in ChildAggregation)
+                ChildSavable.ForEach((i) => i.Save());
+
+                if (IsDelete)
                 {
-                    if (item is ISavableBusinessObject)
-                        (item as ISavableBusinessObject).Save();
                 }
-
-                IsNew = false;
-                IsChanged = false;
-
-                using (var uow = new UnitOfWork(DataContext))
+                else if (IsNew)
                 {
                     Provider.Add(ToModel());
 
                     uow.SaveChanges();
+                    IsNew = false;
+                    IsChanged = false;
                 }
-            }
-            else if (IsChanged)
-            {
-                IsChanged = false;
+                else if (IsChanged)
+                {
+                    IsChanged = false;
+                }
             }
         }
 

@@ -22,6 +22,11 @@ namespace Yis.Designer.Software.Business
         {
         }
 
+        public NameSpaceCollection()
+            : base()
+        {
+        }
+
         #endregion Constructors
 
         #region Methods

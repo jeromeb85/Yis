@@ -14,8 +14,10 @@ namespace Yis
         public static void Run()
         {
             NameSpace nsRoot;
+            NameSpace nsSample;
 
-            if (NameSpace.IsExsist("Yis"))
+            //Vérifier ou créer Yis
+            if (NameSpace.IsExists("Yis"))
                 nsRoot = NameSpace.GetByName("Yis");
             else
             {
@@ -23,6 +25,32 @@ namespace Yis
                 nsRoot.Id = Guid.NewGuid();
                 nsRoot.Name = "Yis";
             }
+
+            //Vérifier ou créer Designer
+            if (nsRoot.Sub.Any(t => (t.Name == "Designer")))
+            {
+                nsSample = nsRoot.Sub.First(t => (t.Name == "Designer"));
+            }
+            else
+            {
+                nsSample = nsRoot.Sub.AddNew();
+                nsSample.Id = Guid.NewGuid();
+                nsSample.Name = "Designer";
+            }
+
+            //Vérifier ou créer Sample
+            if (nsSample.Sub.Any(t => (t.Name == "Sample")))
+            {
+                nsSample = nsSample.Sub.First(t => (t.Name == "Sample"));
+            }
+            else
+            {
+                nsSample = nsSample.Sub.AddNew();
+                nsSample.Id = Guid.NewGuid();
+                nsSample.Name = "Sample";
+            }
+
+            nsRoot.Save();
         }
 
         #endregion Methods
