@@ -9,7 +9,7 @@ using Yis.Framework.Data.Contract;
 
 namespace Yis.Framework.Data.EntityFramework
 {
-    public class RepositoryBase<TEntity, TKey> : IRepository<TEntity, TKey>
+    public class RepositoryBase<TEntity> : IRepository<TEntity>
            where TEntity : class
     {
         #region Fields
@@ -162,15 +162,15 @@ namespace Yis.Framework.Data.EntityFramework
             return query.FirstOrDefault(predicate);
         }
 
-        /// <summary>
-        /// Gets a specific entity by it's primary key value.
-        /// </summary>
-        /// <param name="keyValue">The key value.</param>
-        /// <returns>The entity or <c>null</c> if the entity could not be found.</returns>
-        public virtual TEntity GetByKey(TKey keyValue)
-        {
-            return _dbSet.Find(keyValue);
-        }
+        ///// <summary>
+        ///// Gets a specific entity by it's primary key value.
+        ///// </summary>
+        ///// <param name="keyValue">The key value.</param>
+        ///// <returns>The entity or <c>null</c> if the entity could not be found.</returns>
+        //public virtual TEntity GetByKey(TKey keyValue)
+        //{
+        //    return _dbSet.Find(keyValue);
+        //}
 
         /// <summary>
         /// Gets the default query for this repository.

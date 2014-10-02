@@ -39,14 +39,4 @@ namespace Yis.Framework.Data.Contract
         //  IQueryable<TModel> Find(Expression<Func<TModel, bool>> predicate);
         // int Count(Expression<Func<TModel, bool>> predicate = null);
     }
-
-    public interface IRepository<TModel, TKey> : IRepository<TModel>
-        where TModel : class
-    {
-        #region Methods
-
-        TModel GetByKey(TKey keyValue);
-
-        #endregion Methods
-    }
 }

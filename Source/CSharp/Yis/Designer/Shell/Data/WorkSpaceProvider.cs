@@ -6,11 +6,15 @@ using Yis.Framework.Data.EntityFramework;
 
 namespace Yis.Designer.Data
 {
-    public class WorkSpaceProvider : RepositoryBase<WorkSpace, Guid>, IWorkSpaceProvider
+    public class WorkSpaceProvider : RepositoryBase<WorkSpace>, IWorkSpaceProvider
     {
+        #region Constructors
+
         public WorkSpaceProvider(IDataContext dataContext)
             : base(dataContext)
         {
         }
+
+        #endregion Constructors
     }
 }

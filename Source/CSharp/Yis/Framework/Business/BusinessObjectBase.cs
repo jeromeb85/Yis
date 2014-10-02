@@ -171,6 +171,19 @@ namespace Yis.Framework.Business
             }
         }
 
+        private Dictionary<string, object> CacheBackup
+        {
+            get
+            {
+                if (_cacheBackup.IsNull())
+                {
+                    _cacheBackup = new Dictionary<string, object>();
+                }
+
+                return _cacheBackup;
+            }
+        }
+
         private Dictionary<string, object> CacheProperty
         {
             get
@@ -318,20 +331,22 @@ namespace Yis.Framework.Business
 
         private void Backup()
         {
-            _cacheBackup = new Dictionary<string, object>();
-            IEnumerable<PropertyInfo> properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
-            foreach (PropertyInfo property in properties)
-                _cacheBackup.Add(property.Name, property.GetValue(this, null));
+            //=> Va a l'encontre dans l'état du LazyLoading... tester si la propriété est charger avant backup
+
+            //_cacheBackup = new Dictionary<string, object>();
+            //IEnumerable<PropertyInfo> properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
+            //foreach (PropertyInfo property in properties)
+            //    _cacheBackup.Add(property.Name, property.GetValue(this, null));
         }
 
         private void Restore()
         {
-            if (_cacheBackup != null)
-            {
-                IEnumerable<PropertyInfo> properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
-                foreach (PropertyInfo property in properties)
-                    property.SetValue(this, _cacheBackup[property.Name], null);
-            }
+            //if (_cacheBackup != null)
+            //{
+            //    IEnumerable<PropertyInfo> properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
+            //    foreach (PropertyInfo property in properties)
+            //        property.SetValue(this, _cacheBackup[property.Name], null);
+            //}
         }
 
         #endregion Methods
@@ -489,52 +504,6 @@ namespace Yis.Framework.Business
         {
             Model = model;
             IsNew = false;
-        }
-
-        #endregion Methods
-    }
-
-    public abstract class BusinessObjectBase<TMe, TModel, TKey, TProvider, TDataContext> : BusinessObjectBase<TMe, TModel, TProvider, TDataContext>
-        where TMe : BusinessObjectBase<TMe, TModel, TKey, TProvider, TDataContext>, new()
-        where TModel : class, IModel<TKey>
-        where TProvider : IRepository<TModel>
-        where TDataContext : IDataContext
-    {
-        #region Constructors
-
-        public BusinessObjectBase()
-            : base()
-        {
-        }
-
-        public BusinessObjectBase(TModel model)
-            : base(model)
-        {
-        }
-
-        #endregion Constructors
-
-        #region Properties
-
-        public TKey Id
-        {
-            get { return Model.Id; }
-            set
-            {
-                if (!IsNew)
-                    throw new Exception("Impossible d'affecter un Id si pas isNew");
-
-                Model.Id = value;
-            }
-        }
-
-        #endregion Properties
-
-        #region Methods
-
-        public static TMe GetById(TKey id)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion Methods

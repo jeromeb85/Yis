@@ -59,6 +59,8 @@ namespace Yis.Framework.Business
     {
         #region Fields
 
+        private EventHandler<AddedNewEventArgs<TBusinessObject>> _addedNewHandlers = null;
+
         private ICollection<TBusinessObject> _list;
 
         #endregion Fields
@@ -107,12 +109,23 @@ namespace Yis.Framework.Business
             TBusinessObject item = Activator.CreateInstance<TBusinessObject>();
             List.Add(item);
 
+            OnAddedNew(item);
+
             return item;
         }
 
         public IEnumerator<TBusinessObject> GetEnumerator()
         {
             return List.GetEnumerator();
+        }
+
+        public virtual void OnAddedNew(TBusinessObject item)
+        {
+            if (_addedNewHandlers != null)
+            {
+                var args = new AddedNewEventArgs<TBusinessObject>(item);
+                _addedNewHandlers(this, args);
+            }
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

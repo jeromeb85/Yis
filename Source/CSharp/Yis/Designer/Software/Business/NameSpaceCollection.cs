@@ -31,9 +31,9 @@ namespace Yis.Designer.Software.Business
 
         #region Methods
 
-        public static NameSpaceCollection GetByParent(Guid Id)
+        public static NameSpaceCollection GetChildByParent(Guid parentId)
         {
-            return new NameSpaceCollection(Provider.GetByParent(Id));
+            return new NameSpaceCollection(Provider.GetChildByParent(parentId));
         }
 
         #endregion Methods

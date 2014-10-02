@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Yis.Designer.Software.Data.Contract;
 using Yis.Designer.Software.Model;
@@ -27,12 +28,17 @@ namespace Yis.Designer.Software.Data.Memory
 
         #endregion Constructors
 
+        public NameSpace GetById(Guid id)
+        {
+            return GetQuery().First(t => t.Id == id);
+        }
+
         public NameSpace GetByName(string name)
         {
             return GetQuery().First(t => t.Name == name);
         }
 
-        public IEnumerable<NameSpace> GetByParent(System.Guid id)
+        public IEnumerable<NameSpace> GetChildByParent(Guid id)
         {
             return GetQuery().Where(t => t.ParentNameSpaceId == id);
         }

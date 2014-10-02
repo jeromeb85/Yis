@@ -9,11 +9,11 @@ using Yis.Framework.Core.Extension;
 
 namespace Yis.Designer.Software.Business
 {
-    public class NameSpace : BusinessObjectBase<NameSpace, Yis.Designer.Software.Model.NameSpace, Guid, INameSpaceProvider, ISoftwareDataContext>
+    public class NameSpace : BusinessObjectBase<NameSpace, Model.NameSpace, INameSpaceProvider, ISoftwareDataContext>
     {
         #region Constructors
 
-        public NameSpace(Yis.Designer.Software.Model.NameSpace model)
+        public NameSpace(Model.NameSpace model)
             : base(model)
         {
         }
@@ -27,15 +27,38 @@ namespace Yis.Designer.Software.Business
 
         #region Properties
 
-        public NameSpaceCollection Sub
+        public Guid Id
         {
-            get { return GetProperty<NameSpaceCollection>(() => NameSpaceCollection.GetByParent(Id), true, true); }
+            get { return Model.Id; }
+            set
+            {
+                if (!IsNew)
+                    throw new Exception("Impossible d'affecter un Id si pas isNew");
+
+                Model.Id = value;
+            }
+        }
+
+        public bool IsRoot
+        {
+            get { return Parent.IsNull(); }
         }
 
         public string Name
         {
             get { return GetProperty(() => Model.Name); }
             set { SetProperty(v => Model.Name = value, Model.Name, value); }
+        }
+
+        public NameSpace Parent
+        {
+            get { return new NameSpace(Provider.GetById(Model.ParentNameSpaceId)); }
+            set { SetProperty(v => Model.ParentNameSpaceId = value.Id, Model.ParentNameSpaceId, value.Id); }
+        }
+
+        public NameSpaceCollection Sub
+        {
+            get { return GetProperty<NameSpaceCollection>(() => NameSpaceCollection.GetChildByParent(Id), true, true); }
         }
 
         #endregion Properties

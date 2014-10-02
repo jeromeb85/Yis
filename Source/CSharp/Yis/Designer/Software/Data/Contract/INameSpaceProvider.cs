@@ -9,9 +9,11 @@ namespace Yis.Designer.Software.Data.Contract
     {
         #region Methods
 
+        NameSpace GetById(Guid id);
+
         NameSpace GetByName(string name);
 
-        IEnumerable<NameSpace> GetByParent(Guid id);
+        IEnumerable<NameSpace> GetChildByParent(Guid id);
 
         bool IsExists(string name);
 
