@@ -58,7 +58,7 @@ namespace Yis.Designer.Software.Business
 
         public NameSpaceCollection Sub
         {
-            get { return GetProperty<NameSpaceCollection>(() => NameSpaceCollection.GetChildByParent(Id), true, true); }
+            get { return GetProperty<NameSpaceCollection>(() => NameSpaceCollection.GetChildByParent(Id), IsChildAutoSave: true, IsChildAutoDelete: true); }
         }
 
         #endregion Properties

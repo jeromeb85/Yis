@@ -80,6 +80,24 @@ namespace Yis.Framework.Business
 
         #endregion Constructors
 
+        #region Events
+
+        public event EventHandler<AddedNewEventArgs<TBusinessObject>> AddedNew
+        {
+            add
+            {
+                _addedNewHandlers = (EventHandler<AddedNewEventArgs<TBusinessObject>>)
+                  System.Delegate.Combine(_addedNewHandlers, value);
+            }
+            remove
+            {
+                _addedNewHandlers = (EventHandler<AddedNewEventArgs<TBusinessObject>>)
+                  System.Delegate.Remove(_addedNewHandlers, value);
+            }
+        }
+
+        #endregion Events
+
         #region Properties
 
         public ICollection<TBusinessObject> List
