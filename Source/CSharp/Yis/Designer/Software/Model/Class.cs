@@ -7,10 +7,16 @@ using Yis.Framework.Model;
 
 namespace Yis.Designer.Software.Model
 {
-    public class Class : ModelBase<Guid>
+    public class Class : ModelBase
     {
-        public Guid NameSpaceId { get; set; }
+        #region Properties
+
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
+
+        public Guid NameSpaceId { get; set; }
+
+        #endregion Properties
     }
 }

@@ -263,7 +263,7 @@ namespace Yis.Framework.Business
         //    return value;
         //}
 
-        protected T GetProperty<T>(Func<T> load, bool IsChildAutoSave = false, bool IsChildAutoDelete = false, [CallerMemberName] string propertyName = null)
+        protected T GetProperty<T>(Func<T> load, Action<T> callBack = null, bool IsChildAutoSave = false, bool IsChildAutoDelete = false, [CallerMemberName] string propertyName = null)
         {
             T value = default(T);
 
@@ -277,6 +277,9 @@ namespace Yis.Framework.Business
                 if (IsChildAutoSave && value is ISavableBusinessObject)
                     ChildSavable.Add(value as ISavableBusinessObject);
                 CacheProperty.Add(propertyName, value);
+
+                if (!callBack.IsNull())
+                    callBack(value);
             }
 
             return value;

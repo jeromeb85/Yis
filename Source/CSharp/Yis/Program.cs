@@ -184,7 +184,10 @@ namespace Yis
                 Console.WriteLine(item.Name);
             }
 
-            //Generator gen = new Generator();
+            Generator gen = new Generator();
+            gen.Generate(NameSpace.GetByName("Yis"), @"C:\TestGen");
+
+            //
             //NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis", ChrildrenNameSpace = new List<NameSpace>() };
             //NameSpace child = new NameSpace() { Id = Guid.NewGuid(), Name = "Sample", Class = new List<Class>() };
             //Class test = new Class() { Id = Guid.NewGuid(), Name = "testclass", NameSpaceId = child.Id };

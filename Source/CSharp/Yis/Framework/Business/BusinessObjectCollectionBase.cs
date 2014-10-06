@@ -177,7 +177,7 @@ namespace Yis.Framework.Business
         #region Constructors
 
         public BusinessObjectCollectionBase(IEnumerable<TModel> model)
-            : this(new List<TBusinessObject>())
+            : this(ModelToBusinessObject(model))
         {
         }
 
@@ -261,14 +261,7 @@ namespace Yis.Framework.Business
             }
         }
 
-        private TBusinessObject ModelToBusinessObject(TModel model)
-        {
-            TBusinessObject bo = Activator.CreateInstance<TBusinessObject>();
-            bo.Load(model);
-            return bo;
-        }
-
-        private ICollection<TBusinessObject> ModelToBusinessObject(ICollection<TModel> list)
+        private static ICollection<TBusinessObject> ModelToBusinessObject(IEnumerable<TModel> list)
         {
             ICollection<TBusinessObject> result = new List<TBusinessObject>();
 
@@ -278,6 +271,13 @@ namespace Yis.Framework.Business
             }
 
             return result;
+        }
+
+        private static TBusinessObject ModelToBusinessObject(TModel model)
+        {
+            TBusinessObject bo = Activator.CreateInstance<TBusinessObject>();
+            bo.Load(model);
+            return bo;
         }
 
         #endregion Methods

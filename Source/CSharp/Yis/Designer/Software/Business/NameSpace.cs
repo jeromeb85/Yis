@@ -21,21 +21,27 @@ namespace Yis.Designer.Software.Business
         public NameSpace()
             : base()
         {
+            Id = Guid.NewGuid();
         }
 
         #endregion Constructors
 
         #region Properties
 
+        public ClassCollection Class
+        {
+            get { return GetProperty<ClassCollection>(() => ClassCollection.GetByNameSpace(Id), IsChildAutoSave: true, IsChildAutoDelete: true); }
+        }
+
         public Guid Id
         {
-            get { return Model.Id; }
+            get { return GetProperty(() => Model.Id); }
             set
             {
                 if (!IsNew)
                     throw new Exception("Impossible d'affecter un Id si pas isNew");
 
-                Model.Id = value;
+                SetProperty(v => Model.Id = value, Model.Id, value);
             }
         }
 
@@ -52,22 +58,33 @@ namespace Yis.Designer.Software.Business
 
         public NameSpace Parent
         {
-            get { return new NameSpace(Provider.GetById(Model.ParentNameSpaceId)); }
+            get { return GetProperty<NameSpace>(() => NameSpace.GetById(Model.ParentNameSpaceId)); }
             set { SetProperty(v => Model.ParentNameSpaceId = value.Id, Model.ParentNameSpaceId, value.Id); }
         }
 
         public NameSpaceCollection Sub
         {
-            get { return GetProperty<NameSpaceCollection>(() => NameSpaceCollection.GetChildByParent(Id), IsChildAutoSave: true, IsChildAutoDelete: true); }
+            get { return GetProperty<NameSpaceCollection>(() => NameSpaceCollection.GetChildByParent(Id), OnLoadSub, IsChildAutoSave: true, IsChildAutoDelete: true); }
         }
 
         #endregion Properties
 
         #region Methods
 
+        public static NameSpace GetById(Guid id)
+        {
+            Model.NameSpace model = Provider.GetById(id);
+            NameSpace item = null;
+
+            if (!model.IsNull())
+                item = new NameSpace(model);
+
+            return item;
+        }
+
         public static NameSpace GetByName(string name)
         {
-            Yis.Designer.Software.Model.NameSpace model = Provider.GetByName(name);
+            Model.NameSpace model = Provider.GetByName(name);
             NameSpace item = null;
 
             if (!model.IsNull())
@@ -79,6 +96,26 @@ namespace Yis.Designer.Software.Business
         public static bool IsExists(string name)
         {
             return Provider.IsExists(name);
+        }
+
+        private void OnAddedNewClass(object sender, AddedNewEventArgs<Class> item)
+        {
+            item.NewObject.Parent = this;
+        }
+
+        private void OnAddedNewSub(object sender, AddedNewEventArgs<NameSpace> item)
+        {
+            item.NewObject.Parent = this;
+        }
+
+        private void OnLoadClass(ClassCollection item)
+        {
+            item.AddedNew += OnAddedNewClass;
+        }
+
+        private void OnLoadSub(NameSpaceCollection item)
+        {
+            item.AddedNew += OnAddedNewSub;
         }
 
         #endregion Methods

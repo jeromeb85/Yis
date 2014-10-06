@@ -7,13 +7,17 @@ namespace Yis.Designer.Model
 {
     [Table("WorkSpace")]
     [Serializable]
-    public partial class WorkSpace : ModelBase<Guid>
+    public partial class WorkSpace : ModelBase
     {
+        #region Properties
+
         [Required]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "La longueur doit être comprise entre 5 et 50")]
         [Display(Name = "Name")]
         [Index("WorkSpace_Idx_001", 1, IsUnique = true)]
         public string Name { get; set; }
+
+        #endregion Properties
 
         //public virtual AspectSemantic AspectSemantic { get; set; }
     }

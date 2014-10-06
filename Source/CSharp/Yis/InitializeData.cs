@@ -13,6 +13,43 @@ namespace Yis
 
         public static void Run()
         {
+            NameSpace nsRoot = CreateNameSpaceSample();
+            NameSpace nsModel = CreateNameSpaceModel(nsRoot);
+        }
+
+        private static NameSpace CreateNameSpaceModel(NameSpace root)
+        {
+            NameSpace nsModel;
+            Class cUser;
+
+            //Vérifier ou créer Designer
+            if (root.Sub.Any(t => (t.Name == "Model")))
+            {
+                nsModel = root.Sub.First(t => (t.Name == "Model"));
+            }
+            else
+            {
+                nsModel = root.Sub.AddNew();
+                nsModel.Name = "Model";
+            }
+
+            if (nsModel.Class.Any(t => (t.Name == "User")))
+            {
+                cUser = nsModel.Class.First(t => (t.Name == "User"));
+            }
+            else
+            {
+                cUser = nsModel.Class.AddNew();
+                cUser.Name = "User";
+            }
+
+            nsModel.Save();
+
+            return nsModel;
+        }
+
+        private static NameSpace CreateNameSpaceSample()
+        {
             NameSpace nsRoot;
             NameSpace nsSample;
 
@@ -22,7 +59,6 @@ namespace Yis
             else
             {
                 nsRoot = NameSpace.New();
-                nsRoot.Id = Guid.NewGuid();
                 nsRoot.Name = "Yis";
             }
 
@@ -34,7 +70,6 @@ namespace Yis
             else
             {
                 nsSample = nsRoot.Sub.AddNew();
-                nsSample.Id = Guid.NewGuid();
                 nsSample.Name = "Designer";
             }
 
@@ -46,11 +81,12 @@ namespace Yis
             else
             {
                 nsSample = nsSample.Sub.AddNew();
-                nsSample.Id = Guid.NewGuid();
                 nsSample.Name = "Sample";
             }
 
             nsRoot.Save();
+
+            return nsSample;
         }
 
         #endregion Methods
