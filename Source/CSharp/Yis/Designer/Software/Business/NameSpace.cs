@@ -30,7 +30,12 @@ namespace Yis.Designer.Software.Business
 
         public ClassCollection Class
         {
-            get { return GetProperty<ClassCollection>(() => ClassCollection.GetByNameSpace(Id), IsChildAutoSave: true, IsChildAutoDelete: true); }
+            get { return GetProperty<ClassCollection>(() => ClassCollection.GetByNameSpace(Id), OnLoadClass, IsChildAutoSave: true, IsChildAutoDelete: true); }
+        }
+
+        public string FullName
+        {
+            get { return ConstructFullName(this); }
         }
 
         public Guid Id
@@ -96,6 +101,14 @@ namespace Yis.Designer.Software.Business
         public static bool IsExists(string name)
         {
             return Provider.IsExists(name);
+        }
+
+        private string ConstructFullName(NameSpace item)
+        {
+            if (item.IsRoot)
+                return item.Name;
+            else
+                return ConstructFullName(item.Parent) + "." + item.Name;
         }
 
         private void OnAddedNewClass(object sender, AddedNewEventArgs<Class> item)

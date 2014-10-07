@@ -1,23 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Model;
 
 namespace Yis.Designer.Software.Model
 {
-    public class Class : ModelBase
+    public class Property : ModelBase
     {
         #region Properties
 
+        public Guid ClassId { get; set; }
+
+        public string Comment { get; set; }
+
         public Guid Id { get; set; }
 
-        public string Import { get; set; }
+        public bool IsDenormalized { get; set; }
 
         public string Name { get; set; }
 
-        public Guid NameSpaceId { get; set; }
+        public string Type { get; set; }
 
         #endregion Properties
     }

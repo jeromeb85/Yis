@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using Yis.Designer.Model;
 using Yis.Designer.Presentation;
 using Yis.Designer.Software.Business;
-using Yis.Designer.Technic.Standard;
+using Yis.Designer.Technic.Internal;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator;
 using Yis.Framework.Core.Logging;
@@ -185,7 +185,7 @@ namespace Yis
             }
 
             Generator gen = new Generator();
-            gen.Generate(NameSpace.GetByName("Yis"), @"C:\TestGen");
+            gen.Generate(NameSpace.GetByName("Yis"), @"D:\TestGen\");
 
             //
             //NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis", ChrildrenNameSpace = new List<NameSpace>() };

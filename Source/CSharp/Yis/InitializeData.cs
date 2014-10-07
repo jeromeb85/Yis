@@ -21,6 +21,7 @@ namespace Yis
         {
             NameSpace nsModel;
             Class cUser;
+            Property pProp;
 
             //Vérifier ou créer Designer
             if (root.Sub.Any(t => (t.Name == "Model")))
@@ -41,6 +42,34 @@ namespace Yis
             {
                 cUser = nsModel.Class.AddNew();
                 cUser.Name = "User";
+                cUser.Import.Add("Yis.Framework.Model");
+                cUser.Import.Add("System");
+            }
+
+            if (cUser.Property.Any(t => (t.Name == "Id")))
+            {
+                pProp = cUser.Property.First(t => (t.Name == "Id"));
+            }
+            else
+            {
+                pProp = cUser.Property.AddNew();
+                pProp.Name = "Id";
+                pProp.Type = "Guid";
+                pProp.Comment = "Identifiant technique d'un utilisateur";
+                pProp.IsDenormalized = true;
+            }
+
+            if (cUser.Property.Any(t => (t.Name == "Login")))
+            {
+                pProp = cUser.Property.First(t => (t.Name == "Login"));
+            }
+            else
+            {
+                pProp = cUser.Property.AddNew();
+                pProp.Name = "Login";
+                pProp.Type = "string";
+                pProp.Comment = "Identifiant de l'utilisateur";
+                pProp.IsDenormalized = true;
             }
 
             nsModel.Save();

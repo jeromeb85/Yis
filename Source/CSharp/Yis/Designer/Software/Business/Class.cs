@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yis.Designer.Software.Data.Contract;
 using Yis.Framework.Business;
+using Yis.Framework.Core.Extension;
 
 namespace Yis.Designer.Software.Business
 {
@@ -39,6 +40,12 @@ namespace Yis.Designer.Software.Business
             }
         }
 
+        public IList<string> Import
+        {
+            get { return GetProperty(() => String.IsNullOrEmpty(Model.Import) ? Enumerable.Empty<string>().ToList() : Model.Import.Split(',').ToList()); }
+            //     set { SetProperty(v => Model.Import = String.Join(",", value), Model.Import, String.Join(",", value)); }
+        }
+
         public string Name
         {
             get { return GetProperty(() => Model.Name); }
@@ -51,6 +58,36 @@ namespace Yis.Designer.Software.Business
             set { SetProperty(v => Model.NameSpaceId = value.Id, Model.NameSpaceId, value.Id); }
         }
 
+        public PropertyCollection Property
+        {
+            get { return GetProperty<PropertyCollection>(() => PropertyCollection.GetByClass(Id), OnLoadProperty, IsChildAutoSave: true, IsChildAutoDelete: true); }
+        }
+
         #endregion Properties
+
+        #region Methods
+
+        public static Class GetById(Guid id)
+        {
+            Model.Class model = Provider.GetById(id);
+            Class item = null;
+
+            if (!model.IsNull())
+                item = new Class(model);
+
+            return item;
+        }
+
+        private void OnAddedNewProperty(object sender, AddedNewEventArgs<Property> item)
+        {
+            item.NewObject.Parent = this;
+        }
+
+        private void OnLoadProperty(PropertyCollection item)
+        {
+            item.AddedNew += OnAddedNewProperty;
+        }
+
+        #endregion Methods
     }
 }

@@ -10,11 +10,11 @@ using Yis.Framework.Data.Memory;
 
 namespace Yis.Designer.Software.Data.Memory
 {
-    public class ClassProvider : RepositoryBase<Class>, IClassProvider
+    public class PropertyProvider : RepositoryBase<Property>, IPropertyProvider
     {
         #region Constructors
 
-        public ClassProvider(IDataContext dataContext)
+        public PropertyProvider(IDataContext dataContext)
             : base(dataContext)
         {
         }
@@ -23,14 +23,9 @@ namespace Yis.Designer.Software.Data.Memory
 
         #region Methods
 
-        public Class GetById(Guid id)
+        public IEnumerable<Property> GetByClass(Guid id)
         {
-            return GetQuery().First(t => t.Id == id);
-        }
-
-        public IEnumerable<Class> GetByNameSpace(Guid id)
-        {
-            return GetQuery().Where(t => t.NameSpaceId == id);
+            return GetQuery().Where(t => t.ClassId == id);
         }
 
         #endregion Methods

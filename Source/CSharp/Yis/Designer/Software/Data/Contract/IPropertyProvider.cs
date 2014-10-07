@@ -8,13 +8,11 @@ using Yis.Framework.Data.Contract;
 
 namespace Yis.Designer.Software.Data.Contract
 {
-    public interface IClassProvider : IRepository<Class>
+    public interface IPropertyProvider : IRepository<Property>
     {
         #region Methods
 
-        Class GetById(Guid id);
-
-        IEnumerable<Class> GetByNameSpace(Guid id);
+        IEnumerable<Property> GetByClass(Guid id);
 
         #endregion Methods
     }
