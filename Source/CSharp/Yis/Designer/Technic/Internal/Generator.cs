@@ -95,6 +95,8 @@ namespace Yis.Designer.Technic.Internal
             ctd.IsClass = true;
             ctd.Attributes = MemberAttributes.Public;
 
+            if (!string.IsNullOrWhiteSpace(param.BaseType)) ctd.BaseTypes.Add(param.BaseType);
+            param.Implement.ForEach((i) => ctd.BaseTypes.Add(i));
             param.Property.ForEach((i) => GenerateWithCodeDom(i, ctd));
 
             //Génération de la classe
@@ -117,7 +119,7 @@ namespace Yis.Designer.Technic.Internal
                 CodeSnippetTypeMember snippet = new CodeSnippetTypeMember();
                 if (!string.IsNullOrEmpty(param.Comment))
                     snippet.Comments.Add(new CodeCommentStatement(param.Comment, true));
-                snippet.Text = "public " + param.Type + " " + param.Name + " { get; set; }";
+                snippet.Text = "        " + ScopeToString(param.Scope) + " " + param.Type + " " + param.Name + " { get; set; }";
                 parent.Members.Add(snippet);
             }
             else
@@ -126,12 +128,38 @@ namespace Yis.Designer.Technic.Internal
 
                 prop.Name = param.Name;
                 prop.Attributes = MemberAttributes.Public | MemberAttributes.Final;
-                //    prop.HasGet = true;
+                prop.HasGet = true;
                 //   prop.HasSet = true;
                 prop.Type = new CodeTypeReference(param.Type);
 
                 parent.Members.Add(prop);
             }
+        }
+
+        private string ScopeToString(Yis.Designer.Software.Model.Scope scope)
+        {
+            string re = string.Empty;
+
+            switch (scope)
+            {
+                case Yis.Designer.Software.Model.Scope.Public:
+                    re = "public";
+                    break;
+
+                case Yis.Designer.Software.Model.Scope.Private:
+                    re = "private";
+                    break;
+
+                case Yis.Designer.Software.Model.Scope.Protected:
+                    re = "protected";
+                    break;
+
+                default:
+                    re = "public";
+                    break;
+            }
+
+            return re;
         }
 
         #endregion Methods

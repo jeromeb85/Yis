@@ -28,6 +28,12 @@ namespace Yis.Designer.Software.Business
 
         #region Properties
 
+        public string BaseType
+        {
+            get { return GetProperty(() => Model.BaseType); }
+            set { SetProperty(v => Model.BaseType = value, Model.BaseType, value); }
+        }
+
         public Guid Id
         {
             get { return GetProperty(() => Model.Id); }
@@ -40,9 +46,15 @@ namespace Yis.Designer.Software.Business
             }
         }
 
+        public IList<string> Implement
+        {
+            get { return GetProperty(() => Model.Implement.IsNull() ? Model.Implement = new List<string>() : Model.Implement); }
+            //     set { SetProperty(v => Model.Import = String.Join(",", value), Model.Import, String.Join(",", value)); }
+        }
+
         public IList<string> Import
         {
-            get { return GetProperty(() => String.IsNullOrEmpty(Model.Import) ? Enumerable.Empty<string>().ToList() : Model.Import.Split(',').ToList()); }
+            get { return GetProperty(() => Model.Import.IsNull() ? Model.Import = new List<string>() : Model.Import); }
             //     set { SetProperty(v => Model.Import = String.Join(",", value), Model.Import, String.Join(",", value)); }
         }
 
@@ -61,6 +73,12 @@ namespace Yis.Designer.Software.Business
         public PropertyCollection Property
         {
             get { return GetProperty<PropertyCollection>(() => PropertyCollection.GetByClass(Id), OnLoadProperty, IsChildAutoSave: true, IsChildAutoDelete: true); }
+        }
+
+        public Model.Scope Scope
+        {
+            get { return GetProperty(() => Model.Scope); }
+            set { SetProperty(v => Model.Scope = value, Model.Scope, value); }
         }
 
         #endregion Properties

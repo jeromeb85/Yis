@@ -17,6 +17,8 @@ namespace Yis.Designer.Software.Model
 
         public string Name { get; set; }
 
+        public Scope Scope { get; set; }
+
         public string Type { get; set; }
 
         #endregion Properties

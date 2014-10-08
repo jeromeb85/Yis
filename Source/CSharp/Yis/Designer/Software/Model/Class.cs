@@ -11,13 +11,19 @@ namespace Yis.Designer.Software.Model
     {
         #region Properties
 
+        public string BaseType { get; set; }
+
         public Guid Id { get; set; }
 
-        public string Import { get; set; }
+        public IList<string> Implement { get; set; }
+
+        public IList<string> Import { get; set; }
 
         public string Name { get; set; }
 
         public Guid NameSpaceId { get; set; }
+
+        public Scope Scope { get; set; }
 
         #endregion Properties
     }

@@ -103,6 +103,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Designer\Conceptual\Business\Concept.cs" />
+    <Compile Include="Designer\Conceptual\Business\ConceptCollection.cs" />
+    <Compile Include="Designer\Conceptual\Business\Domain.cs" />
+    <Compile Include="Designer\Conceptual\Business\DomainCollection.cs" />
+    <Compile Include="Designer\Conceptual\Data\Contract\IConceptProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Contract\IConceptualDataContext.cs" />
+    <Compile Include="Designer\Conceptual\Data\Contract\IDomainProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Memory\ConceptProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Memory\DomainProvider.cs" />
+    <Compile Include="Designer\Conceptual\Model\Concept.cs" />
+    <Compile Include="Designer\Conceptual\Model\Domain.cs" />
+    <Compile Include="Designer\Conceptual\Data\Memory\ConceptualDataContext.cs" />
     <Compile Include="Designer\Shell\Business\WorkSpaceManager.cs" />
     <Compile Include="Designer\Shell\Data\Contract\IWorkSpaceProvider.cs" />
     <Compile Include="Designer\Shell\Data\Contract\IDesignerDataContext.cs" />
@@ -126,6 +138,8 @@
     <Compile Include="Designer\Software\Model\Class.cs" />
     <Compile Include="Designer\Software\Model\NameSpace.cs" />
     <Compile Include="Designer\Software\Model\Property.cs" />
+    <Compile Include="Designer\Software\Model\Scope.cs" />
+    <Compile Include="Designer\Technic\Contract\ICompilator.cs" />
     <Compile Include="Designer\Technic\Contract\IGenerator.cs" />
     <Compile Include="Designer\Technic\Contract\ITransformator.cs" />
     <Compile Include="Designer\Technic\Internal\Generator.cs" />
@@ -295,9 +309,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Designer\Logic\" />
-    <Folder Include="Designer\Pragmatic\" />
-    <Folder Include="Designer\Semantic\" />
     <Folder Include="Designer\Shell\Presentation\Command\" />
     <Folder Include="Designer\Shell\Service\Interface\" />
     <Folder Include="Framework\Data\nHibernate\" />

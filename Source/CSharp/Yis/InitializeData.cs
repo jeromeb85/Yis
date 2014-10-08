@@ -44,6 +44,8 @@ namespace Yis
                 cUser.Name = "User";
                 cUser.Import.Add("Yis.Framework.Model");
                 cUser.Import.Add("System");
+                cUser.BaseType = "ModelBase";
+                cUser.Scope = Yis.Designer.Software.Model.Scope.Public;
             }
 
             if (cUser.Property.Any(t => (t.Name == "Id")))

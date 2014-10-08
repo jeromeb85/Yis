@@ -66,6 +66,12 @@ namespace Yis.Designer.Software.Business
             set { SetProperty(v => Model.ClassId = value.Id, Model.ClassId, value.Id); }
         }
 
+        public Model.Scope Scope
+        {
+            get { return GetProperty(() => Model.Scope); }
+            set { SetProperty(v => Model.Scope = value, Model.Scope, value); }
+        }
+
         public string Type
         {
             get { return GetProperty(() => Model.Type); }
