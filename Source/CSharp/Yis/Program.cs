@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq.Expressions;
+using Yis.Designer.Conceptual.Business;
 using Yis.Designer.Model;
 using Yis.Designer.Presentation;
 using Yis.Designer.Software.Business;
 using Yis.Designer.Technic.Internal;
+using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator;
 using Yis.Framework.Core.Logging;
@@ -160,7 +163,11 @@ namespace Yis
         {
             ConsoleHelper.ShowConsoleWindow();
 
+            Directory.Delete(@"D:\DataYis\", true);
             InitializeData.Run();
+
+            Transformator trans = new Transformator();
+            DomainCollection.GetAll().ForEach((i) => trans.Transform(i));
 
             //NameSpaceCollection manag = new NameSpaceCollection();
             //NameSpace ns = manag.AddNew();

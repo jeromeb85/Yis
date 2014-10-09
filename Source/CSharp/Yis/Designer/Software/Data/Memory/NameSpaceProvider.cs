@@ -30,12 +30,12 @@ namespace Yis.Designer.Software.Data.Memory
 
         public NameSpace GetById(Guid id)
         {
-            return GetQuery().First(t => t.Id == id);
+            return GetQuery().FirstOrDefault(t => t.Id == id);
         }
 
         public NameSpace GetByName(string name)
         {
-            return GetQuery().First(t => t.Name == name);
+            return GetQuery().FirstOrDefault(t => t.Name == name);
         }
 
         public IEnumerable<NameSpace> GetChildByParent(Guid id)

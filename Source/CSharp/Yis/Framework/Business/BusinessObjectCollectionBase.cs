@@ -100,7 +100,7 @@ namespace Yis.Framework.Business
 
         #region Properties
 
-        public ICollection<TBusinessObject> List
+        protected ICollection<TBusinessObject> List
         {
             get
             {
@@ -135,6 +135,27 @@ namespace Yis.Framework.Business
         public IEnumerator<TBusinessObject> GetEnumerator()
         {
             return List.GetEnumerator();
+        }
+
+        public TBusinessObject GetFirstOrAddNew(Predicate<TBusinessObject> predicate)
+        {
+            TBusinessObject result;
+
+            if (this.Any((i) => predicate(i)))
+            {
+                result = this.First((i) => predicate(i));
+            }
+            else
+            {
+                result = this.AddNew();
+            }
+
+            return result;
+        }
+
+        public bool IsExists(Predicate<TBusinessObject> predicate)
+        {
+            return List.Any((i) => predicate(i));
         }
 
         public virtual void OnAddedNew(TBusinessObject item)

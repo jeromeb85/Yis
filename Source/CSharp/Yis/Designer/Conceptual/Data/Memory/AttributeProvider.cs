@@ -10,11 +10,11 @@ using Yis.Framework.Data.Memory;
 
 namespace Yis.Designer.Conceptual.Data.Memory
 {
-    public class ConceptProvider : RepositoryBase<Concept>, IConceptProvider
+    public class AttributeProvider : RepositoryBase<Yis.Designer.Conceptual.Model.Attribute>, IAttributeProvider
     {
         #region Constructors
 
-        public ConceptProvider(IDataContext dataContext)
+        public AttributeProvider(IDataContext dataContext)
             : base(dataContext)
         {
         }
@@ -23,17 +23,17 @@ namespace Yis.Designer.Conceptual.Data.Memory
 
         #region Methods
 
-        public IEnumerable<Concept> GetByDomain(Guid domainId)
+        public IEnumerable<Model.Attribute> GetByConcept(Guid idConcept)
         {
-            return GetQuery().Where(t => t.DomainId == domainId);
+            return GetQuery().Where(t => t.ConceptId == idConcept);
         }
 
-        public Concept GetById(Guid id)
+        public Model.Attribute GetById(Guid id)
         {
             return GetQuery().First(t => t.Id == id);
         }
 
-        public Concept GetByName(string name)
+        public Model.Attribute GetByName(string name)
         {
             return GetQuery().First(t => t.Name == name);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yis.Designer.Conceptual.Business;
 using Yis.Designer.Software.Business;
 
 namespace Yis
@@ -13,8 +14,40 @@ namespace Yis
 
         public static void Run()
         {
-            NameSpace nsRoot = CreateNameSpaceSample();
-            NameSpace nsModel = CreateNameSpaceModel(nsRoot);
+            Domain dAccess = CreateDomainAccess();
+            dAccess.Save();
+
+            //NameSpace nsRoot = CreateNameSpaceSample();
+            //NameSpace nsModel = CreateNameSpaceModel(nsRoot);
+        }
+
+        private static Domain CreateDomainAccess()
+        {
+            Domain Access;
+            Concept newConcept;
+            Yis.Designer.Conceptual.Business.Attribute attr;
+
+            //Vérifier ou créer Yis
+            if (Domain.IsExists("Access"))
+                Access = Domain.GetByName("Access");
+            else
+            {
+                Access = Domain.New();
+                Access.Name = "Access";
+            }
+
+            newConcept = Access.Concept.GetFirstOrAddNew(t => (t.Name == "User"));
+
+            if (newConcept.IsNew)
+            {
+                newConcept.Name = "User";
+
+                attr = newConcept.Attribute.GetFirstOrAddNew(t => (t.Name == "Login"));
+                attr.Name = "Login";
+                attr.Type = "string";
+            }
+
+            return Access;
         }
 
         private static NameSpace CreateNameSpaceModel(NameSpace root)

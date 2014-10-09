@@ -9,16 +9,16 @@ using Yis.Framework.Core.Extension;
 
 namespace Yis.Designer.Conceptual.Business
 {
-    public class Domain : BusinessObjectBase<Domain, Model.Domain, IDomainProvider, IConceptualDataContext>
+    public class Attribute : BusinessObjectBase<Attribute, Model.Attribute, IAttributeProvider, IConceptualDataContext>
     {
         #region Constructors
 
-        public Domain(Model.Domain model)
+        public Attribute(Model.Attribute model)
             : base(model)
         {
         }
 
-        public Domain()
+        public Attribute()
             : base()
         {
             Id = Guid.NewGuid();
@@ -27,11 +27,6 @@ namespace Yis.Designer.Conceptual.Business
         #endregion Constructors
 
         #region Properties
-
-        public ConceptCollection Concept
-        {
-            get { return GetProperty<ConceptCollection>(() => ConceptCollection.GetByDomain(Id), OnLoadConcept, IsChildAutoSave: true, IsChildAutoDelete: true); }
-        }
 
         public Guid Id
         {
@@ -51,45 +46,42 @@ namespace Yis.Designer.Conceptual.Business
             set { SetProperty(v => Model.Name = value, Model.Name, value); }
         }
 
+        public Concept Parent
+        {
+            get { return GetProperty<Concept>(() => Concept.GetById(Model.ConceptId)); }
+            set { SetProperty(v => Model.ConceptId = value.Id, Model.ConceptId, value.Id); }
+        }
+
+        public string Type
+        {
+            get { return GetProperty(() => Model.Type); }
+            set { SetProperty(v => Model.Type = value, Model.Type, value); }
+        }
+
         #endregion Properties
 
         #region Methods
 
-        public static Domain GetById(Guid id)
+        public static Attribute GetById(Guid id)
         {
-            Model.Domain model = Provider.GetById(id);
-            Domain item = null;
+            Model.Attribute model = Provider.GetById(id);
+            Attribute item = null;
 
             if (!model.IsNull())
-                item = new Domain(model);
+                item = new Attribute(model);
 
             return item;
         }
 
-        public static Domain GetByName(string name)
+        public static Attribute GetByName(string name)
         {
-            Model.Domain model = Provider.GetByName(name);
-            Domain item = null;
+            Model.Attribute model = Provider.GetByName(name);
+            Attribute item = null;
 
             if (!model.IsNull())
-                item = new Domain(model);
+                item = new Attribute(model);
 
             return item;
-        }
-
-        public static bool IsExists(string name)
-        {
-            return Provider.IsExists(name);
-        }
-
-        private void OnAddedNewConcept(object sender, AddedNewEventArgs<Concept> item)
-        {
-            item.NewObject.Parent = this;
-        }
-
-        private void OnLoadConcept(ConceptCollection item)
-        {
-            item.AddedNew += OnAddedNewConcept;
         }
 
         #endregion Methods

@@ -8,21 +8,21 @@ using Yis.Framework.Business;
 
 namespace Yis.Designer.Conceptual.Business
 {
-    public class ConceptCollection : BusinessObjectCollectionBase<ConceptCollection, Concept, Model.Concept, IConceptProvider, IConceptualDataContext>
+    public class AttributeCollection : BusinessObjectCollectionBase<AttributeCollection, Attribute, Model.Attribute, IAttributeProvider, IConceptualDataContext>
     {
         #region Constructors
 
-        public ConceptCollection(ICollection<Concept> list)
+        public AttributeCollection(ICollection<Attribute> list)
             : base(list)
         {
         }
 
-        public ConceptCollection(IEnumerable<Model.Concept> list)
+        public AttributeCollection(IEnumerable<Model.Attribute> list)
             : base(list)
         {
         }
 
-        public ConceptCollection()
+        public AttributeCollection()
             : base()
         {
         }
@@ -31,9 +31,9 @@ namespace Yis.Designer.Conceptual.Business
 
         #region Methods
 
-        public static ConceptCollection GetByDomain(Guid idDomain)
+        public static AttributeCollection GetByConcept(Guid idConcept)
         {
-            return new ConceptCollection(Provider.GetByDomain(idDomain));
+            return new AttributeCollection(Provider.GetByConcept(idConcept));
         }
 
         #endregion Methods
