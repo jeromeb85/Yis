@@ -7,7 +7,14 @@ using Yis.Framework.Model;
 
 namespace Yis.Designer.Conceptual.Model
 {
-    public class Domain : Element
+    public abstract class Element : ModelBase
     {
+        #region Properties
+
+        public Guid Id { get; set; }
+
+        public string Name { get; set; }
+
+        #endregion Properties
     }
 }

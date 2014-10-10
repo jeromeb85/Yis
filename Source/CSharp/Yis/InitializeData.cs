@@ -44,7 +44,7 @@ namespace Yis
 
                 attr = newConcept.Attribute.GetFirstOrAddNew(t => (t.Name == "Login"));
                 attr.Name = "Login";
-                attr.Type = "string";
+                attr.Type = "String";
             }
 
             return Access;

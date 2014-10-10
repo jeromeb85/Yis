@@ -7,15 +7,11 @@ using Yis.Framework.Model;
 
 namespace Yis.Designer.Conceptual.Model
 {
-    public class Attribute : ModelBase
+    public class Attribute : Element
     {
         #region Properties
 
         public Guid ConceptId { get; set; }
-
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
 
         public string Type { get; set; }
 

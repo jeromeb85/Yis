@@ -121,6 +121,8 @@
     <Compile Include="Designer\Conceptual\Model\Concept.cs" />
     <Compile Include="Designer\Conceptual\Model\Domain.cs" />
     <Compile Include="Designer\Conceptual\Data\Memory\ConceptualDataContext.cs" />
+    <Compile Include="Designer\Conceptual\Model\Element.cs" />
+    <Compile Include="Designer\Conceptual\Model\Relationship.cs" />
     <Compile Include="Designer\Shell\Business\WorkSpaceManager.cs" />
     <Compile Include="Designer\Shell\Data\Contract\IWorkSpaceProvider.cs" />
     <Compile Include="Designer\Shell\Data\Contract\IDesignerDataContext.cs" />
