@@ -64,6 +64,12 @@ namespace Yis.Designer.Software.Business
             set { SetProperty(v => Model.Name = value, Model.Name, value); }
         }
 
+        public bool IsInterface
+        {
+            get { return GetProperty(() => Model.IsInterface); }
+            set { SetProperty(v => Model.IsInterface = value, Model.IsInterface, value); }
+        }
+
         public NameSpace Parent
         {
             get { return GetProperty<NameSpace>(() => NameSpace.GetById(Model.NameSpaceId)); }
@@ -72,7 +78,7 @@ namespace Yis.Designer.Software.Business
 
         public PropertyCollection Property
         {
-            get { return GetProperty<PropertyCollection>(() => PropertyCollection.GetByClass(Id), OnLoadProperty, IsChildAutoSave: true, IsChildAutoDelete: true); }
+            get { return GetProperty<PropertyCollection>(() => PropertyCollection.GetByOwner(Id), OnLoadProperty, IsChildAutoSave: true, IsChildAutoDelete: true); }
         }
 
         public Model.Scope Scope

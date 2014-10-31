@@ -7,7 +7,7 @@ using Yis.Framework.Model;
 
 namespace Yis.Designer.Conceptual.Model
 {
-    public class Domain : Element
+    public class Domain : NamedElement
     {
     }
 }

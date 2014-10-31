@@ -92,7 +92,8 @@ namespace Yis.Designer.Technic.Internal
             param.Import.ForEach((s) => ns.Imports.Add(new CodeNamespaceImport(s)));
 
             CodeTypeDeclaration ctd = new CodeTypeDeclaration(param.Name);
-            ctd.IsClass = true;
+            ctd.IsClass = !param.IsInterface;
+            ctd.IsInterface = param.IsInterface;
             ctd.Attributes = MemberAttributes.Public;
 
             if (!string.IsNullOrWhiteSpace(param.BaseType)) ctd.BaseTypes.Add(param.BaseType);
@@ -131,6 +132,12 @@ namespace Yis.Designer.Technic.Internal
                 prop.HasGet = true;
                 //   prop.HasSet = true;
                 prop.Type = new CodeTypeReference(param.Type);
+                //prop.GetStatements.
+                var toto = new CodeSnippetStatement();
+  //              property1.GetStatements.Add(new CodeMethodReturnStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "testStringField")));
+//                property1.SetStatements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "testStringField"), new CodePropertySetValueReferenceExpression()));
+
+
 
                 parent.Members.Add(prop);
             }

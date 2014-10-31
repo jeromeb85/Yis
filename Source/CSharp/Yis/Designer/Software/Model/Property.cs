@@ -7,13 +7,14 @@ namespace Yis.Designer.Software.Model
     {
         #region Properties
 
-        public Guid ClassId { get; set; }
+        public Guid OwnerId { get; set; }
 
         public string Comment { get; set; }
 
         public Guid Id { get; set; }
 
-        public bool IsDenormalized { get; set; }
+        public string GetCode { get; set; }
+        public string SetCode { get; set; }
 
         public string Name { get; set; }
 

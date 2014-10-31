@@ -50,8 +50,7 @@ namespace Yis.Designer.Software.Business
         /// </summary>
         public bool IsDenormalized
         {
-            get { return GetProperty(() => Model.IsDenormalized); }
-            set { SetProperty(v => Model.IsDenormalized = value, Model.IsDenormalized, value); }
+            get { return String.IsNullOrWhiteSpace(GetCode) && String.IsNullOrWhiteSpace(SetCode); }
         }
 
         public string Name
@@ -60,10 +59,22 @@ namespace Yis.Designer.Software.Business
             set { SetProperty(v => Model.Name = value, Model.Name, value); }
         }
 
+        public string SetCode
+        {
+            get { return GetProperty(() => Model.SetCode); }
+            set { SetProperty(v => Model.SetCode = value, Model.SetCode, value); }
+        }
+
+        public string GetCode
+        {
+            get { return GetProperty(() => Model.GetCode); }
+            set { SetProperty(v => Model.GetCode = value, Model.GetCode, value); }
+        }
+
         public Class Parent
         {
-            get { return GetProperty<Class>(() => Class.GetById(Model.ClassId)); }
-            set { SetProperty(v => Model.ClassId = value.Id, Model.ClassId, value.Id); }
+            get { return GetProperty<Class>(() => Class.GetById(Model.OwnerId)); }
+            set { SetProperty(v => Model.OwnerId = value.Id, Model.OwnerId, value.Id); }
         }
 
         public Model.Scope Scope

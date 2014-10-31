@@ -7,7 +7,7 @@ using Yis.Framework.Model;
 
 namespace Yis.Designer.Software.Model
 {
-    public class Class : ModelBase
+    public class Class : Classifier
     {
         #region Properties
 
@@ -24,6 +24,8 @@ namespace Yis.Designer.Software.Model
         public Guid NameSpaceId { get; set; }
 
         public Scope Scope { get; set; }
+
+        public bool IsInterface { get; set; }
 
         #endregion Properties
     }

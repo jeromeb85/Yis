@@ -12,7 +12,7 @@ namespace Yis.Designer.Software.Data.Contract
     {
         #region Methods
 
-        IEnumerable<Property> GetByClass(Guid id);
+        IEnumerable<Property> GetByOwner(Guid id);
 
         #endregion Methods
     }

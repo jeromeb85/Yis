@@ -23,9 +23,9 @@ namespace Yis.Designer.Software.Data.Memory
 
         #region Methods
 
-        public IEnumerable<Property> GetByClass(Guid id)
+        public IEnumerable<Property> GetByOwner(Guid id)
         {
-            return GetQuery().Where(t => t.ClassId == id);
+            return GetQuery().Where(t => t.OwnerId == id);
         }
 
         #endregion Methods

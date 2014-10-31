@@ -31,9 +31,9 @@ namespace Yis.Designer.Software.Business
 
         #region Methods
 
-        public static PropertyCollection GetByClass(Guid idClass)
+        public static PropertyCollection GetByOwner(Guid id)
         {
-            return new PropertyCollection(Provider.GetByClass(idClass));
+            return new PropertyCollection(Provider.GetByOwner(id));
         }
 
         #endregion Methods

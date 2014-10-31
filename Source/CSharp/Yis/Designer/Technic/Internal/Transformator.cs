@@ -11,13 +11,15 @@ using Yis.Framework.Core.Helper;
 
 namespace Yis.Designer.Technic.Internal
 {
-    public class Transformator : ITransformator
+    public partial class Transformator : ITransformator
     {
         #region Fields
 
         private const string IdNameProperty = "Id";
         private const string IdTypeProperty = "Guid";
         private const string ModelNameSpace = "Model";
+        private const string BusinessNameSpace = "Business";
+        private const string DataNameSpace = "Data";        
         private const string RootNameSpace = "Yis.Designer.Sample";
 
         #endregion Fields
@@ -84,44 +86,12 @@ namespace Yis.Designer.Technic.Internal
 
         private void Transform(NameSpace nsDomain, Concept concept)
         {
-            NameSpace nsModel = nsDomain.Sub.GetFirstOrAddNew((i) => i.Name == ModelNameSpace);
-
-            if (nsModel.IsNew)
-            {
-                nsModel.Name = ModelNameSpace;
-            }
-
-            Class cModel = nsModel.Class.GetFirstOrAddNew((i) => i.Name == concept.Name);
-
-            if (cModel.IsNew)
-            {
-                cModel.Name = concept.Name;
-                cModel.Import.Add("Yis.Framework.Model");
-                cModel.Import.Add("System");
-                cModel.BaseType = "ModelBase";
-                cModel.Scope = Yis.Designer.Software.Model.Scope.Public;
-
-                Property cModelProp = cModel.Property.GetFirstOrAddNew((i) => i.Name == IdNameProperty);
-
-                if (cModelProp.IsNew)
-                {
-                    cModelProp.Name = IdNameProperty;
-                    cModelProp.Type = IdTypeProperty;
-                    cModelProp.Comment = "Identifiant technique";
-                    cModelProp.IsDenormalized = true;
-                }
-
-                concept.Attribute.ForEach((i) => Transform(cModel, i));
-            }
+            TransformModel(nsDomain, concept);
+            TransformData(nsDomain, concept);
+            TransformBusiness(nsDomain, concept);            
         }
 
-        private void Transform(Class cModel, Yis.Designer.Conceptual.Business.Attribute attribute)
-        {
-            Property cModelProp = cModel.Property.GetFirstOrAddNew((i) => i.Name == attribute.Name);
-            cModelProp.IsDenormalized = true;
-            cModelProp.Name = attribute.Name;
-            cModelProp.Type = attribute.Type;
-        }
+
 
         #endregion Methods
     }

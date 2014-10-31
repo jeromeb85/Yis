@@ -7,7 +7,7 @@ using Yis.Framework.Model;
 
 namespace Yis.Designer.Conceptual.Model
 {
-    public class Concept : Element
+    public class Concept : NamedElement
     {
         #region Properties
 

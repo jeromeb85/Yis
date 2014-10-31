@@ -47,6 +47,19 @@ namespace Yis
                 attr.Type = "String";
             }
 
+            newConcept = Access.Concept.GetFirstOrAddNew(t => (t.Name == "Group"));
+
+            if (newConcept.IsNew)
+            {
+                newConcept.Name = "Group";
+
+                attr = newConcept.Attribute.GetFirstOrAddNew(t => (t.Name == "Name"));
+                attr.Name = "Name";
+                attr.Type = "String";
+            }
+
+
+
             return Access;
         }
 
@@ -91,7 +104,7 @@ namespace Yis
                 pProp.Name = "Id";
                 pProp.Type = "Guid";
                 pProp.Comment = "Identifiant technique d'un utilisateur";
-                pProp.IsDenormalized = true;
+
             }
 
             if (cUser.Property.Any(t => (t.Name == "Login")))
@@ -104,7 +117,7 @@ namespace Yis
                 pProp.Name = "Login";
                 pProp.Type = "string";
                 pProp.Comment = "Identifiant de l'utilisateur";
-                pProp.IsDenormalized = true;
+
             }
 
             nsModel.Save();
