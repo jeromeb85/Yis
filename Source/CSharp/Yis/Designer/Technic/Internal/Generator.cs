@@ -130,10 +130,12 @@ namespace Yis.Designer.Technic.Internal
                 prop.Name = param.Name;
                 prop.Attributes = MemberAttributes.Public | MemberAttributes.Final;
                 prop.HasGet = true;
-                //   prop.HasSet = true;
+                prop.HasSet = String.IsNullOrWhiteSpace(param.GetCode);
                 prop.Type = new CodeTypeReference(param.Type);
+                prop.GetStatements.Add(new CodeSnippetStatement(param.GetCode));
+                prop.SetStatements.Add(new CodeSnippetStatement(param.SetCode));
                 //prop.GetStatements.
-                var toto = new CodeSnippetStatement();
+        //        var toto = 
   //              property1.GetStatements.Add(new CodeMethodReturnStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "testStringField")));
 //                property1.SetStatements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "testStringField"), new CodePropertySetValueReferenceExpression()));
 

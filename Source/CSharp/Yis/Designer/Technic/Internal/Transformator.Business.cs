@@ -41,13 +41,13 @@ namespace Yis.Designer.Technic.Internal
                     cModelProp.Name = IdNameProperty;
                     cModelProp.Type = IdTypeProperty;
                     cModelProp.Comment = "Identifiant technique";
-                    cModelProp.SetCode = "            set      {";
+                    cModelProp.SetCode = "ddd";
             //    if (!IsNew)
             //        throw new Exception("Impossible d'affecter un Id si pas isNew");
 
             //    SetProperty(v => Model.Id = value, Model.Id, value);
             //}";
-                    cModelProp.GetCode = "get { return GetProperty(() => Model.Id); }";
+                    cModelProp.GetCode = "return GetProperty(() => Model.Id);";
                 }
 
                 //concept.Attribute.ForEach((i) => TransformModel(cModel, i));
