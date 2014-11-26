@@ -61,6 +61,9 @@
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -278,6 +281,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="WebCrawler\Cache.cs" />
+    <Compile Include="WebCrawler\Crawler.cs" />
+    <Compile Include="WebCrawler\Downloader.cs" />
+    <Compile Include="WebCrawler\DownloaderQueue.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeAnchors.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeHostsExcept.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeImagesFilter.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeJavaScript.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeMailTo.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeTrackbacks.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\IExcludeFilter.cs" />
+    <Compile Include="WebCrawler\Page.cs" />
+    <Compile Include="WebCrawler\RequestState.cs" />
     <Page Include="Designer\Shell\Presentation\View\WorkSpaceCollectionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

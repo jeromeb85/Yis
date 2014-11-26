@@ -18,6 +18,8 @@ using Yis.Framework.Core.Shell;
 using Yis.Framework.Helper;
 using Yis.Framework.Presentation.Locator;
 using Yis.Framework.Presentation.Locator.Contract;
+using Yis.WebCrawler;
+using Yis.WebCrawler.ExcludeFilters;
 
 namespace Yis
 {
@@ -42,21 +44,17 @@ namespace Yis
         private static void Main(string[] args)
         {
             Boot.Start();
-            RunGenerator();
+           // RunGenerator();
             //RunConsole();
             //RunWindows();
+            RunCrawler();
         }
 
         private static void RunConsole()
         {
             ConsoleHelper.ShowConsoleWindow();
 
-            test tt = null;
-            test2 uu = null;
-
-            uu = new test2();
-            tt = new test();
-
+            
             Console.ReadLine();
 
             //LogManager.Default.Debug("toto");
@@ -212,45 +210,53 @@ namespace Yis
             App.Main();
         }
 
-        private static void tata(Expression<Func<object>> func, Func<WorkSpace, bool> func2)
+        private static void RunCrawler()
         {
+            ConsoleHelper.ShowConsoleWindow();
+
+            var crawler = new Crawler
+            {
+                ExcludeFilters = new IExcludeFilter[]
+                {
+                    new ExcludeImagesFilter(),
+                    new ExcludeTrackbacks(),
+                    new ExcludeMailTo(),
+                    new ExcludeHostsExcept(new[] { "nyqui.st" }),
+                    new ExcludeJavaScript(), 
+                    new ExcludeAnchors(), 
+                }
+            };
+
+            crawler.OnCompleted += () =>
+            {
+                Console.WriteLine("[Main] Crawl completed!");
+               // Environment.Exit(0);
+            };
+
+            crawler.OnPageDownloaded += page =>
+            {
+                Console.WriteLine("[Main] Downloaded page {0}", page.Url);
+
+                // Write external links
+                foreach (var link in page.Links)
+                {
+                    if (link.TargetUrl.Host != page.Url.Host)
+                    {
+                        Console.WriteLine("Found outbound link from {0} to {1}", page.Url, link.TargetUrl);
+                    }
+                }
+            };
+
+            crawler.Enqueue(new Uri("http://www.developpez.com/"));
+            crawler.Start();
+
+            Console.WriteLine("[Main] Crawler started.");
+            Console.WriteLine("[Main] Press [enter] to abort.");
+            Console.ReadLine();
         }
+
 
         #endregion Methods
     }
 
-    internal class test
-    {
-        #region Constructors
-
-        public test()
-        {
-            IBus bus = BusManager.Default;
-            bus.Publish<NotificationMessage>(new NotificationMessage(this, "supppper"));
-        }
-
-        #endregion Constructors
-    }
-
-    internal class test2
-    {
-        #region Constructors
-
-        public test2()
-        {
-            IBus bus = BusManager.Default;
-            bus.Subscribe<NotificationMessage>((e) => { OnMessage(e.Message); });
-        }
-
-        #endregion Constructors
-
-        #region Methods
-
-        private void OnMessage(string message)
-        {
-            Console.WriteLine(message);
-        }
-
-        #endregion Methods
-    }
 }
