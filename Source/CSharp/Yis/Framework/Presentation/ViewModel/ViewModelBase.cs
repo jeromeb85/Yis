@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Yis.Framework.Core.IoC;
+using Yis.Framework.Core.Locator.Contract;
 using Yis.Framework.Core.Validation;
 using Yis.Framework.Presentation.Navigation.Contract;
 
@@ -17,6 +18,8 @@ namespace Yis.Framework.Presentation.ViewModel
         private INavigation _navigation;
 
         private RuleValidator _validator;
+
+        private IServiceLocator _locator;
 
         #endregion Fields
 
@@ -59,6 +62,19 @@ namespace Yis.Framework.Presentation.ViewModel
                 }
 
                 return _validator;
+            }
+        }
+
+        protected IServiceLocator Locator
+        {
+            get
+            {
+                if (_locator == null)
+                {
+                    _locator = DependencyResolverManager.Default.Resolve<IServiceLocator>();
+                }
+
+                return _locator;
             }
         }
 

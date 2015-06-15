@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls.Ribbon;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Presentation.Locator.Contract;
 
 namespace Yis.Framework.Presentation.View
 {
-    public abstract class WindowBase : Window/* RibbonWindow,*/, IWindowView
+    public abstract class WindowBase :  RibbonWindow, IWindowView
     {
         private IViewModelLocator _locator;
 

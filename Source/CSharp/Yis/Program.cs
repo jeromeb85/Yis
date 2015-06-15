@@ -7,6 +7,7 @@ using Yis.Designer.Model;
 using Yis.Designer.Presentation;
 using Yis.Designer.Software.Business;
 using Yis.Designer.Technic.Internal;
+using Yis.Erp.Shell.Presentation;
 using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator;
@@ -46,8 +47,8 @@ namespace Yis
             Boot.Start();
            // RunGenerator();
             //RunConsole();
-            //RunWindows();
-            RunCrawler();
+            RunWindows();
+            //RunCrawler();
         }
 
         private static void RunConsole()
