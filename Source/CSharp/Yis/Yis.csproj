@@ -195,9 +195,14 @@
     <Compile Include="Framework\Core\Caching\Policies\DurationExpirationPolicy.cs" />
     <Compile Include="Framework\Core\Caching\Policies\ExpirationPolicy.cs" />
     <Compile Include="Framework\Core\Caching\Policies\SlidingExpirationPolicy.cs" />
+    <Compile Include="Framework\Core\Extension\ArrayExt.cs" />
+    <Compile Include="Framework\Core\Extension\DateTimeExt.cs" />
+    <Compile Include="Framework\Core\Extension\DateTimeOffsetExt.cs" />
     <Compile Include="Framework\Core\Extension\ICollectionExt.cs" />
     <Compile Include="Framework\Core\Extension\IDictionnaryExt.cs" />
     <Compile Include="Framework\Core\Extension\IEnumerableExt.cs" />
+    <Compile Include="Framework\Core\Extension\IntExt.cs" />
+    <Compile Include="Framework\Core\Extension\LongExt.cs" />
     <Compile Include="Framework\Core\Messaging\BusManager.cs" />
     <Compile Include="Framework\Core\Messaging\Contract\IMessage.cs" />
     <Compile Include="Framework\Core\Messaging\Event\Message.cs" />
