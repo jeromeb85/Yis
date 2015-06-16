@@ -644,15 +644,7 @@ namespace Yis.Framework.Core.Extension
             return time.SetTime(0, 0, 0, 0);
         }
 
-        /// <summary>
-        /// Returns whether the DateTime falls on a weekday
-        /// </summary>
-        /// <param name="date">The date to be processed</param>
-        /// <returns>Whether the specified date occurs on a weekday</returns>
-        public static bool IsWeekDay(this DateTime date)
-        {
-            return !date.IsWeekend();
-        }
+
 
 
     }

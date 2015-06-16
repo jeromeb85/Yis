@@ -20,7 +20,7 @@ namespace Yis.Erp.Mdm.Presentation.Ribbon
     /// <summary>
     /// Logique d'interaction pour HomeRibbonTab.xaml
     /// </summary>
-    public partial class HomeRibbonTab : RibbonTab, IRibbonTabExtension
+    public partial class HomeRibbonTab : RibbonTabBase
     {
         public HomeRibbonTab()
         {
