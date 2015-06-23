@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Yis.Erp.Mdm.Presentation.View;
 using Yis.Erp.Shell.Presentation.Contract;
 
 namespace Yis.Erp.Mdm.Presentation.Ribbon
@@ -25,6 +26,11 @@ namespace Yis.Erp.Mdm.Presentation.Ribbon
         public HomeRibbonTab()
         {
             InitializeComponent();
+        }
+
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+            Bus.Publish<ShowView>(new ShowView(this, "Test", new TestView()));
         }
     }
 }

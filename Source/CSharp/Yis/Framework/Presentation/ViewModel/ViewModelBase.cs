@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Locator.Contract;
+using Yis.Framework.Core.Messaging.Contract;
 using Yis.Framework.Core.Validation;
 using Yis.Framework.Presentation.Navigation.Contract;
 
@@ -88,6 +89,21 @@ namespace Yis.Framework.Presentation.ViewModel
                 }
 
                 return _navigation;
+            }
+        }
+
+        private IBus _bus;
+
+        protected IBus Bus
+        {
+            get
+            {
+                if (_bus == null)
+                {
+                    _bus = DependencyResolverManager.Default.Resolve<IBus>();
+                }
+
+                return _bus;
             }
         }
 

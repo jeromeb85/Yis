@@ -94,6 +94,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -173,9 +174,12 @@
     <Compile Include="Erp\Shell\Presentation\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Erp\Shell\Presentation\Behavior\CloseTabBehavior.cs" />
     <Compile Include="Erp\Shell\Presentation\Contract\IRibbonTabExtension.cs" />
     <Compile Include="Erp\Shell\Presentation\Contract\RibbonTabBase.cs" />
+    <Compile Include="Erp\Shell\Presentation\Contract\ShowView.cs" />
     <Compile Include="Erp\Shell\Presentation\ViewModel\ShellViewModel.cs" />
+    <Compile Include="Erp\Shell\Presentation\ViewModel\ViewViewModel.cs" />
     <Compile Include="Erp\Shell\Presentation\View\ShellWindow.xaml.cs">
       <DependentUpon>ShellWindow.xaml</DependentUpon>
     </Compile>
@@ -199,6 +203,7 @@
     <Compile Include="Framework\Core\Extension\ArrayExt.cs" />
     <Compile Include="Framework\Core\Extension\DateTimeExt.cs" />
     <Compile Include="Framework\Core\Extension\DateTimeOffsetExt.cs" />
+    <Compile Include="Framework\Core\Extension\DependencyObjectExt.cs" />
     <Compile Include="Framework\Core\Extension\ICollectionExt.cs" />
     <Compile Include="Framework\Core\Extension\IDictionnaryExt.cs" />
     <Compile Include="Framework\Core\Extension\IEnumerableExt.cs" />

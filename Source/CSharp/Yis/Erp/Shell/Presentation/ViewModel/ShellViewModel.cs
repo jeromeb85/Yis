@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls.Ribbon;
-using Yis.Erp.Mdm.Presentation.Ribbon;
 using Yis.Erp.Shell.Presentation.Contract;
-using Yis.Framework.Core.Extension;
-using Yis.Framework.Core.IoC;
-using Yis.Framework.Core.Locator.Contract;
+using Yis.Erp.Shell.Presentation.View;
 using Yis.Framework.Presentation.ViewModel;
 
 namespace Yis.Erp.Shell.Presentation.ViewModel
 {
     public class ShellViewModel : ViewModelBase
     {
+        public ShellViewModel() : base()
+        {
+            //OpenedView.Add(new ViewViewModel {Name = "ttot",Title="ee",View = new TestView()} );
+            Bus.Subscribe<ShowView>(OpenView);
+        }
+
+
+
         private ObservableCollection<RibbonTab> _ribbonTabCollection;
 
         public ObservableCollection<RibbonTab> RibbonTabCollection
@@ -34,6 +34,49 @@ namespace Yis.Erp.Shell.Presentation.ViewModel
                 }
                 return _ribbonTabCollection;
             }
+        }
+
+        private ObservableCollection<ViewViewModel> _openedView = new ObservableCollection<ViewViewModel>();
+        public ObservableCollection<ViewViewModel> OpenedView
+        {
+            get
+            {
+                return _openedView;
+            }
+            set
+            {
+                _openedView = value;
+                RaisePropertyChanged("OpenedView");
+            }
+        }
+
+        private ViewViewModel _selectedView;
+        public ViewViewModel SelectedView
+        {
+            set
+            {
+                if (value != null)
+                {
+                    //IPlugin selectedPlugin = AllPlugins
+                    //    .Where(plugin => plugin.Value.ApplicationCollection
+                    //        .Any(application => application.ApplicationName == value.ApplicationName))
+                    //    .First().Value;
+
+                    //if (SelectedPlugin != selectedPlugin)
+                    //    SelectedPlugin = selectedPlugin;
+
+                    _selectedView = value;
+                    RaisePropertyChanged("SelectedView");
+                }
+            }
+            get { return _selectedView; }
+        }
+
+        public void OpenView(ShowView message)
+        {
+            ViewViewModel newView = new ViewViewModel { Name = message.Title, Title = message.Title, View = message.View };
+             OpenedView.Add(newView);
+                 SelectedView = newView;
         }
     }
 }

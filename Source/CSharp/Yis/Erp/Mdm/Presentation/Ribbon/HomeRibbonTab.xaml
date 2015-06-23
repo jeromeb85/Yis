@@ -14,7 +14,7 @@
                         Header="Items">
         <ribbon:RibbonButton x:Name="Button1"
                              Label="General 1"                             
-                             Click="SendMessage"
+                             Click="Button1_Click"
                              Tag="General 1" />
         <ribbon:RibbonButton x:Name="Button2"
                              Label="General 2"                             
