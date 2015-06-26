@@ -28,9 +28,11 @@ namespace Yis.Erp.Mdm.Presentation.Ribbon
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, RoutedEventArgs e)
+ 
+
+        private void NewFicheClient_Click(object sender, RoutedEventArgs e)
         {
-            Bus.Publish<ShowView>(new ShowView(this, "Test", new TestView()));
+            Bus.Publish<ShowView>(new ShowView(this, "Nouveau Client", new FicheClientView()));
         }
     }
 }

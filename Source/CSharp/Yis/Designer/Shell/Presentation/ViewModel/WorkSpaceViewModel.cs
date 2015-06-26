@@ -6,6 +6,6 @@ namespace Yis.Designer.Presentation.ViewModel
     {
         private string _name;
 
-        public string Name { get { return _name; } set { SetValue<string>(ref _name, value); } }
+        public string Name { get { return _name; } set { SetProperty<string>(ref _name, value); } }
     }
 }

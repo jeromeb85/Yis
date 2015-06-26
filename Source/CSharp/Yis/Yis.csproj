@@ -164,12 +164,19 @@
     <Compile Include="Designer\Technic\Internal\Transformator.cs" />
     <Compile Include="Designer\Technic\Internal\Transformator.Data.cs" />
     <Compile Include="Designer\Technic\Internal\Transformator.Model.cs" />
+    <Compile Include="Erp\Mdm\Business\Client.cs" />
+    <Compile Include="Erp\Mdm\Business\ClientCollection.cs" />
+    <Compile Include="Erp\Mdm\Data\Contract\IClientProvider.cs" />
+    <Compile Include="Erp\Mdm\Data\Contract\IMdmDataContext.cs" />
+    <Compile Include="Erp\Mdm\Data\Memory\ClientProvider.cs" />
+    <Compile Include="Erp\Mdm\Data\Memory\MdmDataContext.cs" />
+    <Compile Include="Erp\Mdm\Model\Client.cs" />
     <Compile Include="Erp\Mdm\Presentation\Ribbon\HomeRibbonTab.xaml.cs">
       <DependentUpon>HomeRibbonTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Erp\Mdm\Presentation\ViewModel\TestViewModel.cs" />
-    <Compile Include="Erp\Mdm\Presentation\View\TestView.xaml.cs">
-      <DependentUpon>TestView.xaml</DependentUpon>
+    <Compile Include="Erp\Mdm\Presentation\ViewModel\FicheClientViewModel.cs" />
+    <Compile Include="Erp\Mdm\Presentation\View\FicheClientView.xaml.cs">
+      <DependentUpon>FicheClientView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Erp\Shell\Presentation\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -341,9 +348,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Erp\Mdm\Presentation\View\TestView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Erp\Mdm\Presentation\View\FicheClientView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Erp\Shell\Presentation\View\ShellWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -379,6 +386,7 @@
   <ItemGroup>
     <Folder Include="Designer\Shell\Presentation\Command\" />
     <Folder Include="Designer\Shell\Service\Interface\" />
+    <Folder Include="Erp\Core\" />
     <Folder Include="Erp\Shell\Presentation\Command\" />
     <Folder Include="Framework\Data\nHibernate\" />
   </ItemGroup>

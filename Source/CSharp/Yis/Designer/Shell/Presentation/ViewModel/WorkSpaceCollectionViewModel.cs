@@ -6,7 +6,7 @@ namespace Yis.Designer.Presentation.ViewModel
     {
         private string _testText;
 
-        public string TestText { get { return _testText; } set { SetValue<string>(ref _testText, value); } }
+        public string TestText { get { return _testText; } set { SetProperty<string>(ref _testText, value); } }
 
         public WorkSpaceCollectionViewModel()
             : base()

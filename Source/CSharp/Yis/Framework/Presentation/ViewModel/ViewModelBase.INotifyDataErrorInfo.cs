@@ -89,7 +89,7 @@ namespace Yis.Framework.Presentation.ViewModel
         public bool HasErrors
         {
             get { return _hasErrors; }
-            private set { SetValue<bool>(ref _hasErrors, value, false); }
+            private set { SetProperty<bool>(ref _hasErrors, value, false); }
         }
 
         #endregion Implementation de INotifyDataErrorInfoGetErrors(propertyName).Select(e => e.ErrorMessage).ToArray()

@@ -258,10 +258,10 @@ namespace Yis.Framework.Business
             yield break;
         }
 
-        //protected T GetProperty<T>(T value)
-        //{
-        //    return value;
-        //}
+        protected T GetProperty<T>(T value)
+        {
+            return value;
+        }
 
         protected T GetProperty<T>(Func<T> load, Action<T> callBack = null, bool IsChildAutoSave = false, bool IsChildAutoDelete = false, [CallerMemberName] string propertyName = null)
         {
@@ -324,6 +324,7 @@ namespace Yis.Framework.Business
                     if (!IsChanged)
                         IsChanged = true;
                     setValue(newValue);
+
                 }
             }
             else

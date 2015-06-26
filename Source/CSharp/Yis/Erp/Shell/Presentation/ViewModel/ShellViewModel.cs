@@ -46,7 +46,7 @@ namespace Yis.Erp.Shell.Presentation.ViewModel
             set
             {
                 _openedView = value;
-                RaisePropertyChanged("OpenedView");
+                RaisePropertyChanged();
             }
         }
 
@@ -66,7 +66,7 @@ namespace Yis.Erp.Shell.Presentation.ViewModel
                     //    SelectedPlugin = selectedPlugin;
 
                     _selectedView = value;
-                    RaisePropertyChanged("SelectedView");
+                    RaisePropertyChanged();
                 }
             }
             get { return _selectedView; }

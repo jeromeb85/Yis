@@ -20,7 +20,7 @@ namespace Yis.Designer.Presentation.ViewModel
 
         [Required]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "La longueur doit être comprise entre 5 et 50")]
-        public string TestText { get { return _testText; } set { SetValue<string>(ref _testText, value); } }
+        public string TestText { get { return _testText; } set { SetProperty<string>(ref _testText, value); } }
 
         private ICommand _commandTest;
 

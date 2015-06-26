@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -48,7 +49,7 @@ namespace Yis.Framework.Presentation.ViewModel
             }
             protected set
             {
-                SetValue<bool>(ref _isChanged, value, false);
+                SetProperty<bool>(ref _isChanged, value, false);
             }
         }
 
@@ -151,9 +152,14 @@ namespace Yis.Framework.Presentation.ViewModel
         {
         }
 
-        protected void SetValue<T>(ref T property, T newValue, [CallerMemberName] string name = null)
+        protected void SetProperty<T>(ref T property, T newValue, [CallerMemberName] string name = null)
         {
-            SetValue<T>(ref property, newValue, AutoValidateProperty, name);
+            SetProperty<T>(ref property, newValue, AutoValidateProperty, name);
+        }
+
+        protected void SetProperty<T>(Action<T> setAction, T oldValue, T newValue, [CallerMemberName] string name = null)
+        {
+            SetProperty<T>(setAction, oldValue, newValue, AutoValidateProperty, name);
         }
 
         protected bool Validate([CallerMemberName] string propertyName = null)
@@ -193,7 +199,7 @@ namespace Yis.Framework.Presentation.ViewModel
             return true;
         }
 
-        private void SetValue<T>(ref T property, T newValue, bool validate, [CallerMemberName] string name = null)
+        private void SetProperty<T>(ref T property, T newValue, bool validate, [CallerMemberName] string name = null)
         {
             if (newValue != null)
             {
@@ -212,6 +218,28 @@ namespace Yis.Framework.Presentation.ViewModel
             else
             {
                 property = default(T);
+            }
+        }
+
+        private void SetProperty<T>(Action<T> setAction, T oldValue, T newValue, bool validate, [CallerMemberName] string name = null)
+        {
+            if (newValue != null)
+            {
+                if (!newValue.Equals(oldValue))
+                {
+                    RaisePropertyChanging(name);
+                    setAction(newValue);
+                    RaisePropertyChanged(name);
+
+                    if (validate)
+                    {
+                        Validate(name);
+                    }
+                }
+            }
+            else
+            {
+                setAction(default(T));
             }
         }
 
