@@ -7,9 +7,13 @@ namespace Yis.Designer.Presentation.View
     /// </summary>
     public partial class WorkSpaceView : UserControlBase
     {
+        #region Constructors + Destructors
+
         public WorkSpaceView()
         {
             InitializeComponent();
         }
+
+        #endregion Constructors + Destructors
     }
 }

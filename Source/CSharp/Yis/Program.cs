@@ -1,26 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq.Expressions;
-using Yis.Designer.Conceptual.Business;
-using Yis.Designer.Model;
-using Yis.Designer.Presentation;
-using Yis.Designer.Software.Business;
-using Yis.Designer.Technic.Internal;
 using Yis.Erp.Shell.Presentation;
-using Yis.Framework.Core.Extension;
-using Yis.Framework.Core.IoC;
-using Yis.Framework.Core.Locator;
-using Yis.Framework.Core.Logging;
-using Yis.Framework.Core.Messaging;
-using Yis.Framework.Core.Messaging.Contract;
-using Yis.Framework.Core.Messaging.Event;
 using Yis.Framework.Core.Shell;
 using Yis.Framework.Helper;
-using Yis.Framework.Presentation.Locator;
-using Yis.Framework.Presentation.Locator.Contract;
-using Yis.WebCrawler;
-using Yis.WebCrawler.ExcludeFilters;
 
 namespace Yis
 {
@@ -45,7 +26,7 @@ namespace Yis
         private static void Main(string[] args)
         {
             Boot.Start();
-           // RunGenerator();
+            // RunGenerator();
             //RunConsole();
             RunWindows();
             //RunCrawler();
@@ -55,7 +36,6 @@ namespace Yis
         {
             ConsoleHelper.ShowConsoleWindow();
 
-            
             Console.ReadLine();
 
             //LogManager.Default.Debug("toto");
@@ -88,10 +68,8 @@ namespace Yis
             // ws.Name = "12345";
             //// ws = null;
 
-            // foreach (var item in rv.Validate(ws2,(t) => t.Name))
-            // {
-            //     Console.WriteLine(item.ErrorMessage);
-            // }
+            // foreach (var item in rv.Validate(ws2,(t) => t.Name)) {
+            // Console.WriteLine(item.ErrorMessage); }
 
             //DependencyResolver.Register<IDataContext>("YisDataContext", new YisDesignerDataContext());
 
@@ -107,17 +85,13 @@ namespace Yis
             //    IWorkSpaceProvider _workSpaceProvider = uow.GetRepository<IWorkSpaceProvider>();
             //    WorkSpace newWS = _workSpaceProvider.Create();
 
-            //    newWS.Id = Guid.NewGuid();
-            //    newWS.Name = "toto to to";
+            // newWS.Id = Guid.NewGuid(); newWS.Name = "toto to to";
 
-            //    _workSpaceProvider.Add(newWS);
-            //    uow.SaveChanges();
+            // _workSpaceProvider.Add(newWS); uow.SaveChanges();
 
-            //    foreach (var item in _workSpaceProvider.GetAll())
-            //    {
-            //        Console.WriteLine(item.Name);
+            // foreach (var item in _workSpaceProvider.GetAll()) { Console.WriteLine(item.Name);
 
-            //        //db.Entry(WorkSpace).Reference(WorkSpace.AspectSemantic).Load();
+            // //db.Entry(WorkSpace).Reference(WorkSpace.AspectSemantic).Load();
 
             //        //Console.WriteLine(item.AspectSemantic.Id.ToString());
             //        //  Console.WriteLine(item.AspectSemantic.WorkSpace.Id.ToString());
@@ -138,7 +112,7 @@ namespace Yis
                     //db.Entry(WorkSpace).Reference(WorkSpace.AspectSemantic).Load();
 
                     Console.WriteLine(item.AspectSemantic.Id.ToString());
-                    //  Console.WriteLine(item.AspectSemantic.WorkSpace.Id.ToString());
+                    // Console.WriteLine(item.AspectSemantic.WorkSpace.Id.ToString());
                 }
 
                 Console.WriteLine("tentative 2");
@@ -158,106 +132,74 @@ namespace Yis
             ConsoleHelper.HideConsoleWindow();
         }
 
-        private static void RunGenerator()
-        {
-            ConsoleHelper.ShowConsoleWindow();
+        //private static void RunGenerator()
+        //{
+        //    ConsoleHelper.ShowConsoleWindow();
 
-            Directory.Delete(@"D:\DataYis\", true);
-            InitializeData.Run();
+        // Directory.Delete(@"D:\DataYis\", true); InitializeData.Run();
 
-            Transformator trans = new Transformator();
-            DomainCollection.GetAll().ForEach((i) => trans.Transform(i));
+        // Transformator trans = new Transformator(); DomainCollection.GetAll().ForEach((i) => trans.Transform(i));
 
-            //NameSpaceCollection manag = new NameSpaceCollection();
-            //NameSpace ns = manag.AddNew();
+        // //NameSpaceCollection manag = new NameSpaceCollection(); //NameSpace ns = manag.AddNew();
 
-            //ns.Id = Guid.NewGuid();
-            //ns.Name = "Yis : " + ns.Id.ToString();
+        // //ns.Id = Guid.NewGuid(); //ns.Name = "Yis : " + ns.Id.ToString();
 
-            //manag.Save();
+        // //manag.Save();
 
-            /* NameSpaceCollection manag = new NameSpaceCollection();
+        // /* NameSpaceCollection manag = new NameSpaceCollection();
 
-             NameSpace root = manag.Create();
+        // NameSpace root = manag.Create();
 
-             root.Id = Guid.NewGuid();
-             root.Name = "Yis 2";
+        // root.Id = Guid.NewGuid(); root.Name = "Yis 2";
 
-             manag.Add(root);*/
+        // manag.Add(root);*/
 
-            foreach (var item in NameSpaceCollection.GetAll())
-            {
-                Console.WriteLine(item.Name);
-            }
+        // foreach (var item in NameSpaceCollection.GetAll()) { Console.WriteLine(item.Name); }
 
-            Generator gen = new Generator();
-            gen.Generate(NameSpace.GetByName("Yis"), @"D:\TestGen\");
+        // Generator gen = new Generator(); gen.Generate(NameSpace.GetByName("Yis"), @"D:\TestGen\");
 
-            //
-            //NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis", ChrildrenNameSpace = new List<NameSpace>() };
-            //NameSpace child = new NameSpace() { Id = Guid.NewGuid(), Name = "Sample", Class = new List<Class>() };
-            //Class test = new Class() { Id = Guid.NewGuid(), Name = "testclass", NameSpaceId = child.Id };
+        // // //NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis",
+        // ChrildrenNameSpace = new List<NameSpace>() }; //NameSpace child = new NameSpace() { Id =
+        // Guid.NewGuid(), Name = "Sample", Class = new List<Class>() }; //Class test = new Class()
+        // { Id = Guid.NewGuid(), Name = "testclass", NameSpaceId = child.Id };
 
-            //root.ChrildrenNameSpace.Add(child);
-            //child.Class.Add(test);
+        // //root.ChrildrenNameSpace.Add(child); //child.Class.Add(test);
 
-            //gen.Generate(root, @"C:\TestGen");
+        // //gen.Generate(root, @"C:\TestGen");
 
-            Console.ReadKey();
-        }
+        //    Console.ReadKey();
+        //}
 
         private static void RunWindows()
         {
             App.Main();
         }
 
-        private static void RunCrawler()
-        {
-            ConsoleHelper.ShowConsoleWindow();
-
-            var crawler = new Crawler
-            {
-                ExcludeFilters = new IExcludeFilter[]
-                {
-                    new ExcludeImagesFilter(),
-                    new ExcludeTrackbacks(),
-                    new ExcludeMailTo(),
-                    new ExcludeHostsExcept(new[] { "nyqui.st" }),
-                    new ExcludeJavaScript(), 
-                    new ExcludeAnchors(), 
-                }
-            };
-
-            crawler.OnCompleted += () =>
-            {
-                Console.WriteLine("[Main] Crawl completed!");
-               // Environment.Exit(0);
-            };
-
-            crawler.OnPageDownloaded += page =>
-            {
-                Console.WriteLine("[Main] Downloaded page {0}", page.Url);
-
-                // Write external links
-                foreach (var link in page.Links)
-                {
-                    if (link.TargetUrl.Host != page.Url.Host)
-                    {
-                        Console.WriteLine("Found outbound link from {0} to {1}", page.Url, link.TargetUrl);
-                    }
-                }
-            };
-
-            crawler.Enqueue(new Uri("http://www.developpez.com/"));
-            crawler.Start();
-
-            Console.WriteLine("[Main] Crawler started.");
-            Console.WriteLine("[Main] Press [enter] to abort.");
-            Console.ReadLine();
-        }
-
-
         #endregion Methods
-    }
 
+        //private static void RunCrawler()
+        //{
+        //    ConsoleHelper.ShowConsoleWindow();
+
+        // var crawler = new Crawler { ExcludeFilters = new IExcludeFilter[] { new
+        // ExcludeImagesFilter(), new ExcludeTrackbacks(), new ExcludeMailTo(), new
+        // ExcludeHostsExcept(new[] { "nyqui.st" }), new ExcludeJavaScript(), new ExcludeAnchors(),
+        // } };
+
+        // crawler.OnCompleted += () => { Console.WriteLine("[Main] Crawl completed!"); //
+        // Environment.Exit(0); };
+
+        // crawler.OnPageDownloaded += page => { Console.WriteLine("[Main] Downloaded page {0}", page.Url);
+
+        // // Write external links foreach (var link in page.Links) { if (link.TargetUrl.Host !=
+        // page.Url.Host) { Console.WriteLine("Found outbound link from {0} to {1}", page.Url,
+        // link.TargetUrl); } } };
+
+        // crawler.Enqueue(new Uri("http://www.developpez.com/")); crawler.Start();
+
+        //    Console.WriteLine("[Main] Crawler started.");
+        //    Console.WriteLine("[Main] Press [enter] to abort.");
+        //    Console.ReadLine();
+        //}
+    }
 }

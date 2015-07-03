@@ -9,15 +9,25 @@ namespace Yis.Framework.Data.Database
 {
     public class ConnectionFactory
     {
-        private IDbConnection _dbConnection;
-        private string _connectionString;
-        private string _providername;
+        #region Constructors + Destructors
 
         public ConnectionFactory(string providerName, string connectionString)
         {
             _providername = providerName;
             _connectionString = connectionString;
         }
+
+        #endregion Constructors + Destructors
+
+        #region Fields
+
+        private string _connectionString;
+        private IDbConnection _dbConnection;
+        private string _providername;
+
+        #endregion Fields
+
+        #region Properties
 
         public IDbConnection DbConnection
         {
@@ -47,5 +57,7 @@ namespace Yis.Framework.Data.Database
                 return _dbConnection;
             }
         }
+
+        #endregion Properties
     }
 }

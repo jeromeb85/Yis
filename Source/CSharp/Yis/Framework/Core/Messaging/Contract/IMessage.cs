@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yis.Framework.Core.Messaging.Contract
+﻿namespace Yis.Framework.Core.Messaging.Contract
 {
     public interface IMessage
     {
@@ -12,6 +6,10 @@ namespace Yis.Framework.Core.Messaging.Contract
 
     public interface IMessage<TResult> : IMessage
     {
+        #region Properties
+
         TResult Result { get; set; }
+
+        #endregion Properties
     }
 }

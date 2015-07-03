@@ -5,13 +5,13 @@ namespace Yis.Designer.Conceptual.Data.Memory
 {
     public class ConceptualDataContext : DataContextBase, IConceptualDataContext
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         public ConceptualDataContext()
             : base(@"D:\DataYis\Conceptual\")
         {
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
     }
 }

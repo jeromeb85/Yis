@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Yis.Designer.Conceptual.Data.Contract;
 using Yis.Framework.Business;
 
@@ -10,7 +6,7 @@ namespace Yis.Designer.Conceptual.Business
 {
     public class DomainCollection : BusinessObjectCollectionBase<DomainCollection, Domain, Model.Domain, IDomainProvider, IConceptualDataContext>
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         public DomainCollection(ICollection<Domain> list)
             : base(list)
@@ -27,6 +23,6 @@ namespace Yis.Designer.Conceptual.Business
         {
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
     }
 }

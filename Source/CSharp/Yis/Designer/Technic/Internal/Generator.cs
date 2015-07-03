@@ -2,11 +2,8 @@
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Designer.Software.Business;
 using Yis.Designer.Technic.Contract;
 using Yis.Framework.Core.Extension;
@@ -135,11 +132,9 @@ namespace Yis.Designer.Technic.Internal
                 prop.GetStatements.Add(new CodeSnippetStatement(param.GetCode));
                 prop.SetStatements.Add(new CodeSnippetStatement(param.SetCode));
                 //prop.GetStatements.
-        //        var toto = 
-  //              property1.GetStatements.Add(new CodeMethodReturnStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "testStringField")));
-//                property1.SetStatements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "testStringField"), new CodePropertySetValueReferenceExpression()));
-
-
+                //        var toto =
+                //              property1.GetStatements.Add(new CodeMethodReturnStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "testStringField")));
+                //                property1.SetStatements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "testStringField"), new CodePropertySetValueReferenceExpression()));
 
                 parent.Members.Add(prop);
             }

@@ -1,30 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Erp.Mdm.Data.Contract;
-using Yis.Framework.Core.Extension;
 using Yis.Framework.Business;
+using Yis.Framework.Core.Extension;
 
 namespace Yis.Erp.Mdm.Business
 {
+    /// <summary>
+    /// Obhet métier client
+    /// </summary>
     public class Client : BusinessObjectBase<Client, Model.Client, IClientProvider, IMdmDataContext>
     {
-                #region Constructors
+        #region Constructors + Destructors
 
+        /// <summary>
+        /// Constructeur de l'objet avec un modèle
+        /// </summary>
+        /// <param name="model"></param>
         public Client(Model.Client model)
             : base(model)
         {
         }
 
+        /// <summary>
+        /// Création d'un nouveau client
+        /// </summary>
         public Client()
             : base()
         {
             Id = Guid.NewGuid();
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
+
+        #region Properties
+
+        public string Description
+        {
+            get { return GetProperty(Model.Description); }
+            set { SetProperty(v => Model.Description = value, Model.Description, value); }
+        }
 
         public Guid Id
         {
@@ -44,11 +58,9 @@ namespace Yis.Erp.Mdm.Business
             set { SetProperty(v => Model.Reference = value, Model.Reference, value); }
         }
 
-        public string Description
-        {
-            get { return GetProperty(Model.Description); }
-            set { SetProperty(v => Model.Description = value, Model.Description, value); }
-        }
+        #endregion Properties
+
+        #region Methods
 
         public static Client GetById(Guid id)
         {
@@ -61,5 +73,6 @@ namespace Yis.Erp.Mdm.Business
             return item;
         }
 
+        #endregion Methods
     }
 }

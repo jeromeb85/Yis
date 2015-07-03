@@ -11,22 +11,16 @@ using Yis.Framework.Presentation.Navigation.Contract;
 
 namespace Yis.Framework.Presentation.ViewModel
 {
+    /// <summary>
+    /// Classe de base pour les ViewModel
+    /// </summary>
     public abstract partial class ViewModelBase : IViewModel
     {
-        #region Fields
+        #region Constructors + Destructors
 
-        private bool _isChanged;
-
-        private INavigation _navigation;
-
-        private RuleValidator _validator;
-
-        private IServiceLocator _locator;
-
-        #endregion Fields
-
-        #region Constructors
-
+        /// <summary>
+        /// Constructeurs
+        /// </summary>
         protected ViewModelBase()
         {
             AutoValidateProperty = true;
@@ -35,7 +29,19 @@ namespace Yis.Framework.Presentation.ViewModel
             OnRuleInialize();
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
+
+        #region Fields
+
+        private IBus _bus;
+        private bool _isChanged;
+
+        private IServiceLocator _locator;
+        private INavigation _navigation;
+
+        private RuleValidator _validator;
+
+        #endregion Fields
 
         #region Properties
 
@@ -67,6 +73,19 @@ namespace Yis.Framework.Presentation.ViewModel
             }
         }
 
+        protected IBus Bus
+        {
+            get
+            {
+                if (_bus == null)
+                {
+                    _bus = DependencyResolverManager.Default.Resolve<IBus>();
+                }
+
+                return _bus;
+            }
+        }
+
         protected IServiceLocator Locator
         {
             get
@@ -93,32 +112,28 @@ namespace Yis.Framework.Presentation.ViewModel
             }
         }
 
-        private IBus _bus;
-
-        protected IBus Bus
-        {
-            get
-            {
-                if (_bus == null)
-                {
-                    _bus = DependencyResolverManager.Default.Resolve<IBus>();
-                }
-
-                return _bus;
-            }
-        }
-
         #endregion Properties
 
         #region Methods
 
+        /// <summary>
+        /// Lance la validation de l'objet
+        /// </summary>
+        /// <returns>Retourne True si l'objet répond aux contraintes de validation</returns>
         public bool Validate()
         {
             IEnumerable<ValidationResult> validationResults = Validator.Validate(this);
             //Validator.TryValidateObject(this, new ValidationContext(this), validationResults, true);
             if (validationResults.Any())
             {
+                foreach (var error in Errors)
+                {
+                    error.Value.Clear();
+                    RaiseErrorsChanged(error.Key);
+                }
+
                 Errors.Clear();
+
                 foreach (var validationResult in validationResults)
                 {
                     var propertyNames = validationResult.MemberNames.Any() ? validationResult.MemberNames : new string[] { "" };
@@ -248,7 +263,7 @@ namespace Yis.Framework.Presentation.ViewModel
 
     public abstract partial class ViewModelBase<TModel> : ViewModelBase
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         protected ViewModelBase(TModel model)
             : base()
@@ -256,7 +271,7 @@ namespace Yis.Framework.Presentation.ViewModel
             Model = model;
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
 
         #region Properties
 

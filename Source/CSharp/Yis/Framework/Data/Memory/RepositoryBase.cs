@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.IoC.Contract;
@@ -15,17 +13,7 @@ namespace Yis.Framework.Data.Memory
     public abstract class RepositoryBase<TModel> : IRepository<TModel>
            where TModel : class,new()
     {
-        #region Fields
-
-        private static IServiceLocator _locator;
-
-        private static ILog _log;
-
-        private readonly DataContextBase Context;
-
-        #endregion Fields
-
-        #region Constructors
+        #region Constructors + Destructors
 
         public RepositoryBase(IDataContext dataContext)
         {
@@ -37,7 +25,17 @@ namespace Yis.Framework.Data.Memory
             Context = (DataContextBase)dataContext;
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
+
+        #region Fields
+
+        private static IServiceLocator _locator;
+
+        private static ILog _log;
+
+        private readonly DataContextBase Context;
+
+        #endregion Fields
 
         #region Properties
 

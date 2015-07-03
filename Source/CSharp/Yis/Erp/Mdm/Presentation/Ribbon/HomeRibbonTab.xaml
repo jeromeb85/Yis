@@ -1,19 +1,18 @@
 ﻿<contract:RibbonTabBase x:Class="Yis.Erp.Mdm.Presentation.Ribbon.HomeRibbonTab"
                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                        xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
                         xmlns:contract="clr-namespace:Yis.Erp.Shell.Presentation.Contract"
-                        mc:Ignorable="d"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
+                        Header="Mdm"
                         d:DesignHeight="300"
                         d:DesignWidth="300"
-                        Header="Mdm">
+                        mc:Ignorable="d">
 
-    <ribbon:RibbonGroup x:Name="Client"
-                        Header="Client">
+    <ribbon:RibbonGroup x:Name="Client" Header="Client">
         <ribbon:RibbonButton x:Name="NewFicheClient"
-                             Label="Nouveau"
-                             Click="NewFicheClient_Click" />
+                             Click="NewFicheClient_Click"
+                             Label="Nouveau" />
     </ribbon:RibbonGroup>
 </contract:RibbonTabBase>

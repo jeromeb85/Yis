@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AbsoluteExpirationPolicy.cs" company="Catel development team">
-//   Copyright (c) 2008 - 2014 Catel development team. All rights reserved.
+//     Copyright (c) 2008 - 2014 Catel development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 namespace Yis.Framework.Core.Caching.Policies
@@ -12,14 +12,12 @@ namespace Yis.Framework.Core.Caching.Policies
     /// </summary>
     public class AbsoluteExpirationPolicy : ExpirationPolicy
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbsoluteExpirationPolicy"/> class.
         /// </summary>
-        /// <param name="absoluteExpirationDateTime">
-        /// The expiration date time.
-        /// </param>
+        /// <param name="absoluteExpirationDateTime">The expiration date time.</param>
         internal AbsoluteExpirationPolicy(DateTime absoluteExpirationDateTime)
             : this(absoluteExpirationDateTime, false)
         {
@@ -28,19 +26,15 @@ namespace Yis.Framework.Core.Caching.Policies
         /// <summary>
         /// Initializes a new instance of the <see cref="AbsoluteExpirationPolicy"/> class.
         /// </summary>
-        /// <param name="absoluteExpirationDateTime">
-        /// The expiration date time.
-        /// </param>
-        /// <param name="canReset">
-        /// The can reset.
-        /// </param>
+        /// <param name="absoluteExpirationDateTime">The expiration date time.</param>
+        /// <param name="canReset">                  The can reset.</param>
         protected AbsoluteExpirationPolicy(DateTime absoluteExpirationDateTime, bool canReset)
             : base(canReset)
         {
             AbsoluteExpirationDateTime = absoluteExpirationDateTime;
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
 
         #region Properties
 

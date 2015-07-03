@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yis.Designer.Conceptual.Business;
+﻿using Yis.Designer.Conceptual.Business;
 using Yis.Designer.Software.Business;
-using Yis.Designer.Technic.Contract;
 using Yis.Framework.Core.Extension;
-using Yis.Framework.Core.Helper;
 
 namespace Yis.Designer.Technic.Internal
 {
     public partial class Transformator
     {
+        #region Methods
+
         private void TransformModel(NameSpace nsDomain, Concept concept)
         {
             /*Transformation Model*/
@@ -48,9 +43,11 @@ namespace Yis.Designer.Technic.Internal
 
         private void TransformModel(Class cModel, Yis.Designer.Conceptual.Business.Attribute attribute)
         {
-            Property cModelProp = cModel.Property.GetFirstOrAddNew((i) => i.Name == attribute.Name);            
+            Property cModelProp = cModel.Property.GetFirstOrAddNew((i) => i.Name == attribute.Name);
             cModelProp.Name = attribute.Name;
             cModelProp.Type = attribute.Type;
         }
+
+        #endregion Methods
     }
 }

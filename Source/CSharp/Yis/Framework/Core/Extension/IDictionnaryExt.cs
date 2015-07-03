@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Core.Helper;
 
 namespace Yis.Framework.Core.Extension
@@ -19,8 +17,8 @@ namespace Yis.Framework.Core.Extension
         /// </summary>
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <param name="dictionary">The dictionary.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value to check and to add.</param>
+        /// <param name="key">       The key.</param>
+        /// <param name="value">     The value to check and to add.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="dictionary"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="key"/> is <c>null</c>.</exception>
         public static void AddItemIfNotEmpty<TKey>(this IDictionary<TKey, string> dictionary, TKey key, string value)
@@ -39,9 +37,11 @@ namespace Yis.Framework.Core.Extension
         /// </summary>
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="target">The target.</param>
-        /// <param name="source">The source.</param>
-        /// <param name="overwriteExisting">if set to <c>true</c>, existing items in the target dictionary will be overwritten.</param>
+        /// <param name="target">           The target.</param>
+        /// <param name="source">           The source.</param>
+        /// <param name="overwriteExisting">
+        /// if set to <c>true</c>, existing items in the target dictionary will be overwritten.
+        /// </param>
         /// <exception cref="ArgumentNullException">The <paramref name="target"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException">The <paramref name="source"/> is <c>null</c>.</exception>
         public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> target, IDictionary<TKey, TValue> source, bool overwriteExisting = true)

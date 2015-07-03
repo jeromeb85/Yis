@@ -7,9 +7,13 @@ namespace Yis.Erp.Shell.Presentation
     /// </summary>
     public partial class App : Application
     {
+        #region Methods
+
         protected override void OnStartup(StartupEventArgs e)
         {
-                base.OnStartup(e);
+            base.OnStartup(e);
         }
+
+        #endregion Methods
     }
 }

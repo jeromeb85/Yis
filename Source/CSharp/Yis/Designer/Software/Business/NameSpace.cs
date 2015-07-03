@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Designer.Software.Data.Contract;
 using Yis.Framework.Business;
 using Yis.Framework.Core.Extension;
@@ -11,7 +7,7 @@ namespace Yis.Designer.Software.Business
 {
     public class NameSpace : BusinessObjectBase<NameSpace, Model.NameSpace, INameSpaceProvider, ISoftwareDataContext>
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         public NameSpace(Model.NameSpace model)
             : base(model)
@@ -24,7 +20,7 @@ namespace Yis.Designer.Software.Business
             Id = Guid.NewGuid();
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
 
         #region Properties
 

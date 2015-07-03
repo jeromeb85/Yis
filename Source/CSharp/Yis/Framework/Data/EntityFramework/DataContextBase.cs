@@ -7,6 +7,8 @@ namespace Yis.Framework.Data.EntityFramework
 {
     public class DataContextBase : DbContext, IDataContext
     {
+        #region Constructors + Destructors
+
         public DataContextBase(string nameOrConnection)
             : base(nameOrConnection)
         {
@@ -17,17 +19,20 @@ namespace Yis.Framework.Data.EntityFramework
         {
         }
 
-        protected IDbTransaction Transaction { get; set; }
+        #endregion Constructors + Destructors
+
+        #region Properties
 
         public bool IsInTransaction
         {
             get { return Transaction != null; }
         }
 
-        public new void SaveChanges()
-        {
-            base.SaveChanges();
-        }
+        protected IDbTransaction Transaction { get; set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public void BeginTransaction(System.Data.IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
@@ -41,19 +46,6 @@ namespace Yis.Framework.Data.EntityFramework
 
             OpenConnection();
             Transaction = Database.Connection.BeginTransaction(isolationLevel);
-        }
-
-        public void RollBackTransaction()
-        {
-            if (Transaction == null)
-            {
-                const string error = "Cannot roll back a transaction when there is no transaction running.";
-
-                throw new InvalidOperationException(error);
-            }
-
-            Transaction.Rollback();
-            ReleaseTransaction();
         }
 
         public void CommitTransaction()
@@ -77,7 +69,23 @@ namespace Yis.Framework.Data.EntityFramework
             }
         }
 
-        #region Methods
+        public void RollBackTransaction()
+        {
+            if (Transaction == null)
+            {
+                const string error = "Cannot roll back a transaction when there is no transaction running.";
+
+                throw new InvalidOperationException(error);
+            }
+
+            Transaction.Rollback();
+            ReleaseTransaction();
+        }
+
+        public new void SaveChanges()
+        {
+            base.SaveChanges();
+        }
 
         /// <summary>
         /// Opens the connection to the database.

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Designer.Conceptual.Data.Contract;
 using Yis.Framework.Business;
 using Yis.Framework.Core.Extension;
@@ -11,7 +7,7 @@ namespace Yis.Designer.Conceptual.Business
 {
     public class Domain : BusinessObjectBase<Domain, Model.Domain, IDomainProvider, IConceptualDataContext>
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         public Domain(Model.Domain model)
             : base(model)
@@ -24,7 +20,7 @@ namespace Yis.Designer.Conceptual.Business
             Id = Guid.NewGuid();
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
 
         #region Properties
 

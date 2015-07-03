@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yis.Designer.Software.Data.Contract;
+﻿using Yis.Designer.Software.Data.Contract;
 using Yis.Framework.Data.Memory;
 
 namespace Yis.Designer.Software.Data.Memory
 {
     public class SoftwareDataContext : DataContextBase, ISoftwareDataContext
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         public SoftwareDataContext()
             : base(@"D:\DataYis\Software\")
         {
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
     }
 }

@@ -1,14 +1,32 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls.Ribbon;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Presentation.Locator.Contract;
 
 namespace Yis.Framework.Presentation.View
 {
-    public abstract class WindowBase :  RibbonWindow, IWindowView
+    public abstract class WindowBase : RibbonWindow, IWindowView
     {
+        #region Constructors + Destructors
+
+        protected WindowBase()
+        {
+        }
+
+        protected WindowBase(bool searchViewModel)
+        {
+            DataContext = Activator.CreateInstance(Locator.ResolveViewModel(this.GetType()));
+        }
+
+        #endregion Constructors + Destructors
+
+        #region Fields
+
         private IViewModelLocator _locator;
+
+        #endregion Fields
+
+        #region Properties
 
         protected IViewModelLocator Locator
         {
@@ -23,14 +41,9 @@ namespace Yis.Framework.Presentation.View
             }
         }
 
-        protected WindowBase()
-        {
-        }
+        #endregion Properties
 
-        protected WindowBase(bool searchViewModel)
-        {
-            DataContext = Activator.CreateInstance(Locator.ResolveViewModel(this.GetType()));
-        }
+        #region Methods
 
         public void Show(object context = null)
         {
@@ -59,5 +72,7 @@ namespace Yis.Framework.Presentation.View
 
             return base.ShowDialog();
         }
+
+        #endregion Methods
     }
 }

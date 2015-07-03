@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Designer.Conceptual.Data.Contract;
 using Yis.Designer.Conceptual.Model;
 using Yis.Framework.Data.Contract;
@@ -21,14 +18,14 @@ namespace Yis.Designer.Conceptual.Data.Memory
 
         #endregion Methods
 
-        #region Constructors
+        #region Constructors + Destructors
 
         public DomainProvider(IDataContext dataContext)
             : base(dataContext)
         {
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
 
         public Domain GetById(Guid id)
         {

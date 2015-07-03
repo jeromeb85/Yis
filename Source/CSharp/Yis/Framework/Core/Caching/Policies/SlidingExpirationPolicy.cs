@@ -1,5 +1,3 @@
-using System;
-
 namespace Yis.Framework.Core.Caching.Policies
 {
     using System;
@@ -9,20 +7,18 @@ namespace Yis.Framework.Core.Caching.Policies
     /// </summary>
     public sealed class SlidingExpirationPolicy : DurationExpirationPolicy
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SlidingExpirationPolicy"/> class.
         /// </summary>
-        /// <param name="durationTimeSpan">
-        /// The expiration.
-        /// </param>
+        /// <param name="durationTimeSpan">The expiration.</param>
         internal SlidingExpirationPolicy(TimeSpan durationTimeSpan)
             : base(durationTimeSpan, true)
         {
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
 
         #region Methods
 

@@ -4,15 +4,13 @@ namespace Yis.Framework.Data.Contract
 {
     public interface IDataContext
     {
-        #region Fields
+        #region Properties
 
         bool IsInTransaction { get; }
 
-        #endregion Fields
+        #endregion Properties
 
         #region Methods
-
-        void SaveChanges();
 
         /// <summary>
         /// Begins a new transaction on the unit of work.
@@ -21,14 +19,16 @@ namespace Yis.Framework.Data.Contract
         void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
 
         /// <summary>
+        /// Commits all the changes inside a transaction.
+        /// </summary>
+        void CommitTransaction();
+
+        /// <summary>
         /// Rolls back all the changes inside a transaction.
         /// </summary>
         void RollBackTransaction();
 
-        /// <summary>
-        /// Commits all the changes inside a transaction.
-        /// </summary>
-        void CommitTransaction();
+        void SaveChanges();
 
         #endregion Methods
     }

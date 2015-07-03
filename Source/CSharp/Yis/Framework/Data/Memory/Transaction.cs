@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yis.Framework.Data.Memory
+﻿namespace Yis.Framework.Data.Memory
 {
     internal enum TransactionType
     {
@@ -15,15 +9,7 @@ namespace Yis.Framework.Data.Memory
 
     internal class Transaction
     {
-        #region Fields
-
-        public readonly object Obj;
-
-        public readonly TransactionType Type;
-
-        #endregion Fields
-
-        #region Constructors
+        #region Constructors + Destructors
 
         public Transaction(object obj, TransactionType type)
         {
@@ -31,6 +17,14 @@ namespace Yis.Framework.Data.Memory
             Type = type;
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
+
+        #region Fields
+
+        public readonly object Obj;
+
+        public readonly TransactionType Type;
+
+        #endregion Fields
     }
 }

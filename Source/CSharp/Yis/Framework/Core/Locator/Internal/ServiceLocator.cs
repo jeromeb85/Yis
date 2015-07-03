@@ -8,21 +8,21 @@ namespace Yis.Framework.Core.Locator.Internal
 {
     internal class ServiceLocator : IServiceLocator
     {
-        #region Fields
-
-        private Dictionary<Type, List<Type>> _catalog;
-        private List<Assembly> _catalogAssembly;
-
-        #endregion Fields
-
-        #region Constructors
+        #region Constructors + Destructors
 
         public ServiceLocator()
         {
             Build();
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
+
+        #region Fields
+
+        private Dictionary<Type, List<Type>> _catalog;
+        private List<Assembly> _catalogAssembly;
+
+        #endregion Fields
 
         #region Properties
 

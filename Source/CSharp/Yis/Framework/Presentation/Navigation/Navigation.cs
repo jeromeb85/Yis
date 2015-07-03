@@ -11,7 +11,13 @@ namespace Yis.Framework.Presentation.Navigation
 {
     public class Navigation : INavigation
     {
+        #region Fields
+
         private IViewLocator _locator;
+
+        #endregion Fields
+
+        #region Properties
 
         protected IViewLocator Locator
         {
@@ -25,6 +31,10 @@ namespace Yis.Framework.Presentation.Navigation
                 return _locator;
             }
         }
+
+        #endregion Properties
+
+        #region Methods
 
         public void Show<T>(object context = null) where T : View.IView
         {
@@ -76,52 +86,41 @@ namespace Yis.Framework.Presentation.Navigation
             return activeWindow;
         }
 
+        #endregion Methods
+
         //public static FrameworkElement ConstructViewWithViewModel(Type viewType, object dataContext)
         //{
         //    Argument.IsNotNull("viewType", viewType);
 
-        //    Log.Debug("Constructing view for view type '{0}'", viewType.Name);
+        // Log.Debug("Constructing view for view type '{0}'", viewType.Name);
 
-        //    FrameworkElement view;
+        // FrameworkElement view;
 
-        //    // First, try to constructor directly with the data context
-        //    if (dataContext != null)
-        //    {
-        //        var injectionConstructor = viewType.GetConstructorEx(new[] { dataContext.GetType() });
-        //        if (injectionConstructor != null)
-        //        {
-        //            view = (FrameworkElement)injectionConstructor.Invoke(new[] { dataContext });
+        // // First, try to constructor directly with the data context if (dataContext != null) {
+        // var injectionConstructor = viewType.GetConstructorEx(new[] { dataContext.GetType() }); if
+        // (injectionConstructor != null) { view =
+        // (FrameworkElement)injectionConstructor.Invoke(new[] { dataContext });
 
-        //            Log.Debug("Constructed view using injection constructor");
+        // Log.Debug("Constructed view using injection constructor");
 
-        //            return view;
-        //        }
-        //    }
+        // return view; } }
 
-        //    Log.Debug("No constructor with data (of type '{0}') injection found, trying default constructor", ObjectToStringHelper.ToTypeString(dataContext));
+        // Log.Debug("No constructor with data (of type '{0}') injection found, trying default
+        // constructor", ObjectToStringHelper.ToTypeString(dataContext));
 
-        //    // Try default constructor
-        //    var defaultConstructor = viewType.GetConstructorEx(new Type[0]);
-        //    if (defaultConstructor == null)
-        //    {
-        //        Log.Error("View '{0}' does not have an injection or default constructor thus cannot be constructed", viewType.Name);
-        //        return null;
-        //    }
+        // // Try default constructor var defaultConstructor = viewType.GetConstructorEx(new
+        // Type[0]); if (defaultConstructor == null) { Log.Error("View '{0}' does not have an
+        // injection or default constructor thus cannot be constructed", viewType.Name); return
+        // null; }
 
-        //    try
-        //    {
-        //        view = (FrameworkElement)defaultConstructor.Invoke(null);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string error = string.Format("Failed to construct view '{0}' with both injection and empty constructor", viewType.Name);
-        //        Log.Error(ex, error);
-        //        throw new InvalidOperationException(error, ex);
-        //    }
+        // try { view = (FrameworkElement)defaultConstructor.Invoke(null); } catch (Exception ex) {
+        // string error = string.Format("Failed to construct view '{0}' with both injection and
+        // empty constructor", viewType.Name); Log.Error(ex, error); throw new
+        // InvalidOperationException(error, ex); }
 
-        //    view.DataContext = dataContext;
+        // view.DataContext = dataContext;
 
-        //    Log.Debug("Constructed view using default constructor and setting DataContext afterwards");
+        // Log.Debug("Constructed view using default constructor and setting DataContext afterwards");
 
         //    return view;
         //}

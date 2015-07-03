@@ -16,15 +16,7 @@ namespace Yis.Framework.Data
     /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
-        #region Fields
-
-        private static IServiceLocator _locator;
-        private static ILog _log;
-        private bool _disposed;
-
-        #endregion Fields
-
-        #region Constructors
+        #region Constructors + Destructors
 
         public UnitOfWork(IDataContext context)
         {
@@ -38,7 +30,15 @@ namespace Yis.Framework.Data
         {
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
+
+        #region Fields
+
+        private static IServiceLocator _locator;
+        private static ILog _log;
+        private bool _disposed;
+
+        #endregion Fields
 
         #region Properties
 
@@ -119,7 +119,8 @@ namespace Yis.Framework.Data
         }
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         public void Dispose()
         {
@@ -129,25 +130,19 @@ namespace Yis.Framework.Data
 
         /// <summary>
         /// Gets the repository that is created specificially for this unit of work.
-        /// <para />
-        /// Note that the following conditions must be met: <br />
-        /// <list type="number">
-        /// <item>
-        /// <description>
-        /// The container must be registered in the <see cref="ServiceLocator" /> as <see cref="RegistrationType.Transient" /> type. If the
+        /// <para/>
+        /// Note that the following conditions must be met:
+        /// <br/><list type="number"><item><description> The container must be registered in the
+        /// <see cref="ServiceLocator"/> as <see cref="RegistrationType.Transient"/> type. If the
         /// repository is declared as non-transient, it will be instantiated as new instance anyway.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// The repository must have a constructor accepting a <see cref="DbContext" /> instance.
-        /// </description>
-        /// </item>
-        /// </list>
+        /// </description></item><item><description> The repository must have a constructor
+        /// accepting a <see cref="DbContext"/> instance. </description></item></list>
         /// </summary>
         /// <typeparam name="TEntityRepository">The type of the entity repository.</typeparam>
         /// <returns>The entity repository.</returns>
-        /// <exception cref="NotSupportedException">The specified repository type cannot be found.</exception>
+        /// <exception cref="NotSupportedException">
+        /// The specified repository type cannot be found.
+        /// </exception>
         public virtual TRepository GetRepository<TRepository>()
             where TRepository : IRepository
         {
@@ -188,7 +183,10 @@ namespace Yis.Framework.Data
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        /// only unmanaged resources.
+        /// </param>
         private void Dispose(bool disposing)
         {
             if (!disposing)

@@ -7,10 +7,13 @@ namespace Yis.Framework.Core.Extension
 {
     public static class DependencyObjectExt
     {
+        #region Methods
+
         public static IEnumerable<T> GetChildren<T>(this DependencyObject parent) where T : DependencyObject
         {
             return parent.GetChildren<T>(t => true);
         }
+
         public static IEnumerable<T> GetChildren<T>(this DependencyObject parent, Func<T, bool> customFilter) where T : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
@@ -30,10 +33,12 @@ namespace Yis.Framework.Core.Extension
                 }
             }
         }
+
         public static T GetParent<T>(this DependencyObject child) where T : DependencyObject
         {
             return child.GetParent<T>(t => true);
         }
+
         public static T GetParent<T>(this DependencyObject child, Func<T, bool> customFilter) where T : DependencyObject
         {
             DependencyObject parent = VisualTreeHelper.GetParent(child);
@@ -51,5 +56,7 @@ namespace Yis.Framework.Core.Extension
             }
             return null;
         }
+
+        #endregion Methods
     }
 }

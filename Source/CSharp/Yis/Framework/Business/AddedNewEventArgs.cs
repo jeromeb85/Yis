@@ -1,53 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yis.Framework.Business
 {
     /// <summary>
-    /// Object containing information about a
-    /// newly added object.
+    /// Objet événelebt contenant toutes les informations concernant l'ajout d'un nouvel objet.
     /// </summary>
-    /// <typeparam name="T">
-    /// Type of the object that was added.
-    /// </typeparam>
+    /// <typeparam name="T">Type d'objet ajouté</typeparam>
     public class AddedNewEventArgs<T> : EventArgs
     {
-        #region Fields
-
-        private T _newObject;
-
-        #endregion Fields
-
-        #region Constructors
+        #region Constructors + Destructors
 
         /// <summary>
-        /// Creates a new instance of the object.
+        /// Création d'une nouvelle instance
         /// </summary>
         public AddedNewEventArgs()
         {
         }
 
         /// <summary>
-        /// Creates a new instance of the object.
+        /// Création d'une nouvelle instance de l'objet
         /// </summary>
-        /// <param name="newObject">
-        /// The newly added object.
-        /// </param>
+        /// <param name="newObject">The newly added object.</param>
         public AddedNewEventArgs(T newObject)
         {
             NewObject = newObject;
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
+
+        #region Fields
+
+        private T _newObject;
+
+        #endregion Fields
 
         #region Properties
 
         /// <summary>
-        /// Gets a reference to the newly added
-        /// object.
+        /// Retourne la référence vers le nouvel objet
         /// </summary>
         public T NewObject
         {

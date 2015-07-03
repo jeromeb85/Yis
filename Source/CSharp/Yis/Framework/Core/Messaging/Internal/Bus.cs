@@ -38,12 +38,10 @@ namespace Yis.Framework.Core.Messaging.Internal
                 actions.ForEach(a => a(message));
         }
 
-        /// <summary>
-        /// Publie un événement modal sur le bus et récupère un résultat depuis le dernier abonné chronologiquement
-        /// </summary>
-        /// <typeparam name="TModalEvent<TResult>">type d'événement modal à publier</typeparam>
-        /// <param name="item">événement modal à publier</param>
-        /// <returns>le résultat de l'événement modal</returns>
+        /// <summary> Publie un événement modal sur le bus et récupère un résultat depuis le dernier
+        /// abonné chronologiquement </summary> <typeparam name="TModalEvent<TResult>">type
+        /// d'événement modal à publier</typeparam> <param name="item">événement modal à
+        /// publier</param> <returns>le résultat de l'événement modal</returns>
         public TResult Publish<TMessage, TResult>(TMessage message) where TMessage : IMessage<TResult>
         {
             ArgumentHelper.IsNotNull("item", message);
@@ -64,7 +62,10 @@ namespace Yis.Framework.Core.Messaging.Internal
         /// </summary>
         /// <typeparam name="TMessage">type d'événement pour lequel l'abonnement est fait</typeparam>
         /// <param name="callback">handler utilisé lors de la levée de l'événement</param>
-        /// <remarks>Attention en cas d'utilisation de lambda à ce que ce ne soit pas un champs statique (=> la lambda doit faire référence à la classe qui la contient</remarks>
+        /// <remarks>
+        /// Attention en cas d'utilisation de lambda à ce que ce ne soit pas un champs statique
+        /// (=&gt; la lambda doit faire référence à la classe qui la contient
+        /// </remarks>
         public void Subscribe<TMessage>(Action<TMessage> callback) where TMessage : IMessage
         {
             Subscribe<TMessage>(callback, null, ThreadingStrategy.Publisher);
@@ -75,8 +76,13 @@ namespace Yis.Framework.Core.Messaging.Internal
         /// </summary>
         /// <typeparam name="TMessage">type d'événement pour lequel l'abonnement est fait</typeparam>
         /// <param name="callback">handler utilisé lors de la levée de l'événement</param>
-        /// <param name="filter">filtre permettant de savoir si le handler doit être exécuté ou non</param>
-        /// <remarks>Attention en cas d'utilisation de lambda à ce que ce ne soit pas un champs statique (=> la lambda doit faire référence à la classe qui la contient</remarks>
+        /// <param name="filter">  
+        /// filtre permettant de savoir si le handler doit être exécuté ou non
+        /// </param>
+        /// <remarks>
+        /// Attention en cas d'utilisation de lambda à ce que ce ne soit pas un champs statique
+        /// (=&gt; la lambda doit faire référence à la classe qui la contient
+        /// </remarks>
         public void Subscribe<TMessage>(Action<TMessage> callback, Predicate<TMessage> filter) where TMessage : IMessage
         {
             Subscribe<TMessage>(callback, filter, ThreadingStrategy.Publisher);
@@ -88,7 +94,10 @@ namespace Yis.Framework.Core.Messaging.Internal
         /// <typeparam name="TMessage">type d'événement pour lequel l'abonnement est fait</typeparam>
         /// <param name="callback">handler utilisé lors de la levée de l'événement</param>
         /// <param name="strategy">stratégie de threading lors de l'exécution du callback</param>
-        /// <remarks>Attention en cas d'utilisation de lambda à ce que ce ne soit pas un champs statique (=> la lambda doit faire référence à la classe qui la contient</remarks>
+        /// <remarks>
+        /// Attention en cas d'utilisation de lambda à ce que ce ne soit pas un champs statique
+        /// (=&gt; la lambda doit faire référence à la classe qui la contient
+        /// </remarks>
         public void Subscribe<TMessage>(Action<TMessage> callback, ThreadingStrategy strategy) where TMessage : IMessage
         {
             Subscribe<TMessage>(callback, null, strategy);
@@ -99,9 +108,14 @@ namespace Yis.Framework.Core.Messaging.Internal
         /// </summary>
         /// <typeparam name="TMessage">type d'événement pour lequel l'abonnement est fait</typeparam>
         /// <param name="callback">handler utilisé lors de la levée de l'événement</param>
-        /// <param name="filter">filtre permettant de savoir si le handler doit être exécuté ou non</param>
+        /// <param name="filter">  
+        /// filtre permettant de savoir si le handler doit être exécuté ou non
+        /// </param>
         /// <param name="strategy">stratégie de threading lors de l'exécution du callback</param>
-        /// <remarks>Attention en cas d'utilisation de lambda à ce que ce ne soit pas un champs statique (=> la lambda doit faire référence à la classe qui la contient</remarks>
+        /// <remarks>
+        /// Attention en cas d'utilisation de lambda à ce que ce ne soit pas un champs statique
+        /// (=&gt; la lambda doit faire référence à la classe qui la contient
+        /// </remarks>
         public void Subscribe<TMessage>(Action<TMessage> callback, Predicate<TMessage> filter, ThreadingStrategy strategy) where TMessage : IMessage
         {
             ArgumentHelper.IsNotNull("callback", callback);
@@ -188,12 +202,14 @@ namespace Yis.Framework.Core.Messaging.Internal
                     Subscription sub = subscriptions[i];
 
                     Delegate action = sub.Action;
-                    // Teste pour savoir si le délégué d'action est utilisable => la référence est encore en vie
+                    // Teste pour savoir si le délégué d'action est utilisable => la référence est
+                    // encore en vie
                     if (action != null)
                     {
                         Delegate filter = sub.Filter;
 
-                        // Teste l'existence d'un filtre, et s'il existe on l'exécute pour savoir si le callback doit être appelé
+                        // Teste l'existence d'un filtre, et s'il existe on l'exécute pour savoir si
+                        // le callback doit être appelé
                         if (filter == null || ((Predicate<TMessage>)filter)(message))
                         {
                             if (sub.ThreadingStrategy == ThreadingStrategy.Publisher)
@@ -245,12 +261,14 @@ namespace Yis.Framework.Core.Messaging.Internal
                     Subscription sub = subscriptions[i];
 
                     Delegate action = sub.Action;
-                    // Teste pour savoir si le délégué d'action est utilisable => la référence est encore en vie
+                    // Teste pour savoir si le délégué d'action est utilisable => la référence est
+                    // encore en vie
                     if (action != null)
                     {
                         Delegate filter = sub.Filter;
 
-                        // Teste l'existence d'un filtre, et s'il existe on l'exécute pour savoir si le callback doit être appelé
+                        // Teste l'existence d'un filtre, et s'il existe on l'exécute pour savoir si
+                        // le callback doit être appelé
                         if (filter == null || ((Predicate<TMessage>)filter)(item))
                         {
                             if (sub.ThreadingStrategy == ThreadingStrategy.Publisher)

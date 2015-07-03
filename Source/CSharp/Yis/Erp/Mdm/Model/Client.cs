@@ -1,17 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Framework.Model;
 
 namespace Yis.Erp.Mdm.Model
 {
-    public class Client :  ModelBase
+    /// <summary>
+    /// Représentation d'un client
+    /// </summary>
+    public class Client : ModelBase
     {
+        #region Properties
 
-        public Guid Id { get; set; }
-        public string Reference { get; set; }
+        /// <summary>
+        /// Dénomination du client
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Identifiant technique
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Identifiant métier
+        /// </summary>
+        public string Reference { get; set; }
+
+        #endregion Properties
     }
 }

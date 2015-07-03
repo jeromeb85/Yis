@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Designer.Software.Data.Contract;
 using Yis.Designer.Software.Model;
 using Yis.Framework.Data.Contract;
@@ -12,14 +10,14 @@ namespace Yis.Designer.Software.Data.Memory
 {
     public class PropertyProvider : RepositoryBase<Property>, IPropertyProvider
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         public PropertyProvider(IDataContext dataContext)
             : base(dataContext)
         {
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
 
         #region Methods
 

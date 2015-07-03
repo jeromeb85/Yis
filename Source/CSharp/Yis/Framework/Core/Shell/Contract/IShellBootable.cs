@@ -2,6 +2,10 @@
 {
     public interface IShellBootable : IShell
     {
+        #region Methods
+
         void Run();
+
+        #endregion Methods
     }
 }

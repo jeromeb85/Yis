@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Yis.Framework.Core.Caching.Contract;
@@ -16,6 +15,26 @@ namespace Yis.Framework.Core.Caching
     /// <typeparam name="TValue">The value type.</typeparam>
     public class CacheStorage<TKey, TValue> : ICacheStorage<TKey, TValue>
     {
+        #region Constructors + Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheStorage{TKey,TValue}"/> class.
+        /// </summary>
+        /// <param name="defaultExpirationPolicyInitCode">
+        /// The default expiration policy initialization code.
+        /// </param>
+        /// <param name="storeNullValues">                Allow store null values on the cache.</param>
+        public CacheStorage(Func<IExpirationPolicy> defaultExpirationPolicyInitCode = null, bool storeNullValues = false)
+        {
+            _dictionary = new Dictionary<TKey, CacheStorageValueInfo<TValue>>();
+            _storeNullValues = storeNullValues;
+            _defaultExpirationPolicyInitCode = defaultExpirationPolicyInitCode;
+
+            _expirationTimerInterval = TimeSpan.FromSeconds(1);
+        }
+
+        #endregion Constructors + Destructors
+
         #region Fields
 
         private readonly Func<IExpirationPolicy> _defaultExpirationPolicyInitCode;
@@ -57,30 +76,11 @@ namespace Yis.Framework.Core.Caching
 
         #endregion Fields
 
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CacheStorage{TKey,TValue}" /> class.
-        /// </summary>
-        /// <param name="defaultExpirationPolicyInitCode">The default expiration policy initialization code.</param>
-        /// <param name="storeNullValues">Allow store null values on the cache.</param>
-        public CacheStorage(Func<IExpirationPolicy> defaultExpirationPolicyInitCode = null, bool storeNullValues = false)
-        {
-            _dictionary = new Dictionary<TKey, CacheStorageValueInfo<TValue>>();
-            _storeNullValues = storeNullValues;
-            _defaultExpirationPolicyInitCode = defaultExpirationPolicyInitCode;
-
-            _expirationTimerInterval = TimeSpan.FromSeconds(1);
-        }
-
-        #endregion Constructors
-
         #region Properties
 
         /// <summary>
         /// Gets or sets the expiration timer interval.
-        /// <para />
-        /// The default value is <c>TimeSpan.FromSeconds(1)</c>.
+        /// <para/>The default value is <c>TimeSpan.FromSeconds(1)</c>.
         /// </summary>
         /// <value>The expiration timer interval.</value>
         public TimeSpan ExpirationTimerInterval
@@ -116,8 +116,11 @@ namespace Yis.Framework.Core.Caching
         /// Gets the value associated with the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
-        /// <returns>The value associated with the specified key, or default value for the type of the value if the key do not exists.</returns>
-        /// <exception cref="ArgumentNullException">The <paramref name="key" /> is <c>null</c>.</exception>
+        /// <returns>
+        /// The value associated with the specified key, or default value for the type of the value
+        /// if the key do not exists.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">The <paramref name="key"/> is <c>null</c>.</exception>
         public TValue this[TKey key]
         {
             get { return Get(key); }
@@ -130,11 +133,11 @@ namespace Yis.Framework.Core.Caching
         /// <summary>
         /// Adds a value to the cache associated with to a key.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
+        /// <param name="key">             The key.</param>
+        /// <param name="value">           The value.</param>
         /// <param name="expirationPolicy">The expiration policy.</param>
-        /// <param name="override">Indicates if the key exists the value will be overridden.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="key" /> is <c>null</c>.</exception>
+        /// <param name="override">        Indicates if the key exists the value will be overridden.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="key"/> is <c>null</c>.</exception>
         public void Add(TKey key, TValue @value, IExpirationPolicy expirationPolicy, bool @override = false)
         {
             ArgumentHelper.IsNotNull("key", key);
@@ -175,8 +178,10 @@ namespace Yis.Framework.Core.Caching
         /// Determines whether the cache contains a value associated with the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
-        /// <returns><c>true</c> if the cache contains an element with the specified key; otherwise, <c>false</c>.</returns>
-        /// <exception cref="ArgumentNullException">The <paramref name="key" /> is <c>null</c>.</exception>
+        /// <returns>
+        /// <c>true</c> if the cache contains an element with the specified key; otherwise, <c>false</c>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">The <paramref name="key"/> is <c>null</c>.</exception>
         public bool Contains(TKey key)
         {
             ArgumentHelper.IsNotNull("key", key);
@@ -191,8 +196,11 @@ namespace Yis.Framework.Core.Caching
         /// Gets the value associated with the specified key
         /// </summary>
         /// <param name="key">The key of the value to get.</param>
-        /// <returns>The value associated with the specified key, or default value for the type of the value if the key do not exists.</returns>
-        /// <exception cref="ArgumentNullException">The <paramref name="key" /> is <c>null</c>.</exception>
+        /// <returns>
+        /// The value associated with the specified key, or default value for the type of the value
+        /// if the key do not exists.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">The <paramref name="key"/> is <c>null</c>.</exception>
         public TValue Get(TKey key)
         {
             ArgumentHelper.IsNotNull("key", key);
@@ -209,13 +217,13 @@ namespace Yis.Framework.Core.Caching
         /// <summary>
         /// Adds a value to the cache associated with to a key.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="code">The deferred initialization code of the value.</param>
+        /// <param name="key">             The key.</param>
+        /// <param name="code">            The deferred initialization code of the value.</param>
         /// <param name="expirationPolicy">The expiration policy.</param>
-        /// <param name="override">Indicates if the key exists the value will be overridden.</param>
-        /// <returns>The instance initialized by the <paramref name="code" />.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="key" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="code" /> is <c>null</c>.</exception>
+        /// <param name="override">        Indicates if the key exists the value will be overridden.</param>
+        /// <returns>The instance initialized by the <paramref name="code"/>.</returns>
+        /// <exception cref="ArgumentNullException">If <paramref name="key"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="code"/> is <c>null</c>.</exception>
         [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1027:TabsMustNotBeUsed", Justification = "Reviewed. Suppression is OK here.")]
         public TValue GetFromCacheOrFetch(TKey key, Func<TValue> code, IExpirationPolicy expirationPolicy, bool @override = false)
         {
@@ -267,16 +275,15 @@ namespace Yis.Framework.Core.Caching
 
         /// <summary>
         /// Adds a value to the cache associated with to a key asynchronously.
-        /// <para />
-        /// Note that this is a wrapper around <see cref="GetFromCacheOrFetch(TKey,System.Func{TValue},ExpirationPolicy,bool)"/>.
+        /// <para/>Note that this is a wrapper around <see cref="GetFromCacheOrFetch(TKey,System.Func{TValue},ExpirationPolicy,bool)"/>.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="code">The deferred initialization code of the value.</param>
+        /// <param name="key">             The key.</param>
+        /// <param name="code">            The deferred initialization code of the value.</param>
         /// <param name="expirationPolicy">The expiration policy.</param>
-        /// <param name="override">Indicates if the key exists the value will be overridden.</param>
-        /// <returns>The instance initialized by the <paramref name="code" />.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="key" /> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="code" /> is <c>null</c>.</exception>
+        /// <param name="override">        Indicates if the key exists the value will be overridden.</param>
+        /// <returns>The instance initialized by the <paramref name="code"/>.</returns>
+        /// <exception cref="ArgumentNullException">If <paramref name="key"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">If <paramref name="code"/> is <c>null</c>.</exception>
         public Task<TValue> GetFromCacheOrFetchAsync(TKey key, Func<TValue> code, IExpirationPolicy expirationPolicy, bool @override = false)
         {
             return Task.Factory.StartNew(() => GetFromCacheOrFetch(key, code, expirationPolicy, @override));
@@ -285,9 +292,11 @@ namespace Yis.Framework.Core.Caching
         /// <summary>
         /// Removes an item from the cache.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="action">The action that need to be executed in synchronization with the item cache removal.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="key" /> is <c>null</c>.</exception>
+        /// <param name="key">   The key.</param>
+        /// <param name="action">
+        /// The action that need to be executed in synchronization with the item cache removal.
+        /// </param>
+        /// <exception cref="ArgumentNullException">The <paramref name="key"/> is <c>null</c>.</exception>
         public void Remove(TKey key, Action action = null)
         {
             ArgumentHelper.IsNotNull("key", key);

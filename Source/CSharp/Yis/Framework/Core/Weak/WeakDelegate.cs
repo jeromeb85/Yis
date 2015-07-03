@@ -8,15 +8,7 @@ namespace Yis.Framework.Core.Weak
     /// </summary>
     internal class WeakDelegate
     {
-        #region Fields
-
-        private readonly Type _delegateType;
-        private readonly MethodInfo _method;
-        private readonly WeakReference _targetRef;
-
-        #endregion Fields
-
-        #region Constructors
+        #region Constructors + Destructors
 
         /// <summary>
         /// Constructeur
@@ -32,14 +24,24 @@ namespace Yis.Framework.Core.Weak
             _delegateType = item.GetType();
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
+
+        #region Fields
+
+        private readonly Type _delegateType;
+        private readonly MethodInfo _method;
+        private readonly WeakReference _targetRef;
+
+        #endregion Fields
 
         #region Properties
 
         /// <summary>
         /// Obtient l'instance de la classe sur lequel le délégué est invoqué
         /// </summary>
-        /// <remarks>peut être null, alors soit la référence n'existe plus soit il s'agissait d'une méthode statique</remarks>
+        /// <remarks>
+        /// peut être null, alors soit la référence n'existe plus soit il s'agissait d'une méthode statique
+        /// </remarks>
         public object Target
         {
             get

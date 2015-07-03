@@ -6,6 +6,8 @@ namespace Yis.Framework.Core.Extension
 {
     public static class ICollectionExt
     {
+        #region Methods
+
         /// <summary>
         /// Ajoute tous les éléments à la collection
         /// </summary>
@@ -21,6 +23,25 @@ namespace Yis.Framework.Core.Extension
 
             foreach (var item in items)
                 value.Add(item);
+        }
+
+        /// <summary>
+        /// Supprime le premier élément répondant au prédicat
+        /// </summary>
+        /// <typeparam name="T">type d'éléments</typeparam>
+        /// <param name="value">    collection à modifier</param>
+        /// <param name="predicate">prédicat de suppression</param>
+        public static void RemoveFirst<T>(this ICollection<T> value, Func<T, bool> predicate)
+        {
+            if (predicate == null)
+                throw new ArgumentNullException("predicate");
+
+            try
+            {
+                T element = value.First(predicate);
+                value.Remove(element);
+            }
+            catch { }
         }
 
         /// <summary>
@@ -44,7 +65,7 @@ namespace Yis.Framework.Core.Extension
         /// Supprime les éléments répondant au prédicat
         /// </summary>
         /// <typeparam name="T">type d'éléments</typeparam>
-        /// <param name="value">collection à modifier</param>
+        /// <param name="value">    collection à modifier</param>
         /// <param name="predicate">prédicat de suppression</param>
         public static void RemoveWhere<T>(this ICollection<T> value, Func<T, bool> predicate)
         {
@@ -54,23 +75,6 @@ namespace Yis.Framework.Core.Extension
             value.RemoveRange(value.Where(predicate).ToList());
         }
 
-        /// <summary>
-        /// Supprime le premier élément répondant au prédicat
-        /// </summary>
-        /// <typeparam name="T">type d'éléments</typeparam>
-        /// <param name="value">collection à modifier</param>
-        /// <param name="predicate">prédicat de suppression</param>
-        public static void RemoveFirst<T>(this ICollection<T> value, Func<T, bool> predicate)
-        {
-            if (predicate == null)
-                throw new ArgumentNullException("predicate");
-
-            try
-            {
-                T element = value.First(predicate);
-                value.Remove(element);
-            }
-            catch { }
-        }
+        #endregion Methods
     }
 }

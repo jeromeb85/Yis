@@ -4,6 +4,5 @@ namespace Yis.Designer.Software.Model
 {
     public abstract class Classifier : ModelBase
     {
-
     }
 }

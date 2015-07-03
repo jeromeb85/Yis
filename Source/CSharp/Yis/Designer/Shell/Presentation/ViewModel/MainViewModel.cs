@@ -8,21 +8,25 @@ namespace Yis.Designer.Presentation.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        #region Constructors + Destructors
+
         public MainViewModel()
             : base()
         {
             _testText = "ttttt";
         }
 
-        public string Title { get { return "toto"; } }
+        #endregion Constructors + Destructors
+
+        #region Fields
+
+        private ICommand _commandTest;
 
         private string _testText;
 
-        [Required]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "La longueur doit être comprise entre 5 et 50")]
-        public string TestText { get { return _testText; } set { SetProperty<string>(ref _testText, value); } }
+        #endregion Fields
 
-        private ICommand _commandTest;
+        #region Properties
 
         public ICommand CommandTest
         {
@@ -36,6 +40,23 @@ namespace Yis.Designer.Presentation.ViewModel
             }
         }
 
+        [Required]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "La longueur doit être comprise entre 5 et 50")]
+        public string TestText { get { return _testText; } set { SetProperty<string>(ref _testText, value); } }
+
+        public string Title { get { return "toto"; } }
+
+        #endregion Properties
+
+        #region Methods
+
+        protected override void OnRuleInialize()
+        {
+            base.OnRuleInialize();
+
+            Validator.AddRule<MainViewModel>((t) => t.TestText, (t) => { return t.TestText == "tototo"; }, "Tu dois metre tototo");
+        }
+
         private void ProcedureTest()
         {
             //TestText = "dd";
@@ -46,11 +67,6 @@ namespace Yis.Designer.Presentation.ViewModel
             Navigation.Show<IWorkSpaceCollectionView>(ws);
         }
 
-        protected override void OnRuleInialize()
-        {
-            base.OnRuleInialize();
-
-            Validator.AddRule<MainViewModel>((t) => t.TestText, (t) => { return t.TestText == "tototo"; }, "Tu dois metre tototo");
-        }
+        #endregion Methods
     }
 }

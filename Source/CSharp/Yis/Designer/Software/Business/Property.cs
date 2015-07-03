@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yis.Designer.Software.Data.Contract;
 using Yis.Framework.Business;
 
@@ -10,7 +6,7 @@ namespace Yis.Designer.Software.Business
 {
     public class Property : BusinessObjectBase<Property, Model.Property, IPropertyProvider, ISoftwareDataContext>
     {
-        #region Constructors
+        #region Constructors + Destructors
 
         public Property(Model.Property model)
             : base(model)
@@ -23,7 +19,7 @@ namespace Yis.Designer.Software.Business
             Id = Guid.NewGuid();
         }
 
-        #endregion Constructors
+        #endregion Constructors + Destructors
 
         #region Properties
 
@@ -31,6 +27,12 @@ namespace Yis.Designer.Software.Business
         {
             get { return GetProperty(() => Model.Comment); }
             set { SetProperty(v => Model.Comment = value, Model.Comment, value); }
+        }
+
+        public string GetCode
+        {
+            get { return GetProperty(() => Model.GetCode); }
+            set { SetProperty(v => Model.GetCode = value, Model.GetCode, value); }
         }
 
         public Guid Id
@@ -59,18 +61,6 @@ namespace Yis.Designer.Software.Business
             set { SetProperty(v => Model.Name = value, Model.Name, value); }
         }
 
-        public string SetCode
-        {
-            get { return GetProperty(() => Model.SetCode); }
-            set { SetProperty(v => Model.SetCode = value, Model.SetCode, value); }
-        }
-
-        public string GetCode
-        {
-            get { return GetProperty(() => Model.GetCode); }
-            set { SetProperty(v => Model.GetCode = value, Model.GetCode, value); }
-        }
-
         public Class Parent
         {
             get { return GetProperty<Class>(() => Class.GetById(Model.OwnerId)); }
@@ -81,6 +71,12 @@ namespace Yis.Designer.Software.Business
         {
             get { return GetProperty(() => Model.Scope); }
             set { SetProperty(v => Model.Scope = value, Model.Scope, value); }
+        }
+
+        public string SetCode
+        {
+            get { return GetProperty(() => Model.SetCode); }
+            set { SetProperty(v => Model.SetCode = value, Model.SetCode, value); }
         }
 
         public string Type

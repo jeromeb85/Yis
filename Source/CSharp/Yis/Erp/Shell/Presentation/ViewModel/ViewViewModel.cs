@@ -5,10 +5,14 @@ namespace Yis.Erp.Shell.Presentation.ViewModel
 {
     public class ViewViewModel : ViewModelBase
     {
+        #region Properties
+
         public string Name { get; set; }
 
         public string Title { get; set; }
 
         public IView View { get; set; }
+
+        #endregion Properties
     }
 }

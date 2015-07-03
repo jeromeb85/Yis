@@ -6,6 +6,8 @@ namespace Yis.Framework.Core.Helper
 {
     public static class ReflectionHelper
     {
+        #region Methods
+
         public static Type GetCallingNoAbstractOrPrivateMethodType()
         {
             StackTrace stackTrace = new StackTrace();
@@ -16,5 +18,7 @@ namespace Yis.Framework.Core.Helper
             frame = stackFrames.First((t) => { return ((t.GetMethod().DeclaringType != typeof(ReflectionHelper)) && (t.GetMethod().DeclaringType != helperCallerType) && (!t.GetMethod().DeclaringType.IsAbstract || t.GetMethod().IsPrivate)); });
             return frame.GetMethod().DeclaringType;
         }
+
+        #endregion Methods
     }
 }
