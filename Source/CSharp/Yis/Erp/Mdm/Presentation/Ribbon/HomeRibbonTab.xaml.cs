@@ -26,5 +26,10 @@ namespace Yis.Erp.Mdm.Presentation.Ribbon
         }
 
         #endregion Methods
+
+        private void ListFicheClient_Click(object sender, RoutedEventArgs e)
+        {
+            Bus.Publish<ShowView>(new ShowView(this, "Fiche client", new FicheClientCollectionView()));
+        }
     }
 }

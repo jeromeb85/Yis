@@ -13,13 +13,13 @@ namespace Yis.Erp.Mdm.Presentation.ViewModel
 
         public FicheClientViewModel(Client model)
         {
-            Client = model;
+            Item = model;
         }
 
         public FicheClientViewModel()
             : base()
         {
-            Client = Client.New();
+            Item = Client.New();
             AutoValidateProperty = true;
         }
 
@@ -36,15 +36,15 @@ namespace Yis.Erp.Mdm.Presentation.ViewModel
         [StringLength(50, MinimumLength = 5, ErrorMessage = "La longueur doit être comprise entre 5 et 50")]
         public string Description
         {
-            get { return Client.Description; }
-            set { SetProperty<string>(v => Client.Description = value, Client.Description, value); }
+            get { return Item.Description; }
+            set { SetProperty<string>(v => Item.Description = value, Item.Description, value); }
         }
 
         [Required]
         public string Reference
         {
-            get { return Client.Reference; }
-            set { SetProperty<string>(v => Client.Reference = value, Client.Reference, value); }
+            get { return Item.Reference; }
+            set { SetProperty<string>(v => Item.Reference = value, Item.Reference, value); }
         }
 
         public ICommand Valider
@@ -59,7 +59,7 @@ namespace Yis.Erp.Mdm.Presentation.ViewModel
             }
         }
 
-        private Client Client { get; set; }
+        private Client Item { get; set; }
 
         #endregion Properties
 
@@ -80,7 +80,7 @@ namespace Yis.Erp.Mdm.Presentation.ViewModel
         {
             if (Validate())
             {
-                Client.Save();
+                Item.Save();
             }
         }
 

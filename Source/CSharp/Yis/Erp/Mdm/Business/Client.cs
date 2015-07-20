@@ -34,12 +34,18 @@ namespace Yis.Erp.Mdm.Business
 
         #region Properties
 
+        /// <summary>
+        /// Décrit le client
+        /// </summary>
         public string Description
         {
             get { return GetProperty(Model.Description); }
             set { SetProperty(v => Model.Description = value, Model.Description, value); }
         }
 
+        /// <summary>
+        /// Identifiant technique du <see cref="Client"/>
+        /// </summary>
         public Guid Id
         {
             get { return GetProperty(Model.Id); }
@@ -52,6 +58,9 @@ namespace Yis.Erp.Mdm.Business
             }
         }
 
+        /// <summary>
+        /// Identfiant fonctionnel du <see cref="Client"/>
+        /// </summary>
         public string Reference
         {
             get { return GetProperty(Model.Reference); }
@@ -62,6 +71,11 @@ namespace Yis.Erp.Mdm.Business
 
         #region Methods
 
+        /// <summary>
+        /// Retrouve un client en fonction de l'identifiant technique
+        /// </summary>
+        /// <param name="id">Identfiant technique du client</param>
+        /// <returns><see cref="Client"/></returns>
         public static Client GetById(Guid id)
         {
             Model.Client model = Provider.GetById(id);
