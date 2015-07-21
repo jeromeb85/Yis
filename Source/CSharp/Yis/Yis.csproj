@@ -39,11 +39,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>
-    </DocumentationFile>
-    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <DocumentationFile>bin\Debug\Yis.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,9 +51,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release\Yis.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Yis.Program</StartupObject>
@@ -127,11 +122,7 @@
     <Compile Include="Erp\Mdm\Presentation\Ribbon\HomeRibbonTab.xaml.cs">
       <DependentUpon>HomeRibbonTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Erp\Mdm\Presentation\ViewModel\FicheClientCollectionViewModel.cs" />
     <Compile Include="Erp\Mdm\Presentation\ViewModel\FicheClientViewModel.cs" />
-    <Compile Include="Erp\Mdm\Presentation\View\FicheClientCollectionView.xaml.cs">
-      <DependentUpon>FicheClientCollectionView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Erp\Mdm\Presentation\View\FicheClientView.xaml.cs">
       <DependentUpon>FicheClientView.xaml</DependentUpon>
     </Compile>
@@ -142,7 +133,6 @@
     <Compile Include="Erp\Shell\Presentation\Contract\IRibbonTabExtension.cs" />
     <Compile Include="Erp\Shell\Presentation\Contract\RibbonTabBase.cs" />
     <Compile Include="Erp\Shell\Presentation\Contract\ShowView.cs" />
-    <Compile Include="Erp\Shell\Presentation\Event\NewObject.cs" />
     <Compile Include="Erp\Shell\Presentation\ViewModel\ShellViewModel.cs" />
     <Compile Include="Erp\Shell\Presentation\ViewModel\ViewViewModel.cs" />
     <Compile Include="Erp\Shell\Presentation\View\ShellWindow.xaml.cs">
@@ -261,10 +251,6 @@
     <Page Include="Erp\Mdm\Presentation\Ribbon\HomeRibbonTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Erp\Mdm\Presentation\View\FicheClientCollectionView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Erp\Mdm\Presentation\View\FicheClientView.xaml">
       <SubType>Designer</SubType>
