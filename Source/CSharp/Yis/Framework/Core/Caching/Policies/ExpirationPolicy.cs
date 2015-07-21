@@ -8,10 +8,10 @@ namespace Yis.Framework.Core.Caching.Policies
     /// </summary>
     public abstract class ExpirationPolicy : IExpirationPolicy
     {
-        #region Constructors + Destructors
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExpirationPolicy"/> class.
+        /// Initializes a new instance of the <see cref="ExpirationPolicy" /> class.
         /// </summary>
         /// <param name="canReset">The can reset.</param>
         protected ExpirationPolicy(bool canReset = false)
@@ -19,7 +19,7 @@ namespace Yis.Framework.Core.Caching.Policies
             CanReset = canReset;
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructors
 
         #region Properties
 
@@ -43,16 +43,11 @@ namespace Yis.Framework.Core.Caching.Policies
         #region Methods
 
         /// <summary>
-        /// Creates a <see cref="AbsoluteExpirationPolicy"/> instance.
+        /// Creates a <see cref="AbsoluteExpirationPolicy" /> instance.
         /// </summary>
-        /// <param name="absoluteExpirationDateTime">The absolute expiration <see cref="DateTime"/>.</param>
-        /// <param name="force">                     
-        /// Indicates whether the policy will be created even if the policy will be created expired.
-        /// </param>
-        /// <returns>
-        /// The <see cref="AbsoluteExpirationPolicy"/> or <c>null</c> if
-        /// <paramref name="absoluteExpirationDateTime"/> is in the pass.
-        /// </returns>
+        /// <param name="absoluteExpirationDateTime">The absolute expiration <see cref="DateTime" />.</param>
+        /// <param name="force">Indicates whether the policy will be created even if the policy will be created expired.</param>
+        /// <returns>The <see cref="AbsoluteExpirationPolicy" /> or <c>null</c> if <paramref name="absoluteExpirationDateTime" /> is in the pass.</returns>
         /// <remarks>The cache item will expire on the absolute expiration date time.</remarks>
         public static ExpirationPolicy Absolute(DateTime absoluteExpirationDateTime, bool force = false)
         {
@@ -60,54 +55,36 @@ namespace Yis.Framework.Core.Caching.Policies
         }
 
         /// <summary>
-        /// Creates a <see cref="CustomExpirationPolicy"/> instance.
+        /// Creates a <see cref="CustomExpirationPolicy" /> instance.
         /// </summary>
         /// <param name="isExpiredFunc">The function to check if the policy is expired.</param>
-        /// <param name="resetAction">  
-        /// The action that will be executed if the item is read before expiration.
-        /// </param>
-        /// <param name="force">        
-        /// Indicates whether the policy will be created even if the policy will be created expired.
-        /// </param>
-        /// <returns>The <see cref="CustomExpirationPolicy"/>.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// The <paramref name="isExpiredFunc"/> is <c>null</c>.
-        /// </exception>
+        /// <param name="resetAction">The action that will be executed if the item is read before expiration.</param>
+        /// <param name="force">Indicates whether the policy will be created even if the policy will be created expired.</param>
+        /// <returns>The <see cref="CustomExpirationPolicy" />.</returns>
+        /// <exception cref="System.ArgumentNullException">The <paramref name="isExpiredFunc" /> is <c>null</c>.</exception>
         public static ExpirationPolicy Custom(Func<bool> isExpiredFunc, Action resetAction = null, bool force = false)
         {
             return force || (isExpiredFunc != null && !isExpiredFunc.Invoke()) ? new CustomExpirationPolicy(isExpiredFunc, resetAction) : null;
         }
 
         /// <summary>
-        /// Creates a <see cref="DurationExpirationPolicy"/> instance.
+        /// Creates a <see cref="DurationExpirationPolicy" /> instance.
         /// </summary>
-        /// <param name="durationTimeSpan">The duration <see cref="TimeSpan"/>.</param>
-        /// <param name="force">           
-        /// Indicates whether the policy will be created even if the policy will be created expired.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DurationExpirationPolicy"/> or <c>null</c> if
-        /// <paramref name="durationTimeSpan"/> is less than 0 ticks.
-        /// </returns>
-        /// <remarks>
-        /// The cache item will expire using the duration to calculate the absolute expiration from now.
-        /// </remarks>
+        /// <param name="durationTimeSpan">The duration <see cref="TimeSpan" />.</param>
+        /// <param name="force">Indicates whether the policy will be created even if the policy will be created expired.</param>
+        /// <returns>The <see cref="DurationExpirationPolicy" /> or <c>null</c> if <paramref name="durationTimeSpan" /> is less than 0 ticks.</returns>
+        /// <remarks>The cache item will expire using the duration to calculate the absolute expiration from now.</remarks>
         public static ExpirationPolicy Duration(TimeSpan durationTimeSpan, bool force = false)
         {
             return force || durationTimeSpan.Ticks > 0 ? new DurationExpirationPolicy(durationTimeSpan) : null;
         }
 
         /// <summary>
-        /// Creates a <see cref="SlidingExpirationPolicy"/> instance.
+        /// Creates a <see cref="SlidingExpirationPolicy" /> instance.
         /// </summary>
-        /// <param name="durationTimeSpan">The duration <see cref="TimeSpan"/>.</param>
-        /// <param name="force">           
-        /// Indicates whether the policy will be created even if the policy will be created expired.
-        /// </param>
-        /// <returns>
-        /// The <see cref="SlidingExpirationPolicy"/> or <c>null</c> if
-        /// <paramref name="durationTimeSpan"/> is less than 0 ticks.
-        /// </returns>
+        /// <param name="durationTimeSpan">The duration <see cref="TimeSpan" />.</param>
+        /// <param name="force">Indicates whether the policy will be created even if the policy will be created expired.</param>
+        /// <returns>The <see cref="SlidingExpirationPolicy" /> or <c>null</c> if <paramref name="durationTimeSpan" /> is less than 0 ticks.</returns>
         /// <remarks>The cache item will expire using the duration property as the sliding expiration.</remarks>
         public static ExpirationPolicy Sliding(TimeSpan durationTimeSpan, bool force = false)
         {
@@ -117,9 +94,7 @@ namespace Yis.Framework.Core.Caching.Policies
         /// <summary>
         /// Resets the expiration policy.
         /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// If the policy do not support this operation.
-        /// </exception>
+        /// <exception cref="InvalidOperationException">If the policy do not support this operation.</exception>
         public void Reset()
         {
             IsResting = true;

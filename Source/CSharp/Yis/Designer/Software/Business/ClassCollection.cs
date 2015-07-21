@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Yis.Designer.Software.Data.Contract;
 using Yis.Framework.Business;
 
@@ -7,7 +10,7 @@ namespace Yis.Designer.Software.Business
 {
     public class ClassCollection : BusinessObjectCollectionBase<ClassCollection, Class, Model.Class, IClassProvider, ISoftwareDataContext>
     {
-        #region Constructors + Destructors
+        #region Constructors
 
         public ClassCollection(ICollection<Class> list)
             : base(list)
@@ -24,7 +27,7 @@ namespace Yis.Designer.Software.Business
         {
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructors
 
         #region Methods
 

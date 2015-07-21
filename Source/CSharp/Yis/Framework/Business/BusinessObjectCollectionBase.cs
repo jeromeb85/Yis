@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Yis.Framework.Business.Contract;
 using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.IoC;
@@ -55,7 +57,15 @@ namespace Yis.Framework.Business
         where TMe : BusinessObjectCollectionBase<TMe, TBusinessObject>
         where TBusinessObject : BusinessObjectBase<TBusinessObject>
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private EventHandler<AddedNewEventArgs<TBusinessObject>> _addedNewHandlers = null;
+
+        private ICollection<TBusinessObject> _list;
+
+        #endregion Fields
+
+        #region Constructors
 
         public BusinessObjectCollectionBase()
             : base()
@@ -68,15 +78,7 @@ namespace Yis.Framework.Business
             _list = businessObject;
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private EventHandler<AddedNewEventArgs<TBusinessObject>> _addedNewHandlers = null;
-
-        private ICollection<TBusinessObject> _list;
-
-        #endregion Fields
+        #endregion Constructors
 
         #region Events
 
@@ -185,7 +187,15 @@ namespace Yis.Framework.Business
         where TProvider : IRepository<TModel>
         where TDataContext : IDataContext
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private static IDataContext _dataContext;
+
+        private static TProvider _provider;
+
+        #endregion Fields
+
+        #region Constructors
 
         public BusinessObjectCollectionBase(IEnumerable<TModel> model)
             : this(ModelToBusinessObject(model))
@@ -202,15 +212,7 @@ namespace Yis.Framework.Business
         {
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private static IDataContext _dataContext;
-
-        private static TProvider _provider;
-
-        #endregion Fields
+        #endregion Constructors
 
         #region Properties
 

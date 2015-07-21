@@ -7,26 +7,7 @@ namespace Yis.Framework.Presentation.View
 {
     public class UserControlBase : UserControl, IView
     {
-        #region Constructors + Destructors
-
-        protected UserControlBase()
-        {
-        }
-
-        protected UserControlBase(bool searchViewModel)
-        {
-            DataContext = Activator.CreateInstance(Locator.ResolveViewModel(this.GetType()));
-        }
-
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private IViewModelLocator _locator;
-
-        #endregion Fields
-
-        #region Properties
+           private IViewModelLocator _locator;
 
         protected IViewModelLocator Locator
         {
@@ -41,6 +22,13 @@ namespace Yis.Framework.Presentation.View
             }
         }
 
-        #endregion Properties
+        protected UserControlBase()
+        {
+        }
+
+        protected UserControlBase(bool searchViewModel)
+        {
+            DataContext = Activator.CreateInstance(Locator.ResolveViewModel(this.GetType()));
+        }
     }
 }

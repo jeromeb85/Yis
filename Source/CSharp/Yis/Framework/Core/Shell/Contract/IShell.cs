@@ -2,10 +2,6 @@
 {
     public interface IShell
     {
-        #region Methods
-
         void Initialize();
-
-        #endregion Methods
     }
 }

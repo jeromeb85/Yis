@@ -9,13 +9,7 @@ namespace Yis.Framework.Presentation.Locator
 {
     internal class ViewModelLocator : IViewModelLocator
     {
-        #region Fields
-
         private List<Type> _cache;
-
-        #endregion Fields
-
-        #region Properties
 
         public List<Type> Cache
         {
@@ -29,17 +23,6 @@ namespace Yis.Framework.Presentation.Locator
 
                 return _cache;
             }
-        }
-
-        #endregion Properties
-
-        #region Methods
-
-        public Type ResolveViewModel(Type viewType)
-        {
-            string nameView = viewType.Name.Replace("Window", "").Replace("View", "");
-
-            return Cache.First((t) => { return t.Name == (nameView + "ViewModel"); });
         }
 
         private void InitializeCache()
@@ -62,6 +45,11 @@ namespace Yis.Framework.Presentation.Locator
             }
         }
 
-        #endregion Methods
+        public Type ResolveViewModel(Type viewType)
+        {
+            string nameView = viewType.Name.Replace("Window", "").Replace("View", "");
+
+            return Cache.First((t) => { return t.Name == (nameView + "ViewModel"); });
+        }
     }
 }

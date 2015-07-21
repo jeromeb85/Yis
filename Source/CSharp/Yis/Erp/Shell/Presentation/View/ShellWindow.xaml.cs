@@ -1,4 +1,6 @@
-﻿using Yis.Framework.Presentation.View;
+﻿using Yis.Framework.Core.IoC;
+using Yis.Framework.Core.Locator.Contract;
+using Yis.Framework.Presentation.View;
 
 namespace Yis.Erp.Shell.Presentation.View
 {
@@ -7,14 +9,15 @@ namespace Yis.Erp.Shell.Presentation.View
     /// </summary>
     public partial class ShellWindow : WindowBase
     {
-        #region Constructors + Destructors
 
         public ShellWindow()
             : base(true)
         {
             InitializeComponent();
+
+
         }
 
-        #endregion Constructors + Destructors
+
     }
 }

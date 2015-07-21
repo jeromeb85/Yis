@@ -15,7 +15,7 @@ namespace Yis.Framework.Core.Extension
         /// Met à plat un arbre
         /// </summary>
         /// <typeparam name="T">type d'objet</typeparam>
-        /// <param name="value">           enumerable à mettre à plat</param>
+        /// <param name="value">enumerable à mettre à plat</param>
         /// <param name="childrenSelector">méthode récupérant les enfants</param>
         /// <returns>la liste mise à plat</returns>
         public static IEnumerable<T> Flatten<T>(this IEnumerable<T> value, Func<T, IEnumerable<T>> childrenSelector)
@@ -40,7 +40,7 @@ namespace Yis.Framework.Core.Extension
         /// Applique un délégué à chacun des éléments
         /// </summary>
         /// <typeparam name="T">type d'éléments</typeparam>
-        /// <param name="value"> IEnumerable étendu</param>
+        /// <param name="value">IEnumerable étendu</param>
         /// <param name="action">délégué à appliquer sur tous les éléments</param>
         public static void ForEach<T>(this IEnumerable<T> value, Action<T> action)
         {
@@ -57,8 +57,8 @@ namespace Yis.Framework.Core.Extension
         /// Applique un délégué aux éléments répondant au prédicat
         /// </summary>
         /// <typeparam name="T">type d'éléments</typeparam>
-        /// <param name="value">    IEnumerable étendu</param>
-        /// <param name="action">   délégué à appliquer sur tous les éléments</param>
+        /// <param name="value">IEnumerable étendu</param>
+        /// <param name="action">délégué à appliquer sur tous les éléments</param>
         /// <param name="predicate">prédicat de recherche</param>
         public static void ForEach<T>(this IEnumerable<T> value, Action<T> action, Func<T, bool> predicate)
         {

@@ -10,8 +10,6 @@ namespace Yis.Erp.Shell.Presentation.Behavior
 {
     public class CloseTabBehavior : Behavior<Button>
     {
-        #region Methods
-
         protected override void OnAttached()
         {
             AssociatedObject.Click += OnClick;
@@ -20,6 +18,7 @@ namespace Yis.Erp.Shell.Presentation.Behavior
         protected override void OnDetaching()
         {
             AssociatedObject.Click -= OnClick;
+
         }
 
         private static void OnClick(object sender, RoutedEventArgs e)
@@ -30,13 +29,13 @@ namespace Yis.Erp.Shell.Presentation.Behavior
 
             TabControl tabControl = (sender as Button).GetParent<TabControl>();
 
-            IList list = (IList)tabControl.ItemsSource;
+            IList list = (IList) tabControl.ItemsSource;
 
             int index = list.IndexOf(selectedItem);
 
             if (list.Count == 1)
                 tabControl.SelectedItem = null;
-            else if (index < list.Count - 1)
+            else if (index < list.Count - 1 )
                 tabControl.SelectedItem = list[++index];
             else if (index == list.Count - 1)
                 tabControl.SelectedItem = list[--index];
@@ -50,7 +49,5 @@ namespace Yis.Erp.Shell.Presentation.Behavior
                 Debug.WriteLine(ex.Message);
             }
         }
-
-        #endregion Methods
     }
 }

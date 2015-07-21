@@ -6,13 +6,7 @@ namespace Yis.Framework.Core.Locator
 {
     internal static class ServiceLocatorManager
     {
-        #region Fields
-
         private static IServiceLocator _default;
-
-        #endregion Fields
-
-        #region Properties
 
         public static IServiceLocator Default
         {
@@ -25,7 +19,5 @@ namespace Yis.Framework.Core.Locator
                 return _default;
             }
         }
-
-        #endregion Properties
     }
 }

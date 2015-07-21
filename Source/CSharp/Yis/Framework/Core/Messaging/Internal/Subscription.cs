@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Yis.Framework.Core.Weak;
 
 namespace Yis.Framework.Core.Messaging.Internal
@@ -8,15 +12,21 @@ namespace Yis.Framework.Core.Messaging.Internal
     /// </summary>
     internal class Subscription
     {
-        #region Constructors + Destructors
+        #region Attributs
+
+        private WeakDelegate _callback;
+        private WeakDelegate _filter;
+        private ThreadingStrategy _threadingStrategy;
+
+        #endregion Attributs
+
+        #region Constructeurs
 
         /// <summary>
         /// Constructeur
         /// </summary>
-        /// <param name="callback">         callback à invoquer</param>
-        /// <param name="filter">           
-        /// filtre permettant de savoir si le callback doit être invoqué
-        /// </param>
+        /// <param name="callback">callback à invoquer</param>
+        /// <param name="filter">filtre permettant de savoir si le callback doit être invoqué</param>
         /// <param name="threadingStrategy">stratégie de threading d'exécution du callback</param>
         public Subscription(Delegate callback, Delegate filter, ThreadingStrategy threadingStrategy)
         {
@@ -31,17 +41,17 @@ namespace Yis.Framework.Core.Messaging.Internal
             _threadingStrategy = threadingStrategy;
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructeurs
 
-        #region Fields
+        #region Propriétés
 
-        private WeakDelegate _callback;
-        private WeakDelegate _filter;
-        private ThreadingStrategy _threadingStrategy;
-
-        #endregion Fields
-
-        #region Properties
+        /// <summary>
+        /// Obtient l'instance cible du callback
+        /// </summary>
+        public object Target
+        {
+            get { return _callback.Target; }
+        }
 
         /// <summary>
         /// Obtient le délégué du callback
@@ -60,14 +70,6 @@ namespace Yis.Framework.Core.Messaging.Internal
         }
 
         /// <summary>
-        /// Obtient l'instance cible du callback
-        /// </summary>
-        public object Target
-        {
-            get { return _callback.Target; }
-        }
-
-        /// <summary>
         /// Obtient la stratégie de threading
         /// </summary>
         public ThreadingStrategy ThreadingStrategy
@@ -75,6 +77,6 @@ namespace Yis.Framework.Core.Messaging.Internal
             get { return _threadingStrategy; }
         }
 
-        #endregion Properties
+        #endregion Propriétés
     }
 }

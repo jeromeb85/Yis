@@ -7,7 +7,8 @@ namespace Yis.Framework.Data.Database
 {
     public class DataContextBase : IDataContext
     {
-        #region Constructors + Destructors
+        private IDbConnection _connection;
+        private IDbTransaction _transaction;
 
         public DataContextBase(string nameOrConnection)
         {
@@ -20,25 +21,9 @@ namespace Yis.Framework.Data.Database
             }
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private IDbConnection _connection;
-        private IDbTransaction _transaction;
-
-        #endregion Fields
-
-        #region Properties
-
         public IDbConnection Connection
         {
             get { return _connection; }
-        }
-
-        public bool IsInTransaction
-        {
-            get { return _transaction != null; }
         }
 
         public IDbTransaction Transaction
@@ -46,9 +31,24 @@ namespace Yis.Framework.Data.Database
             get { return _transaction; }
         }
 
-        #endregion Properties
+        /// <summary>
+        /// Releases the current transaction
+        /// </summary>
+        private void ReleaseCurrentTransaction()
+        {
+            if (_transaction == null)
+            {
+                return;
+            }
+            _transaction.Dispose();
+            _transaction = null;
+        }
 
-        #region Methods
+        public void Dispose()
+        {
+            ReleaseCurrentTransaction();
+            _connection.Dispose();
+        }
 
         public void BeginTransaction()
         {
@@ -56,10 +56,25 @@ namespace Yis.Framework.Data.Database
             _transaction = _connection.BeginTransaction();
         }
 
+        public bool IsInTransaction
+        {
+            get { return _transaction != null; }
+        }
+
+        public void SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
         public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
             _connection.Open();
             _transaction = _connection.BeginTransaction(isolationLevel);
+        }
+
+        public void RollBackTransaction()
+        {
+            throw new NotImplementedException();
         }
 
         public void CommitTransaction()
@@ -77,36 +92,5 @@ namespace Yis.Framework.Data.Database
                 throw;
             }
         }
-
-        public void Dispose()
-        {
-            ReleaseCurrentTransaction();
-            _connection.Dispose();
-        }
-
-        public void RollBackTransaction()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Releases the current transaction
-        /// </summary>
-        private void ReleaseCurrentTransaction()
-        {
-            if (_transaction == null)
-            {
-                return;
-            }
-            _transaction.Dispose();
-            _transaction = null;
-        }
-
-        #endregion Methods
     }
 }

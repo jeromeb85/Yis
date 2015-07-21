@@ -6,13 +6,7 @@ namespace Yis.Framework.Presentation.ViewModel
 {
     public abstract partial class ViewModelBase : INotifyPropertyChanged
     {
-        #region Fields
-
-        private PropertyChangedEventHandler _propertyChanged;
-
-        #endregion Fields
-
-        #region Events
+        #region Implementation de INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged
         {
@@ -20,13 +14,7 @@ namespace Yis.Framework.Presentation.ViewModel
             remove { _propertyChanged -= value; }
         }
 
-        #endregion Events
-
-        #region Methods
-
-        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-        }
+        #endregion Implementation de INotifyPropertyChanged
 
         [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
@@ -38,6 +26,10 @@ namespace Yis.Framework.Presentation.ViewModel
             if (_propertyChanged != null) { _propertyChanged(this, args); }
         }
 
-        #endregion Methods
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+        }
+
+        private PropertyChangedEventHandler _propertyChanged;
     }
 }

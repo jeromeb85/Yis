@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CustomExpirationPolicy.cs" company="Catel development team">
-//     Copyright (c) 2008 - 2014 Catel development team. All rights reserved.
+//   Copyright (c) 2008 - 2014 Catel development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 namespace Yis.Framework.Core.Caching.Policies
@@ -12,13 +12,29 @@ namespace Yis.Framework.Core.Caching.Policies
     /// </summary>
     public sealed class CustomExpirationPolicy : ExpirationPolicy
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        /// <summary>
+        /// The function to check if the policy is expired.
+        /// </summary>
+        private readonly Func<bool> _isExpiredFunc;
+
+        /// <summary>
+        ///  The action that will be executed if the item is read before expiration.
+        /// </summary>
+        private readonly Action _resetAction;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomExpirationPolicy"/> class.
         /// </summary>
-        /// <param name="isExpiredFunc">The function to check if the policy is expired.</param>
-        /// <param name="resetAction">  
+        /// <param name="isExpiredFunc">
+        /// The function to check if the policy is expired.
+        /// </param>
+        /// <param name="resetAction">
         /// The action that will be executed if the item is read before expiration.
         /// </param>
         public CustomExpirationPolicy(Func<bool> isExpiredFunc = null, Action resetAction = null)
@@ -28,21 +44,7 @@ namespace Yis.Framework.Core.Caching.Policies
             _resetAction = resetAction;
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        /// <summary>
-        /// The function to check if the policy is expired.
-        /// </summary>
-        private readonly Func<bool> _isExpiredFunc;
-
-        /// <summary>
-        /// The action that will be executed if the item is read before expiration.
-        /// </summary>
-        private readonly Action _resetAction;
-
-        #endregion Fields
+        #endregion Constructors
 
         #region Properties
 

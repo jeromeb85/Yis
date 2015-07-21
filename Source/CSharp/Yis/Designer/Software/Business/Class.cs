@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Yis.Designer.Software.Data.Contract;
 using Yis.Framework.Business;
 using Yis.Framework.Core.Extension;
@@ -8,7 +11,7 @@ namespace Yis.Designer.Software.Business
 {
     public class Class : BusinessObjectBase<Class, Model.Class, IClassProvider, ISoftwareDataContext>
     {
-        #region Constructors + Destructors
+        #region Constructors
 
         public Class(Model.Class model)
             : base(model)
@@ -21,7 +24,7 @@ namespace Yis.Designer.Software.Business
             Id = Guid.NewGuid();
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructors
 
         #region Properties
 
@@ -46,27 +49,25 @@ namespace Yis.Designer.Software.Business
         public IList<string> Implement
         {
             get { return GetProperty(() => Model.Implement.IsNull() ? Model.Implement = new List<string>() : Model.Implement); }
-            // set { SetProperty(v => Model.Import = String.Join(",", value), Model.Import,
-            // String.Join(",", value)); }
+            //     set { SetProperty(v => Model.Import = String.Join(",", value), Model.Import, String.Join(",", value)); }
         }
 
         public IList<string> Import
         {
             get { return GetProperty(() => Model.Import.IsNull() ? Model.Import = new List<string>() : Model.Import); }
-            // set { SetProperty(v => Model.Import = String.Join(",", value), Model.Import,
-            // String.Join(",", value)); }
-        }
-
-        public bool IsInterface
-        {
-            get { return GetProperty(() => Model.IsInterface); }
-            set { SetProperty(v => Model.IsInterface = value, Model.IsInterface, value); }
+            //     set { SetProperty(v => Model.Import = String.Join(",", value), Model.Import, String.Join(",", value)); }
         }
 
         public string Name
         {
             get { return GetProperty(() => Model.Name); }
             set { SetProperty(v => Model.Name = value, Model.Name, value); }
+        }
+
+        public bool IsInterface
+        {
+            get { return GetProperty(() => Model.IsInterface); }
+            set { SetProperty(v => Model.IsInterface = value, Model.IsInterface, value); }
         }
 
         public NameSpace Parent

@@ -5,10 +5,6 @@ namespace Yis.Framework.Core.Validation.Contract
 {
     public interface IRule
     {
-        #region Methods
-
         IEnumerable<ValidationResult> Execute(IRuleContext context);
-
-        #endregion Methods
     }
 }

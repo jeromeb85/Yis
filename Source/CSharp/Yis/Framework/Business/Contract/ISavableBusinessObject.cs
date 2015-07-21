@@ -1,15 +1,15 @@
-﻿namespace Yis.Framework.Business.Contract
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Yis.Framework.Business.Contract
 {
-    /// <summary>
-    /// Interface identifiant un <see cref="BusinessObject"/> comme sauvegardable
-    /// </summary>
     public interface ISavableBusinessObject
     {
         #region Methods
 
-        /// <summary>
-        /// Sauvegarde le BusinessObject
-        /// </summary>
         void Save();
 
         #endregion Methods

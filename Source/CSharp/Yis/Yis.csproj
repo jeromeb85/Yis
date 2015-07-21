@@ -11,10 +11,6 @@
     <AssemblyName>Yis</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkProfile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
     <PublishUrl>publier\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,8 +23,12 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,9 +39,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Debug\Yis.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -95,7 +92,6 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -112,6 +108,62 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Designer\Conceptual\Business\AttributeCollection.cs" />
+    <Compile Include="Designer\Conceptual\Business\Attribute.cs" />
+    <Compile Include="Designer\Conceptual\Business\Concept.cs" />
+    <Compile Include="Designer\Conceptual\Business\ConceptCollection.cs" />
+    <Compile Include="Designer\Conceptual\Business\Domain.cs" />
+    <Compile Include="Designer\Conceptual\Business\DomainCollection.cs" />
+    <Compile Include="Designer\Conceptual\Business\Relationship.cs" />
+    <Compile Include="Designer\Conceptual\Data\Contract\IAttributeProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Contract\IConceptProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Contract\IConceptualDataContext.cs" />
+    <Compile Include="Designer\Conceptual\Data\Contract\IDomainProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Contract\IRelationshipProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Memory\AttributeProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Memory\ConceptProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Memory\DomainProvider.cs" />
+    <Compile Include="Designer\Conceptual\Data\Memory\RelationshipProvider.cs" />
+    <Compile Include="Designer\Conceptual\Model\Attribute.cs" />
+    <Compile Include="Designer\Conceptual\Model\Concept.cs" />
+    <Compile Include="Designer\Conceptual\Model\Domain.cs" />
+    <Compile Include="Designer\Conceptual\Data\Memory\ConceptualDataContext.cs" />
+    <Compile Include="Designer\Conceptual\Model\Element.cs" />
+    <Compile Include="Designer\Conceptual\Model\NamedElement.cs" />
+    <Compile Include="Designer\Conceptual\Model\Relationship.cs" />
+    <Compile Include="Designer\Shell\Business\WorkSpaceManager.cs" />
+    <Compile Include="Designer\Shell\Data\Contract\IWorkSpaceProvider.cs" />
+    <Compile Include="Designer\Shell\Data\Contract\IDesignerDataContext.cs" />
+    <Compile Include="Designer\Shell\Data\WorkSpaceProvider.cs" />
+    <Compile Include="Designer\Shell\Data\DesignerInitializer.cs" />
+    <Compile Include="Designer\Shell\Model\WorkSpace.cs" />
+    <Compile Include="Designer\Software\Business\Property.cs" />
+    <Compile Include="Designer\Software\Business\Class.cs" />
+    <Compile Include="Designer\Software\Business\PropertyCollection.cs" />
+    <Compile Include="Designer\Software\Business\ClassCollection.cs" />
+    <Compile Include="Designer\Software\Business\NameSpace.cs" />
+    <Compile Include="Designer\Software\Business\NameSpaceCollection.cs" />
+    <Compile Include="Designer\Software\Data\Contract\IPropertyProvider.cs" />
+    <Compile Include="Designer\Software\Data\Contract\IClassProvider.cs" />
+    <Compile Include="Designer\Software\Data\Contract\INameSpaceProvider.cs" />
+    <Compile Include="Designer\Software\Data\Contract\ISoftwareDataContext.cs" />
+    <Compile Include="Designer\Software\Data\Memory\ClassProvider.cs" />
+    <Compile Include="Designer\Software\Data\Memory\NameSpaceProvider.cs" />
+    <Compile Include="Designer\Software\Data\Memory\PropertyProvider.cs" />
+    <Compile Include="Designer\Software\Data\Memory\SoftwareDataContext.cs" />
+    <Compile Include="Designer\Software\Model\Class.cs" />
+    <Compile Include="Designer\Software\Model\Classifier.cs" />
+    <Compile Include="Designer\Software\Model\NameSpace.cs" />
+    <Compile Include="Designer\Software\Model\Property.cs" />
+    <Compile Include="Designer\Software\Model\Scope.cs" />
+    <Compile Include="Designer\Technic\Contract\ICompilator.cs" />
+    <Compile Include="Designer\Technic\Contract\IGenerator.cs" />
+    <Compile Include="Designer\Technic\Contract\ITransformator.cs" />
+    <Compile Include="Designer\Technic\Internal\Generator.cs" />
+    <Compile Include="Designer\Technic\Internal\Transformator.Business.cs" />
+    <Compile Include="Designer\Technic\Internal\Transformator.cs" />
+    <Compile Include="Designer\Technic\Internal\Transformator.Data.cs" />
+    <Compile Include="Designer\Technic\Internal\Transformator.Model.cs" />
     <Compile Include="Erp\Mdm\Business\Client.cs" />
     <Compile Include="Erp\Mdm\Business\ClientCollection.cs" />
     <Compile Include="Erp\Mdm\Data\Contract\IClientProvider.cs" />
@@ -140,6 +192,7 @@
     </Compile>
     <Compile Include="Framework\Business\BusinessObjectBase.cs" />
     <Compile Include="Framework\Business\BusinessObjectCollectionBase.cs" />
+    <Compile Include="Framework\Business\BusinessWorkflowBase.cs" />
     <Compile Include="Framework\Business\Contract\IBusinessObject.cs" />
     <Compile Include="Framework\Business\Contract\IDeletableBusinessObject.cs" />
     <Compile Include="Framework\Business\Contract\IEditableBusinessObject.cs" />
@@ -196,8 +249,21 @@
     <Compile Include="Framework\Data\Memory\Transaction.cs" />
     <Compile Include="Framework\Presentation\Commanding\Command.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelCollectionBase.cs" />
+    <Compile Include="InitializeData.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Designer\Shell\Presentation\ViewModel\MainViewModel.cs" />
+    <Compile Include="Designer\Shell\Presentation\ViewModel\WorkSpaceCollectionViewModel.cs" />
+    <Compile Include="Designer\Shell\Presentation\ViewModel\WorkSpaceViewModel.cs" />
+    <Compile Include="Designer\Shell\Presentation\View\IWorkSpaceCollectionView.cs" />
+    <Compile Include="Designer\Shell\Presentation\View\WorkSpaceCollectionWindow.xaml.cs">
+      <DependentUpon>WorkSpaceCollectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Shell\Presentation\View\WorkSpaceView.xaml.cs">
+      <DependentUpon>WorkSpaceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Framework\Core\Shell\Boot.cs" />
+    <Compile Include="Framework\Business\BusinessComponentBase.cs" />
+    <Compile Include="Framework\Business\Contract\IBusinessComponentBase.cs" />
     <Compile Include="Framework\Core\Shell\Contract\IShell.cs" />
     <Compile Include="Framework\Core\Shell\Contract\IShellBootable.cs" />
     <Compile Include="Framework\Presentation\Locator\Contract\IViewLocator.cs" />
@@ -244,6 +310,36 @@
     <Compile Include="Framework\Presentation\ViewModel\IViewModel.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Designer\Shell\Data\DesignerDataContext.cs" />
+    <Compile Include="WebCrawler\Cache.cs" />
+    <Compile Include="WebCrawler\Crawler.cs" />
+    <Compile Include="WebCrawler\Downloader.cs" />
+    <Compile Include="WebCrawler\DownloaderQueue.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeAnchors.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeHostsExcept.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeImagesFilter.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeJavaScript.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeMailTo.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\ExcludeTrackbacks.cs" />
+    <Compile Include="WebCrawler\ExcludeFilters\IExcludeFilter.cs" />
+    <Compile Include="WebCrawler\Page.cs" />
+    <Compile Include="WebCrawler\RequestState.cs" />
+    <Page Include="Designer\Shell\Presentation\View\WorkSpaceCollectionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Shell\Presentation\View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Designer\Shell\Presentation\View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Designer\Shell\Presentation\View\WorkSpaceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <ApplicationDefinition Include="Erp\Shell\Presentation\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -288,6 +384,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Designer\Shell\Presentation\Command\" />
+    <Folder Include="Designer\Shell\Service\Interface\" />
     <Folder Include="Erp\Core\" />
     <Folder Include="Erp\Shell\Presentation\Command\" />
     <Folder Include="Framework\Data\nHibernate\" />

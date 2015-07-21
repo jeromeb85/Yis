@@ -1,28 +1,16 @@
-﻿using Yis.Framework.Core.Caching.Contract;
+﻿using System;
+using Yis.Framework.Core.Caching.Contract;
 
 namespace Yis.Framework.Core.Caching
 {
     /// <summary>
     /// Value info for the cache storage.
     /// </summary>
-    /// <typeparam name="TValue">The value type.</typeparam>
+    /// <typeparam name="TValue">
+    /// The value type.
+    /// </typeparam>
     internal class CacheStorageValueInfo<TValue>
     {
-        #region Constructors + Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CacheStorageValueInfo{TValue}"/> class.
-        /// </summary>
-        /// <param name="value">           The value.</param>
-        /// <param name="expirationPolicy">The expiration policy.</param>
-        public CacheStorageValueInfo(TValue value, IExpirationPolicy expirationPolicy = null)
-        {
-            _value = value;
-            _expirationPolicy = expirationPolicy;
-        }
-
-        #endregion Constructors + Destructors
-
         #region Fields
 
         /// <summary>
@@ -36,6 +24,25 @@ namespace Yis.Framework.Core.Caching
         private TValue _value;
 
         #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheStorageValueInfo{TValue}"/> class.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="expirationPolicy">
+        /// The expiration policy.
+        /// </param>
+        public CacheStorageValueInfo(TValue value, IExpirationPolicy expirationPolicy = null)
+        {
+            _value = value;
+            _expirationPolicy = expirationPolicy;
+        }
+
+        #endregion Constructors
 
         #region Properties
 

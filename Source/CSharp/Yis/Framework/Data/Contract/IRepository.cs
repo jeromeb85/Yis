@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Yis.Framework.Data.Contract
 {
@@ -11,7 +14,7 @@ namespace Yis.Framework.Data.Contract
     {
         #region Methods
 
-        // TModel FirstOrDefault(Expression<Func<TModel, bool>> predicate = null);
+        //      TModel FirstOrDefault(Expression<Func<TModel, bool>> predicate = null);
         void Add(TModel entity);
 
         TModel Create();
@@ -20,11 +23,11 @@ namespace Yis.Framework.Data.Contract
 
         #endregion Methods
 
-        // IQueryable<TModel> GetQuery(Expression<Func<TModel, bool>> predicate);
+        //   IQueryable<TModel> GetQuery(Expression<Func<TModel, bool>> predicate);
 
-        // TModel Single(Expression<Func<TModel, bool>> predicate = null);
+        //        TModel Single(Expression<Func<TModel, bool>> predicate = null);
 
-        // TModel SingleOrDefault(Expression<Func<TModel, bool>> predicate = null);
+        //      TModel SingleOrDefault(Expression<Func<TModel, bool>> predicate = null);
 
         //    TModel First(Expression<Func<TModel, bool>> predicate = null);
         //void Delete(TModel entity);
@@ -33,7 +36,7 @@ namespace Yis.Framework.Data.Contract
 
         // void Update(TModel entity);
 
-        // IQueryable<TModel> Find(Expression<Func<TModel, bool>> predicate); int
-        // Count(Expression<Func<TModel, bool>> predicate = null);
+        //  IQueryable<TModel> Find(Expression<Func<TModel, bool>> predicate);
+        // int Count(Expression<Func<TModel, bool>> predicate = null);
     }
 }

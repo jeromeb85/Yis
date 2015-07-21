@@ -1,4 +1,9 @@
-﻿using Yis.Framework.Core.Helper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Yis.Framework.Core.Helper;
 using Yis.Framework.Core.Messaging.Contract;
 
 namespace Yis.Framework.Core.Messaging.Event
@@ -8,7 +13,7 @@ namespace Yis.Framework.Core.Messaging.Event
     /// </summary>
     public class Message : IMessage
     {
-        #region Constructors + Destructors
+        #region Constructors
 
         /// <summary>
         /// Constructeur
@@ -21,7 +26,7 @@ namespace Yis.Framework.Core.Messaging.Event
             Sender = sender;
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructors
 
         #region Properties
 
@@ -34,12 +39,12 @@ namespace Yis.Framework.Core.Messaging.Event
     }
 
     /// <summary>
-    /// Classe de base des événements modaux du bus d'événements. Par modal, on entend un événement
-    /// qui attend une réponse
+    /// Classe de base des événements modaux du bus d'événements.
+    /// Par modal, on entend un événement qui attend une réponse
     /// </summary>
     public abstract class Message<TResult> : Message, IMessage<TResult>
     {
-        #region Constructors + Destructors
+        #region Constructors
 
         /// <summary>
         /// Constructeur
@@ -53,7 +58,7 @@ namespace Yis.Framework.Core.Messaging.Event
         /// <summary>
         /// Constructeur
         /// </summary>
-        /// <param name="sender">       élément à l'origine de l'événement</param>
+        /// <param name="sender">élément à l'origine de l'événement</param>
         /// <param name="defaultResult">résultat par défaut de l'événement</param>
         protected Message(object sender, TResult defaultResult)
             : base(sender)
@@ -61,7 +66,7 @@ namespace Yis.Framework.Core.Messaging.Event
             Result = defaultResult;
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructors
 
         #region Properties
 

@@ -6,7 +6,7 @@ namespace Yis.Erp.Mdm.Business
 {
     public class ClientCollection : BusinessObjectCollectionBase<ClientCollection, Client, Model.Client, IClientProvider, IMdmDataContext>
     {
-        #region Constructors + Destructors
+        #region Constructors
 
         public ClientCollection(ICollection<Client> list)
             : base(list)
@@ -23,6 +23,6 @@ namespace Yis.Erp.Mdm.Business
         {
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructors
     }
 }

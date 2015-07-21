@@ -1,34 +1,42 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Controls.Ribbon;
 using Yis.Erp.Shell.Presentation.Contract;
+using Yis.Erp.Shell.Presentation.View;
 using Yis.Framework.Presentation.ViewModel;
 
 namespace Yis.Erp.Shell.Presentation.ViewModel
 {
     public class ShellViewModel : ViewModelBase
     {
-        #region Constructors + Destructors
-
-        public ShellViewModel()
-            : base()
+        public ShellViewModel() : base()
         {
             //OpenedView.Add(new ViewViewModel {Name = "ttot",Title="ee",View = new TestView()} );
             Bus.Subscribe<ShowView>(OpenView);
         }
 
-        #endregion Constructors + Destructors
 
-        #region Fields
 
-        private ObservableCollection<ViewViewModel> _openedView = new ObservableCollection<ViewViewModel>();
         private ObservableCollection<RibbonTab> _ribbonTabCollection;
 
-        private ViewViewModel _selectedView;
+        public ObservableCollection<RibbonTab> RibbonTabCollection
+        {
+            get {
+                if (_ribbonTabCollection == null)
+                {
 
-        #endregion Fields
+                    _ribbonTabCollection = new ObservableCollection<RibbonTab>();  
+                    //Locator.ResolveAndCreateAllType<RibbonTab>().ForEach((i) => _ribbonTabCollection.Add(i));
+                    foreach (RibbonTab item in Locator.ResolveAndCreateAllType<IRibbonTabExtension>())
+                    {
+                        _ribbonTabCollection.Add(item);
+                    }
+                                        
+                }
+                return _ribbonTabCollection;
+            }
+        }
 
-        #region Properties
-
+        private ObservableCollection<ViewViewModel> _openedView = new ObservableCollection<ViewViewModel>();
         public ObservableCollection<ViewViewModel> OpenedView
         {
             get
@@ -42,23 +50,7 @@ namespace Yis.Erp.Shell.Presentation.ViewModel
             }
         }
 
-        public ObservableCollection<RibbonTab> RibbonTabCollection
-        {
-            get
-            {
-                if (_ribbonTabCollection == null)
-                {
-                    _ribbonTabCollection = new ObservableCollection<RibbonTab>();
-                    //Locator.ResolveAndCreateAllType<RibbonTab>().ForEach((i) => _ribbonTabCollection.Add(i));
-                    foreach (RibbonTab item in Locator.ResolveAndCreateAllType<IRibbonTabExtension>())
-                    {
-                        _ribbonTabCollection.Add(item);
-                    }
-                }
-                return _ribbonTabCollection;
-            }
-        }
-
+        private ViewViewModel _selectedView;
         public ViewViewModel SelectedView
         {
             set
@@ -80,17 +72,11 @@ namespace Yis.Erp.Shell.Presentation.ViewModel
             get { return _selectedView; }
         }
 
-        #endregion Properties
-
-        #region Methods
-
         public void OpenView(ShowView message)
         {
             ViewViewModel newView = new ViewViewModel { Name = message.Title, Title = message.Title, View = message.View };
-            OpenedView.Add(newView);
-            SelectedView = newView;
+             OpenedView.Add(newView);
+                 SelectedView = newView;
         }
-
-        #endregion Methods
     }
 }

@@ -8,29 +8,15 @@ namespace Yis.Framework.Core.Validation.Rule
 {
     public class RuleDataAnnotation : IRule
     {
-        #region Constructors + Destructors
+        public ValidationAttribute Attribute { get; private set; }
+
+        private PropertyInfo _prop;
 
         public RuleDataAnnotation(PropertyInfo prop, ValidationAttribute attribute)
         {
             Attribute = attribute;
             _prop = prop;
         }
-
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private PropertyInfo _prop;
-
-        #endregion Fields
-
-        #region Properties
-
-        public ValidationAttribute Attribute { get; private set; }
-
-        #endregion Properties
-
-        #region Methods
 
         public IEnumerable<ValidationResult> Execute(IRuleContext context)
         {
@@ -62,7 +48,5 @@ namespace Yis.Framework.Core.Validation.Rule
 
             return list;
         }
-
-        #endregion Methods
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Yis.Designer.Conceptual.Data.Contract;
 using Yis.Framework.Business;
 
@@ -7,7 +10,7 @@ namespace Yis.Designer.Conceptual.Business
 {
     public class AttributeCollection : BusinessObjectCollectionBase<AttributeCollection, Attribute, Model.Attribute, IAttributeProvider, IConceptualDataContext>
     {
-        #region Constructors + Destructors
+        #region Constructors
 
         public AttributeCollection(ICollection<Attribute> list)
             : base(list)
@@ -24,7 +27,7 @@ namespace Yis.Designer.Conceptual.Business
         {
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructors
 
         #region Methods
 

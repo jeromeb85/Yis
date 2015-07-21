@@ -1,11 +1,35 @@
-﻿using Yis.Designer.Conceptual.Business;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Yis.Designer.Conceptual.Business;
 using Yis.Designer.Software.Business;
+using Yis.Designer.Technic.Contract;
+using Yis.Framework.Core.Extension;
+using Yis.Framework.Core.Helper;
 
 namespace Yis.Designer.Technic.Internal
 {
     public partial class Transformator
     {
-        #region Methods
+        private void TransformData(NameSpace nsDomain, Concept concept)
+        {
+
+
+            NameSpace ns = nsDomain.Sub.GetFirstOrAddNew((i) => i.Name == DataNameSpace);
+
+            if (ns.IsNew)
+            {
+                ns.Name = DataNameSpace;
+            }
+
+            CreateDataContext(ns, nsDomain);
+            
+
+            TransformContract(ns, concept);
+            TransformMemory(ns, concept);
+        }
 
         private void CreateDataContext(NameSpace nsData, NameSpace nsDomain)
         {
@@ -26,6 +50,7 @@ namespace Yis.Designer.Technic.Internal
                 cDataContext.IsInterface = true;
                 cDataContext.Scope = Yis.Designer.Software.Model.Scope.Public;
             }
+
         }
 
         private void TransformContract(NameSpace nsData, Concept concept)
@@ -36,6 +61,8 @@ namespace Yis.Designer.Technic.Internal
             {
                 ns.Name = "Contract";
             }
+
+
 
             Class cDataContract = ns.Class.GetFirstOrAddNew((i) => i.Name == "I" + concept.Name + "Provider");
 
@@ -59,21 +86,7 @@ namespace Yis.Designer.Technic.Internal
 
                 //concept.Attribute.ForEach((i) => TransformModel(cModel, i));
             }
-        }
 
-        private void TransformData(NameSpace nsDomain, Concept concept)
-        {
-            NameSpace ns = nsDomain.Sub.GetFirstOrAddNew((i) => i.Name == DataNameSpace);
-
-            if (ns.IsNew)
-            {
-                ns.Name = DataNameSpace;
-            }
-
-            CreateDataContext(ns, nsDomain);
-
-            TransformContract(ns, concept);
-            TransformMemory(ns, concept);
         }
 
         private void TransformMemory(NameSpace nsData, Concept concept)
@@ -91,7 +104,7 @@ namespace Yis.Designer.Technic.Internal
             {
                 cDataContract.Name = concept.Name + "Provider";
                 cDataContract.Import.Add("Yis.Framework.Data.Contract");
-                cDataContract.Import.Add("System");
+                cDataContract.Import.Add("System");                
                 cDataContract.Scope = Yis.Designer.Software.Model.Scope.Public;
 
                 //Property cModelProp = cModel.Property.GetFirstOrAddNew((i) => i.Name == IdNameProperty);
@@ -107,7 +120,5 @@ namespace Yis.Designer.Technic.Internal
                 //concept.Attribute.ForEach((i) => TransformModel(cModel, i));
             }
         }
-
-        #endregion Methods
     }
 }

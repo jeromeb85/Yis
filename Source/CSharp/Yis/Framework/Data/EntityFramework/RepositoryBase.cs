@@ -12,15 +12,21 @@ namespace Yis.Framework.Data.EntityFramework
     public class RepositoryBase<TEntity> : IRepository<TEntity>
            where TEntity : class
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private readonly DbContext _dbContext;
+
+        private readonly IDbSet<TEntity> _dbSet;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityRepositoryBase{TModel, TKey}"/> class.
+        /// Initializes a new instance of the <see cref="EntityRepositoryBase{TModel, TKey}" /> class.
         /// </summary>
-        /// <param name="dbContext">
-        /// The db context. The caller is responsible for correctly disposing the <see cref="DbContext"/>.
-        /// </param>
-        /// <exception cref="ArgumentNullException">The <paramref name="dbContext"/> is <c>null</c>.</exception>
+        /// <param name="dbContext">The db context. The caller is responsible for correctly disposing the <see cref="DbContext"/>.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="dbContext" /> is <c>null</c>.</exception>
         public RepositoryBase(IDataContext dataContext)
         {
             if (dataContext == null)
@@ -32,15 +38,7 @@ namespace Yis.Framework.Data.EntityFramework
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private readonly DbContext _dbContext;
-
-        private readonly IDbSet<TEntity> _dbSet;
-
-        #endregion Fields
+        #endregion Constructors
 
         #region Methods
 
@@ -72,9 +70,9 @@ namespace Yis.Framework.Data.EntityFramework
         }
 
         /// <summary>
-        /// Gets an new entity instance, which may be a proxy if the entity meets the proxy
-        /// requirements and the underlying context is configured to create proxies.
-        /// <para/>Note that the returned proxy entity is NOT added or attached to the set.
+        /// Gets an new entity instance, which may be a proxy if the entity meets the proxy requirements and the underlying context is configured to create proxies.
+        /// <para />
+        /// Note that the returned proxy entity is NOT added or attached to the set.
         /// </summary>
         /// <returns>The proxy entity</returns>
         public virtual TEntity Create()
@@ -86,7 +84,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// Deletes the specified entity from the repository.
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="entity" /> is <c>null</c>.</exception>
         public virtual void Delete(TEntity entity)
         {
             if (entity == null)
@@ -101,7 +99,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// Deletes all entities that match the predicate.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="predicate"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="predicate" /> is <c>null</c>.</exception>
         public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
             if (predicate == null)
@@ -119,8 +117,7 @@ namespace Yis.Framework.Data.EntityFramework
 
         // private readonly string _entitySetName;
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting
-        /// unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
@@ -131,7 +128,7 @@ namespace Yis.Framework.Data.EntityFramework
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>Enumerable of all matching entities.</returns>
-        /// <exception cref="ArgumentNullException">The <paramref name="predicate"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="predicate" /> is <c>null</c>.</exception>
         public virtual IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
             predicate = EnsureValidatePredicate(predicate);
@@ -233,12 +230,11 @@ namespace Yis.Framework.Data.EntityFramework
 
         /// <summary>
         /// Updates changes of the existing entity.
-        /// <para/>
-        /// Note that this method does not actually call <c>SaveChanges</c>, but only updates the
-        /// entity in the repository.
+        /// <para />
+        /// Note that this method does not actually call <c>SaveChanges</c>, but only updates the entity in the repository.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="entity" /> is <c>null</c>.</exception>
         public virtual void Update(TEntity entity)
         {
             if (entity == null)
@@ -260,9 +256,9 @@ namespace Yis.Framework.Data.EntityFramework
 
         /// <summary>
         /// Ensures a validate predicate.
-        /// <para/>
-        /// If the <paramref name="predicate"/> is <c>null</c>, this method will create a default
-        /// predicate which is always true.
+        /// <para />
+        /// If the <paramref name="predicate"/> is <c>null</c>, this method will create a default predicate which
+        /// is always true.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>The ensured valid predicate.</returns>
@@ -278,7 +274,8 @@ namespace Yis.Framework.Data.EntityFramework
 
         /// <summary>
         /// Gets all entities available in the repository.
-        /// <para/>Not that this method executes the default query returned by <see cref="GetQuery()"/>/.
+        /// <para />
+        /// Not that this method executes the default query returned by <see cref="GetQuery()" />/.
         /// </summary>
         /// <returns>Enumerable of all entities.</returns>
         private IQueryable<TEntity> GetAll()

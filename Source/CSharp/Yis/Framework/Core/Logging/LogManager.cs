@@ -10,13 +10,7 @@ namespace Yis.Framework.Core.Logging
     /// </summary>
     internal static class LogManager
     {
-        #region Fields
-
         private static ILog _default;
-
-        #endregion Fields
-
-        #region Properties
 
         public static ILog Default
         {
@@ -36,7 +30,5 @@ namespace Yis.Framework.Core.Logging
                 return _default;
             }
         }
-
-        #endregion Properties
     }
 }

@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Yis.Framework.Core.Caching;
+using Yis.Framework.Core.Caching.Contract;
 using Yis.Framework.Core.Extension;
+using Yis.Framework.Core.Helper;
 using Yis.Framework.Data.Contract;
+using Yis.Framework.Model.Contract;
 
 namespace Yis.Framework.Data.Memory
 {
     public class DataContextBase : IDataContext
     {
-        #region Constructors + Destructors
-
-        public DataContextBase(string path = null)
-        {
-            Path = path;
-        }
-
-        #endregion Constructors + Destructors
-
         #region Fields
 
         private readonly string Path = String.Empty;
@@ -26,6 +24,15 @@ namespace Yis.Framework.Data.Memory
         private Stack<Queue<Transaction>> _transaction;
 
         #endregion Fields
+
+        #region Constructors
+
+        public DataContextBase(string path = null)
+        {
+            Path = path;
+        }
+
+        #endregion Constructors
 
         #region Properties
 
