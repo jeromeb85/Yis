@@ -8,25 +8,21 @@ namespace Yis.Designer.Presentation.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        #region Constructors + Destructors
-
         public MainViewModel()
             : base()
         {
             _testText = "ttttt";
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private ICommand _commandTest;
+        public string Title { get { return "toto"; } }
 
         private string _testText;
 
-        #endregion Fields
+        [Required]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "La longueur doit être comprise entre 5 et 50")]
+        public string TestText { get { return _testText; } set { SetProperty<string>(ref _testText, value); } }
 
-        #region Properties
+        private ICommand _commandTest;
 
         public ICommand CommandTest
         {
@@ -40,23 +36,6 @@ namespace Yis.Designer.Presentation.ViewModel
             }
         }
 
-        [Required]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "La longueur doit être comprise entre 5 et 50")]
-        public string TestText { get { return _testText; } set { SetProperty<string>(ref _testText, value); } }
-
-        public string Title { get { return "toto"; } }
-
-        #endregion Properties
-
-        #region Methods
-
-        protected override void OnRuleInialize()
-        {
-            base.OnRuleInialize();
-
-            Validator.AddRule<MainViewModel>((t) => t.TestText, (t) => { return t.TestText == "tototo"; }, "Tu dois metre tototo");
-        }
-
         private void ProcedureTest()
         {
             //TestText = "dd";
@@ -67,6 +46,11 @@ namespace Yis.Designer.Presentation.ViewModel
             Navigation.Show<IWorkSpaceCollectionView>(ws);
         }
 
-        #endregion Methods
+        protected override void OnRuleInialize()
+        {
+            base.OnRuleInialize();
+
+            Validator.AddRule<MainViewModel>((t) => t.TestText, (t) => { return t.TestText == "tototo"; }, "Tu dois metre tototo");
+        }
     }
 }

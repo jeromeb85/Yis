@@ -5,7 +5,14 @@ namespace Yis.Framework.Presentation.Commanding
 {
     public class Command : ICommand
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private Func<bool> _canExecute;
+        private Action _execute;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Constructeur
@@ -19,7 +26,7 @@ namespace Yis.Framework.Presentation.Commanding
         /// <summary>
         /// Constructeur
         /// </summary>
-        /// <param name="execute">   Méthode d'exécution de la commande</param>
+        /// <param name="execute">Méthode d'exécution de la commande</param>
         /// <param name="canExecute">Méthode permettant de savoir si la commande peut être exécutée</param>
         public Command(Action execute, Func<bool> canExecute)
         {
@@ -30,14 +37,7 @@ namespace Yis.Framework.Presentation.Commanding
             _canExecute = canExecute;
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private Func<bool> _canExecute;
-        private Action _execute;
-
-        #endregion Fields
+        #endregion Constructors
 
         #region Events
 
@@ -92,7 +92,14 @@ namespace Yis.Framework.Presentation.Commanding
 
     public class Command<T> : ICommand
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private Func<T, bool> _canExecute;
+        private Action<T> _execute;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Constructeur
@@ -106,7 +113,7 @@ namespace Yis.Framework.Presentation.Commanding
         /// <summary>
         /// Constructeur
         /// </summary>
-        /// <param name="execute">   Méthode d'exécution de la commande</param>
+        /// <param name="execute">Méthode d'exécution de la commande</param>
         /// <param name="canExecute">Méthode permettant de savoir si la commande peut être exécutée</param>
         public Command(Action<T> execute, Func<T, bool> canExecute)
         {
@@ -117,14 +124,7 @@ namespace Yis.Framework.Presentation.Commanding
             _canExecute = canExecute;
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private Func<T, bool> _canExecute;
-        private Action<T> _execute;
-
-        #endregion Fields
+        #endregion Constructors
 
         //public void RaiseCanExecuteChanged()
         //{

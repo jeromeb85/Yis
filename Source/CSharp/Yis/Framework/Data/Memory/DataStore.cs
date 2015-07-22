@@ -1,22 +1,38 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using YAXLib;
 using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.IoC.Contract;
 using Yis.Framework.Core.Logging.Contract;
+using Yis.Framework.Core.Serialization;
 using Yis.Framework.Core.Serialization.Contract;
+using Yis.Framework.Model.Contract;
 
 namespace Yis.Framework.Data.Memory
 {
     /// <summary>
-    /// Gestion du stockage des données pour le repository memory Cette classe traite l'information
-    /// en mémoire et peut persister les informations dans un fichier
+    /// Gestion du stockage des données pour le repository memory
+    /// Cette classe traite l'information en mémoire et peut persister les informations dans un fichier
     /// </summary>
     internal class DataStore
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private static ILog _log;
+        private static ISerializer _serializer;
+        private readonly string Path;
+        private IDictionary<Type, IList<object>> _data;
+        private IList<Type> _typeLoaded;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Constructeur de <see cref="DataStore"/>
@@ -30,17 +46,7 @@ namespace Yis.Framework.Data.Memory
                 Directory.CreateDirectory(path);
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private static ILog _log;
-        private static ISerializer _serializer;
-        private readonly string Path;
-        private IDictionary<Type, IList<object>> _data;
-        private IList<Type> _typeLoaded;
-
-        #endregion Fields
+        #endregion Constructors
 
         #region Properties
 

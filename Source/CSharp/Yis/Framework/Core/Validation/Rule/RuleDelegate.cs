@@ -7,24 +7,14 @@ namespace Yis.Framework.Core.Validation.Rule
 {
     public class RuleDelegate<T> : IRule
     {
-        #region Constructors + Destructors
+        private string _errorMessage;
+        private Func<T, bool> _command;
 
         public RuleDelegate(Func<T, bool> command, string errorMessage)
         {
             _errorMessage = errorMessage;
             _command = command;
         }
-
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private Func<T, bool> _command;
-        private string _errorMessage;
-
-        #endregion Fields
-
-        #region Methods
 
         public IEnumerable<ValidationResult> Execute(IRuleContext context)
         {
@@ -38,7 +28,5 @@ namespace Yis.Framework.Core.Validation.Rule
 
             return list;
         }
-
-        #endregion Methods
     }
 }

@@ -1,21 +1,21 @@
-﻿<w:WindowBase x:Class="Yis.Designer.Presentation.View.MainWindow"
-              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:View="clr-namespace:Yis.Designer.Presentation.View"
-              xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
-              xmlns:w="clr-namespace:Yis.Framework.Presentation.View"
-              Title="{Binding Title,
-                              Mode=OneWay}">
-    <!--  xmlns:ViewModel="clr-namespace:Yis.Designer.Presentation.ViewModel"  -->
+﻿<w:WindowBase
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:w="clr-namespace:Yis.Framework.Presentation.View"
+        xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
+        xmlns:View="clr-namespace:Yis.Designer.Presentation.View"
+        x:Class="Yis.Designer.Presentation.View.MainWindow"
+        Title="{Binding Title, Mode=OneWay}">
+    <!--xmlns:ViewModel="clr-namespace:Yis.Designer.Presentation.ViewModel"-->
     <!--<w:MainWindowBase.DataContext>
         <ViewModel:MainViewModel />
     </w:MainWindowBase.DataContext>-->
     <StackPanel x:Name="LayoutRoot">
         <Ribbon />
         <Button Command="{Binding CommandTest}">Test</Button>
-        <TextBox Text="{Binding TestText, NotifyOnValidationError=True, Mode=TwoWay}" />
-        <TextBox Text="no binding" />
+        <TextBox Text="{Binding TestText, NotifyOnValidationError=True, Mode=TwoWay}"></TextBox>
+        <TextBox Text="no binding"></TextBox>
         <View:WorkSpaceView />
-        <!--  DataContext="{Binding}"  -->
+        <!--DataContext="{Binding}"-->
     </StackPanel>
 </w:WindowBase>

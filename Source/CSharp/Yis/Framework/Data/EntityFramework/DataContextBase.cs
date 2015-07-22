@@ -7,8 +7,6 @@ namespace Yis.Framework.Data.EntityFramework
 {
     public class DataContextBase : DbContext, IDataContext
     {
-        #region Constructors + Destructors
-
         public DataContextBase(string nameOrConnection)
             : base(nameOrConnection)
         {
@@ -19,20 +17,17 @@ namespace Yis.Framework.Data.EntityFramework
         {
         }
 
-        #endregion Constructors + Destructors
-
-        #region Properties
+        protected IDbTransaction Transaction { get; set; }
 
         public bool IsInTransaction
         {
             get { return Transaction != null; }
         }
 
-        protected IDbTransaction Transaction { get; set; }
-
-        #endregion Properties
-
-        #region Methods
+        public new void SaveChanges()
+        {
+            base.SaveChanges();
+        }
 
         public void BeginTransaction(System.Data.IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
@@ -46,6 +41,19 @@ namespace Yis.Framework.Data.EntityFramework
 
             OpenConnection();
             Transaction = Database.Connection.BeginTransaction(isolationLevel);
+        }
+
+        public void RollBackTransaction()
+        {
+            if (Transaction == null)
+            {
+                const string error = "Cannot roll back a transaction when there is no transaction running.";
+
+                throw new InvalidOperationException(error);
+            }
+
+            Transaction.Rollback();
+            ReleaseTransaction();
         }
 
         public void CommitTransaction()
@@ -69,23 +77,7 @@ namespace Yis.Framework.Data.EntityFramework
             }
         }
 
-        public void RollBackTransaction()
-        {
-            if (Transaction == null)
-            {
-                const string error = "Cannot roll back a transaction when there is no transaction running.";
-
-                throw new InvalidOperationException(error);
-            }
-
-            Transaction.Rollback();
-            ReleaseTransaction();
-        }
-
-        public new void SaveChanges()
-        {
-            base.SaveChanges();
-        }
+        #region Methods
 
         /// <summary>
         /// Opens the connection to the database.

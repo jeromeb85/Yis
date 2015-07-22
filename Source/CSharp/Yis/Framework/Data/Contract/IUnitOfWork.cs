@@ -16,6 +16,15 @@ namespace Yis.Framework.Data.Contract
 
         #region Methods
 
+        TRepository GetRepository<TRepository>()
+            where TRepository : IRepository;
+
+        /// <summary>
+        /// Saves the changes inside the unit of work.
+        /// </summary>
+        /// <param name="saveOptions">Options de sauvegarde.</param>
+        void SaveChanges();
+
         /// <summary>
         /// Begins a new transaction on the unit of work.
         /// </summary>
@@ -23,23 +32,14 @@ namespace Yis.Framework.Data.Contract
         void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
 
         /// <summary>
-        /// Commits all the changes inside a transaction.
-        /// </summary>
-        void CommitTransaction();
-
-        TRepository GetRepository<TRepository>()
-            where TRepository : IRepository;
-
-        /// <summary>
         /// Rolls back all the changes inside a transaction.
         /// </summary>
         void RollBackTransaction();
 
         /// <summary>
-        /// Saves the changes inside the unit of work.
+        /// Commits all the changes inside a transaction.
         /// </summary>
-        /// <param name="saveOptions">Options de sauvegarde.</param>
-        void SaveChanges();
+        void CommitTransaction();
 
         #endregion Methods
     }

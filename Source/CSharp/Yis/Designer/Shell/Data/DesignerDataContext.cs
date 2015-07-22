@@ -8,8 +8,6 @@ namespace Yis.Designer.Data
 {
     public class DesignerDataContext : DataContextBase, IDesignerDataContext
     {
-        #region Constructors + Destructors
-
         public DesignerDataContext()
             : base("Yis")
         {
@@ -21,18 +19,10 @@ namespace Yis.Designer.Data
             //Database.SetInitializer<YisDbContext>(new SchoolDBInitializer());
         }
 
-        #endregion Constructors + Destructors
-
-        #region Properties
-
         public DbSet<WorkSpace> WorkSpace { get; set; }
-
-        #endregion Properties
 
         //public DbSet<AspectSemantic> AspectSemantic { get; set; }
         //public DbSet<DomainSemantic> DomainSemantic { get; set; }
-
-        #region Methods
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -50,7 +40,5 @@ namespace Yis.Designer.Data
             //modelBuilder.Entity<Instructor>()
             //    .HasOptional(p => p.OfficeAssignment).WithRequired(p => p.Instructor);
         }
-
-        #endregion Methods
     }
 }

@@ -19,14 +19,14 @@ namespace Yis.Designer.Software.Data.Memory
 
         #endregion Methods
 
-        #region Constructors + Destructors
+        #region Constructors
 
         public NameSpaceProvider(IDataContext dataContext)
             : base(dataContext)
         {
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructors
 
         public NameSpace GetById(Guid id)
         {

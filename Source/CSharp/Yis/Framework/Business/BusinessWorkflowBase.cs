@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yis.Framework.Core.Serialization.Contract
+namespace Yis.Framework.Business
 {
-    public interface IXmlSerializer : ISerializer
+    internal class BusinessWorkflowBase
     {
     }
 }

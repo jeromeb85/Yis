@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Yis.Framework.Model;
 
 namespace Yis.Designer.Conceptual.Model
@@ -19,10 +23,7 @@ namespace Yis.Designer.Conceptual.Model
         #region Properties
 
         public Guid IdConceptPointDestination { get; set; }
-
         public Guid IdConceptPointSource { get; set; }
-
-        #endregion Properties
 
         //public Concept PointDestination { get; set; }
 
@@ -31,5 +32,7 @@ namespace Yis.Designer.Conceptual.Model
         //public RelationshipLinkedPoint PointInformationSource { get; set; }
 
         //public Concept PointSource { get; set; }
+
+        #endregion Properties
     }
 }

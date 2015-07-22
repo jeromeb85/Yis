@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Yis.Framework.Business.Contract;
 using Yis.Framework.Core.Extension;
@@ -19,9 +23,6 @@ using Yis.Framework.Model.Contract;
 
 namespace Yis.Framework.Business
 {
-    /// <summary>
-    /// Classe de base d'un businessObject
-    /// </summary>
     public abstract class BusinessObjectBase : IEditableBusinessObject, IDataErrorInfo
     {
         #region Fields
@@ -323,6 +324,7 @@ namespace Yis.Framework.Business
                     if (!IsChanged)
                         IsChanged = true;
                     setValue(newValue);
+
                 }
             }
             else
@@ -373,7 +375,17 @@ namespace Yis.Framework.Business
         where TModel : class,IModel
         where TDataContext : IDataContext
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private static IDataContext _dataContext;
+
+        private static TProvider _provider;
+
+        private TModel _model;
+
+        #endregion Fields
+
+        #region Constructors
 
         public BusinessObjectBase()
             : base()
@@ -389,17 +401,7 @@ namespace Yis.Framework.Business
             IsNew = false;
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private static IDataContext _dataContext;
-
-        private static TProvider _provider;
-
-        private TModel _model;
-
-        #endregion Fields
+        #endregion Constructors
 
         #region Properties
 

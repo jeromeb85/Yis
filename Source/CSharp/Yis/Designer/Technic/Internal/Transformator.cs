@@ -1,4 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Yis.Designer.Conceptual.Business;
 using Yis.Designer.Software.Business;
 using Yis.Designer.Technic.Contract;
@@ -11,11 +15,11 @@ namespace Yis.Designer.Technic.Internal
     {
         #region Fields
 
-        private const string BusinessNameSpace = "Business";
-        private const string DataNameSpace = "Data";
         private const string IdNameProperty = "Id";
         private const string IdTypeProperty = "Guid";
         private const string ModelNameSpace = "Model";
+        private const string BusinessNameSpace = "Business";
+        private const string DataNameSpace = "Data";        
         private const string RootNameSpace = "Yis.Designer.Sample";
 
         #endregion Fields
@@ -84,8 +88,10 @@ namespace Yis.Designer.Technic.Internal
         {
             TransformModel(nsDomain, concept);
             TransformData(nsDomain, concept);
-            TransformBusiness(nsDomain, concept);
+            TransformBusiness(nsDomain, concept);            
         }
+
+
 
         #endregion Methods
     }

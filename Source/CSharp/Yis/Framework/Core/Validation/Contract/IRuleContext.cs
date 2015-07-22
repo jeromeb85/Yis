@@ -2,10 +2,6 @@
 {
     public interface IRuleContext
     {
-        #region Methods
-
         object GetTarget();
-
-        #endregion Methods
     }
 }

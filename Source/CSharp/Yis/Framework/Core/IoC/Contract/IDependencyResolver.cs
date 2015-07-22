@@ -32,7 +32,7 @@ namespace Yis.Framework.Core.IoC.Contract
         /// Résoudre un type spécifié.
         /// </summary>
         /// <typeparam name="T">Type à résoudre.</typeparam>
-        /// <param name="type">    Le Type.</param>
+        /// <param name="type">Le Type.</param>
         /// <returns>Retourne une instance du type à résoudre.</returns>
         T Resolve<T>(Type type);
 

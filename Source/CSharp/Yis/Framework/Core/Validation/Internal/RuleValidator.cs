@@ -10,13 +10,7 @@ namespace Yis.Framework.Core.Validation
 {
     public class RuleValidator : IRuleValidator
     {
-        #region Fields
-
         private Dictionary<string, List<IRule>> _ruleCache;
-
-        #endregion Fields
-
-        #region Properties
 
         private Dictionary<string, List<IRule>> RuleCache
         {
@@ -30,28 +24,71 @@ namespace Yis.Framework.Core.Validation
             }
         }
 
-        #endregion Properties
-
-        #region Methods
-
-        public void AddRule<TTarget>(Expression<Func<TTarget, object>> property, Func<TTarget, bool> validateDelegate, string errorMessage)
+        protected void RegisterRule(string propertyName, IRule Rule)
         {
-            AddRule(GetMemberName(property.Body), validateDelegate, errorMessage);
+            if (RuleCache.ContainsKey(propertyName))
+            {
+                List<IRule> result;
+                RuleCache.TryGetValue(propertyName, out result);
+                result.Add(Rule);
+            }
+            else
+            {
+                RuleCache.Add(propertyName, new List<IRule>() { Rule });
+            }
         }
 
-        public void AddRule<TTarget>(string propertyName, Func<TTarget, bool> validateDelegate, string errorMessage)
+        protected string GetMemberName(Expression expression, bool compound = true)
         {
-            RegisterRule(propertyName, new RuleDelegate<TTarget>(validateDelegate, errorMessage));
+            var memberExpression = expression as MemberExpression;
+
+            if (memberExpression != null)
+            {
+                if (compound && memberExpression.Expression.NodeType == ExpressionType.MemberAccess)
+                {
+                    return GetMemberName(memberExpression.Expression) + "." + memberExpression.Member.Name;
+                }
+
+                return memberExpression.Member.Name;
+            }
+
+            var unaryExpression = expression as UnaryExpression;
+
+            if (unaryExpression != null)
+            {
+                if (unaryExpression.NodeType != ExpressionType.Convert)
+                {
+                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Cannot interpret member from {0}",
+                                                                      expression));
+                }
+
+                return GetMemberName(unaryExpression.Operand);
+            }
+
+            throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Could not determine member from {0}",
+                                                              expression));
+        }
+
+        private void AddDataAnnotationsFromType(Type metadataType)
+        {
+            var attList = metadataType.GetCustomAttributes(typeof(ValidationAttribute), true);
+            foreach (var att in attList)
+                RegisterRule(null, new RuleDataAnnotation(null, (ValidationAttribute)att));
+
+            var propList = metadataType.GetProperties();
+            foreach (var prop in propList)
+            {
+                attList = prop.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.ValidationAttribute), true);
+                foreach (var att in attList)
+                {
+                    RegisterRule(prop.Name, new RuleDataAnnotation(prop, (ValidationAttribute)att));
+                }
+            }
         }
 
         public void AddRuleAnnotation(Type metadataType)
         {
             AddDataAnnotationsFromType(metadataType);
-        }
-
-        public void AddRuleAnnotation<TTarget>()
-        {
-            AddRuleAnnotation(typeof(TTarget));
         }
 
         public IEnumerable<ValidationResult> Validate(IRuleContext context)
@@ -105,6 +142,21 @@ namespace Yis.Framework.Core.Validation
             return result;
         }
 
+        public void AddRule<TTarget>(Expression<Func<TTarget, object>> property, Func<TTarget, bool> validateDelegate, string errorMessage)
+        {
+            AddRule(GetMemberName(property.Body), validateDelegate, errorMessage);
+        }
+
+        public void AddRule<TTarget>(string propertyName, Func<TTarget, bool> validateDelegate, string errorMessage)
+        {
+            RegisterRule(propertyName, new RuleDelegate<TTarget>(validateDelegate, errorMessage));
+        }
+
+        public void AddRuleAnnotation<TTarget>()
+        {
+            AddRuleAnnotation(typeof(TTarget));
+        }
+
         public IEnumerable<ValidationResult> Validate<TTarget>(IRuleContext context, Expression<Func<TTarget, object>> property)
         {
             return Validate(context, GetMemberName(property.Body));
@@ -114,69 +166,5 @@ namespace Yis.Framework.Core.Validation
         {
             return Validate(new RuleContext(target), GetMemberName(property.Body));
         }
-
-        protected string GetMemberName(Expression expression, bool compound = true)
-        {
-            var memberExpression = expression as MemberExpression;
-
-            if (memberExpression != null)
-            {
-                if (compound && memberExpression.Expression.NodeType == ExpressionType.MemberAccess)
-                {
-                    return GetMemberName(memberExpression.Expression) + "." + memberExpression.Member.Name;
-                }
-
-                return memberExpression.Member.Name;
-            }
-
-            var unaryExpression = expression as UnaryExpression;
-
-            if (unaryExpression != null)
-            {
-                if (unaryExpression.NodeType != ExpressionType.Convert)
-                {
-                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Cannot interpret member from {0}",
-                                                                      expression));
-                }
-
-                return GetMemberName(unaryExpression.Operand);
-            }
-
-            throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Could not determine member from {0}",
-                                                              expression));
-        }
-
-        protected void RegisterRule(string propertyName, IRule Rule)
-        {
-            if (RuleCache.ContainsKey(propertyName))
-            {
-                List<IRule> result;
-                RuleCache.TryGetValue(propertyName, out result);
-                result.Add(Rule);
-            }
-            else
-            {
-                RuleCache.Add(propertyName, new List<IRule>() { Rule });
-            }
-        }
-
-        private void AddDataAnnotationsFromType(Type metadataType)
-        {
-            var attList = metadataType.GetCustomAttributes(typeof(ValidationAttribute), true);
-            foreach (var att in attList)
-                RegisterRule(null, new RuleDataAnnotation(null, (ValidationAttribute)att));
-
-            var propList = metadataType.GetProperties();
-            foreach (var prop in propList)
-            {
-                attList = prop.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.ValidationAttribute), true);
-                foreach (var att in attList)
-                {
-                    RegisterRule(prop.Name, new RuleDataAnnotation(prop, (ValidationAttribute)att));
-                }
-            }
-        }
-
-        #endregion Methods
     }
 }

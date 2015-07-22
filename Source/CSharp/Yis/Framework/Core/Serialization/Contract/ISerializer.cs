@@ -1,8 +1,14 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Yis.Framework.Core.Serialization.Contract
 {
     /// <summary>
+    ///
     /// </summary>
     public interface ISerializer
     {
@@ -28,7 +34,7 @@ namespace Yis.Framework.Core.Serialization.Contract
         /// Serializes the specified obj.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="obj"> The obj.</param>
+        /// <param name="obj">The obj.</param>
         /// <param name="file">The file.</param>
         void Serialize<T>(T obj, string file);
 
@@ -36,7 +42,7 @@ namespace Yis.Framework.Core.Serialization.Contract
         /// Serializes the specified obj.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="obj">   The obj.</param>
+        /// <param name="obj">The obj.</param>
         /// <param name="stream">The stream.</param>
         void Serialize<T>(T obj, Stream stream);
 

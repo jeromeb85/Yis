@@ -1,4 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using Yis.Designer.Model;
 
 namespace Yis.Designer.Data
 {
@@ -8,7 +11,7 @@ namespace Yis.Designer.Data
 
         protected override void Seed(DesignerDataContext context)
         {
-            // Guid IdWorkSpace = Guid.NewGuid();
+            //            Guid IdWorkSpace = Guid.NewGuid();
 
             //            var WorkSpace = new List<WorkSpace>
             //            {
@@ -16,7 +19,8 @@ namespace Yis.Designer.Data
             //new WorkSpace{Id= IdWorkSpace, Name="TestMaster"},
             //            };
 
-            // WorkSpace.ForEach(s => context.WorkSpace.Add(s)); context.SaveChanges();
+            //            WorkSpace.ForEach(s => context.WorkSpace.Add(s));
+            //            context.SaveChanges();
 
             //var Groupe = new List<Groupe>
             //{

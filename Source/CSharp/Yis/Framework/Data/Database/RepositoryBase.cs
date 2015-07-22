@@ -8,7 +8,7 @@ namespace Yis.Framework.Data.Database
 {
     public abstract class RepositoryBase : IRepository
     {
-        #region Constructors + Destructors
+        private IDbConnection _connection;
 
         public RepositoryBase(IDataContext dataContext)
         {
@@ -20,16 +20,6 @@ namespace Yis.Framework.Data.Database
             DataContext = ((DataContextBase)dataContext);
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private IDbConnection _connection;
-
-        #endregion Fields
-
-        #region Properties
-
         /// <summary>
         /// Obtenir la connection
         /// </summary>
@@ -40,26 +30,76 @@ namespace Yis.Framework.Data.Database
 
         protected DataContextBase DataContext
         { get; private set; }
-
-        #endregion Properties
     }
 
     public abstract class RepositoryBase<TEntity> : RepositoryBase, IRepository<TEntity> where TEntity : class
     {
-        #region Constructors + Destructors
-
         public RepositoryBase(IDataContext dataContext)
             : base(dataContext)
         {
         }
 
-        #endregion Constructors + Destructors
+        #region "Méthodes utilitaires"
 
-        #region Methods
-
-        public virtual void Update(TEntity Entity)
+        protected TEntity ExecuteSingle(CommandType commandType, string commandText)
         {
-            throw new NotImplementedException();
+            return ExecuteSingle(commandType, commandText, null);
+        }
+
+        protected TEntity ExecuteSingle(CommandType commandType, string commandText, ICollection<IDataParameter> parameters)
+        {
+            IDbCommand command = Connection.CreateCommand();
+            command.Connection = Connection;
+            command.CommandText = commandText;
+            command.CommandType = commandType;
+
+            if (DataContext.IsInTransaction)
+            {
+                command.Transaction = DataContext.Transaction;
+            }
+
+            if (parameters != null)
+            {
+                foreach (IDataParameter param in parameters)
+                {
+                    command.Parameters.Add(param);
+                }
+            }
+
+            try
+            {
+                if (!DataContext.IsInTransaction)
+                {
+                    Connection.Open();
+                }
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    try
+                    {
+                        return MapSingle(reader);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (!DataContext.IsInTransaction)
+                {
+                    Connection.Close();
+                }
+            }
         }
 
         protected IList<TEntity> ExecuteCollection(CommandType commandType, string commandText)
@@ -123,73 +163,6 @@ namespace Yis.Framework.Data.Database
             }
         }
 
-        protected TEntity ExecuteSingle(CommandType commandType, string commandText)
-        {
-            return ExecuteSingle(commandType, commandText, null);
-        }
-
-        protected TEntity ExecuteSingle(CommandType commandType, string commandText, ICollection<IDataParameter> parameters)
-        {
-            IDbCommand command = Connection.CreateCommand();
-            command.Connection = Connection;
-            command.CommandText = commandText;
-            command.CommandType = commandType;
-
-            if (DataContext.IsInTransaction)
-            {
-                command.Transaction = DataContext.Transaction;
-            }
-
-            if (parameters != null)
-            {
-                foreach (IDataParameter param in parameters)
-                {
-                    command.Parameters.Add(param);
-                }
-            }
-
-            try
-            {
-                if (!DataContext.IsInTransaction)
-                {
-                    Connection.Open();
-                }
-
-                using (IDataReader reader = command.ExecuteReader())
-                {
-                    try
-                    {
-                        return MapSingle(reader);
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-                    finally
-                    {
-                        reader.Close();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (!DataContext.IsInTransaction)
-                {
-                    Connection.Close();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Exécute une commande d'écriture sur la base
-        /// </summary>
-        /// <param name="commandType">Spécifie le type de commande (Procédure, SQL,...)</param>
-        /// <param name="commandText"></param>
-        /// <returns></returns>
         protected bool ExecuteWrite(CommandType commandType, string commandText)
         {
             return ExecuteWrite(commandType, commandText, null);
@@ -239,7 +212,23 @@ namespace Yis.Framework.Data.Database
             return true;
         }
 
+        #endregion "Méthodes utilitaires"
+
+        #region "Méthode de Mapping (Fonction abstraite)"
+
         protected abstract TEntity Map(IDataRecord record);
+
+        protected TEntity MapSingle(IDataReader reader)
+        {
+            TEntity item = null;
+
+            while (reader.Read())
+            {
+                item = Map(reader);
+            }
+
+            return item;
+        }
 
         protected virtual IList<TEntity> MapCollection(IDataReader reader)
         {
@@ -260,16 +249,13 @@ namespace Yis.Framework.Data.Database
             return collection;
         }
 
-        protected TEntity MapSingle(IDataReader reader)
+        #endregion "Méthode de Mapping (Fonction abstraite)"
+
+        #region "Implémentaion IRepository"
+
+        public virtual IList<TEntity> GetAll()
         {
-            TEntity item = null;
-
-            while (reader.Read())
-            {
-                item = Map(reader);
-            }
-
-            return item;
+            throw new NotImplementedException();
         }
 
         public virtual void Add(TEntity Entity)
@@ -277,17 +263,7 @@ namespace Yis.Framework.Data.Database
             throw new NotImplementedException();
         }
 
-        public int Count(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TEntity Create()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        public virtual void Update(TEntity Entity)
         {
             throw new NotImplementedException();
         }
@@ -297,25 +273,7 @@ namespace Yis.Framework.Data.Database
             throw new NotImplementedException();
         }
 
-        public IQueryable<TEntity> Find(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TEntity First(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TEntity FirstOrDefault(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual IList<TEntity> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        #endregion "Implémentaion IRepository"
 
         public IQueryable<TEntity> GetQuery()
         {
@@ -323,15 +281,6 @@ namespace Yis.Framework.Data.Database
         }
 
         public IQueryable<TEntity> GetQuery(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        //IQueryable<TEntity> IRepository<TEntity>.GetAll()
-        //{
-        //    throw new NotImplementedException();
-        //}
-        IEnumerable<TEntity> IRepository<TEntity>.GetAll()
         {
             throw new NotImplementedException();
         }
@@ -346,6 +295,44 @@ namespace Yis.Framework.Data.Database
             throw new NotImplementedException();
         }
 
-        #endregion Methods
+        public TEntity First(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity FirstOrDefault(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<TEntity> Find(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        //IQueryable<TEntity> IRepository<TEntity>.GetAll()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public int Count(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<TEntity> IRepository<TEntity>.GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

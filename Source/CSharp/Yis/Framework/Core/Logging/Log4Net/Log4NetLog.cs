@@ -13,7 +13,17 @@ namespace Yis.Framework.Core.Logging.Log4Net
     /// </summary>
     public class Log4NetLog : Yis.Framework.Core.Logging.Contract.ILog
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private readonly ILog _log4net;
+
+        #endregion Fields
+
+        /// <summary>
+        /// Initialise une nouvelle instance de <see cref="Log4NetTrace"/> classe.
+        /// </summary>
+
+        #region Constructors
 
         public Log4NetLog()
         {
@@ -36,15 +46,19 @@ namespace Yis.Framework.Core.Logging.Log4Net
             _log4net = log4net.LogManager.GetLogger("root");
         }
 
-        #endregion Constructors + Destructors
+        #endregion Constructors
 
-        #region Fields
+        #region Methods
 
-        private readonly ILog _log4net;
+        private bool IsFrameworkType()
+        {
+            Type item = ReflectionHelper.GetCallingNoAbstractOrPrivateMethodType();
+            return item.Namespace.Contains("Yis.Framework");
+        }
 
-        #endregion Fields
+        #endregion Methods
 
-        #region Properties
+        #region Implémentation de Ilog
 
         /// <summary>
         /// Retourne true si le niveau "Debug" est activé.
@@ -87,10 +101,6 @@ namespace Yis.Framework.Core.Logging.Log4Net
             get { return _log4net.IsWarnEnabled; }
         }
 
-        #endregion Properties
-
-        #region Methods
-
         /// <summary>
         /// Log un message au niveau "Debug".
         /// </summary>
@@ -107,7 +117,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// Log un message formaté au niveau "Debug".
         /// </summary>
         /// <param name="message">Le message contenant le format à logger.</param>
-        /// <param name="args">   Les arguments pour le formatage.</param>
+        /// <param name="args">Les arguments pour le formatage.</param>
         public void Debug(string message, params object[] args)
         {
             if (_log4net.IsDebugEnabled && (!IsFrameworkType() || IsFrameworkEnabled))
@@ -140,7 +150,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// Log un message formaté au niveau "Error".
         /// </summary>
         /// <param name="message">Le message contenant le format à logger.</param>
-        /// <param name="args">   Les arguments pour le formatage.</param>
+        /// <param name="args">Les arguments pour le formatage.</param>
         public void Error(string message, params object[] args)
         {
             if (_log4net.IsErrorEnabled)
@@ -165,7 +175,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// Log un message formaté au niveau "Info".
         /// </summary>
         /// <param name="message">Le message contenant le format à logger.</param>
-        /// <param name="args">   Les arguments pour le formatage.</param>
+        /// <param name="args">Les arguments pour le formatage.</param>
         public void Info(string message, params object[] args)
         {
             if (_log4net.IsInfoEnabled && (!IsFrameworkType() || IsFrameworkEnabled))
@@ -190,7 +200,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// Log un message formaté au niveau "Warnin"g.
         /// </summary>
         /// <param name="message">Le message contenant le format à logger.</param>
-        /// <param name="args">   Les arguments pour le formatage.</param>
+        /// <param name="args">Les arguments pour le formatage.</param>
         public void Warning(string message, params object[] args)
         {
             if (_log4net.IsWarnEnabled && (!IsFrameworkType() || IsFrameworkEnabled))
@@ -203,7 +213,7 @@ namespace Yis.Framework.Core.Logging.Log4Net
         /// Log un message formaté au niveau "Warnin"g.
         /// </summary>
         /// <param name="message">Le message contenant le format à logger.</param>
-        /// <param name="args">   Les arguments pour le formatage.</param>
+        /// <param name="args">Les arguments pour le formatage.</param>
         public void Warning(string message, System.Exception Ex)
         {
             if (_log4net.IsWarnEnabled)
@@ -212,15 +222,6 @@ namespace Yis.Framework.Core.Logging.Log4Net
             }
         }
 
-        /// <summary>
-        /// Initialise une nouvelle instance de <see cref="Log4NetTrace"/> classe.
-        /// </summary>
-        private bool IsFrameworkType()
-        {
-            Type item = ReflectionHelper.GetCallingNoAbstractOrPrivateMethodType();
-            return item.Namespace.Contains("Yis.Framework");
-        }
-
-        #endregion Methods
+        #endregion Implémentation de Ilog
     }
 }

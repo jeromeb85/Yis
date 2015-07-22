@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Yis.Framework.Model;
 
 namespace Yis.Designer.Software.Model
 {
@@ -15,13 +19,13 @@ namespace Yis.Designer.Software.Model
 
         public IList<string> Import { get; set; }
 
-        public bool IsInterface { get; set; }
-
         public string Name { get; set; }
 
         public Guid NameSpaceId { get; set; }
 
         public Scope Scope { get; set; }
+
+        public bool IsInterface { get; set; }
 
         #endregion Properties
     }

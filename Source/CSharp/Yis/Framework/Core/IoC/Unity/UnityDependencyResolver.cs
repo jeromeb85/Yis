@@ -12,7 +12,13 @@ namespace Yis.Framework.Core.IoC
     /// </summary>
     internal class UnityDependencyResolver : IDisposable, IDependencyResolver
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private readonly IUnityContainer _container;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initialise une nouvelle instance de <see cref="UnityDependencyResolver"/> class.
@@ -37,36 +43,9 @@ namespace Yis.Framework.Core.IoC
             _container = container;
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private readonly IUnityContainer _container;
-
-        #endregion Fields
+        #endregion Constructors
 
         #region Methods
-
-        public void Dispose()
-        {
-            _container.Dispose();
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Injection sur un type existant.
-        /// </summary>
-        /// <typeparam name="T">Le type de l'existant</typeparam>
-        /// <param name="existing">L'existant.</param>
-        public void Inject<T>(T existing)
-        {
-            _container.BuildUp(existing);
-        }
-
-        public bool IsRegistered<T>()
-        {
-            return _container.IsRegistered<T>();
-        }
 
         /// <summary>
         /// Enregistre une instance spécifiée.
@@ -88,7 +67,9 @@ namespace Yis.Framework.Core.IoC
         /// </summary>
         /// <typeparam name="T">Type à résoudre.</typeparam>
         /// <param name="type">Le Type.</param>
-        /// <returns>Retourne une instance du type à résoudre.</returns>
+        /// <returns>
+        /// Retourne une instance du type à résoudre.
+        /// </returns>
         public T Resolve<T>(Type type)
         {
             return (T)_container.Resolve(type);
@@ -100,7 +81,9 @@ namespace Yis.Framework.Core.IoC
         /// <typeparam name="T">Le type à résoudre</typeparam>
         /// <param name="type">Le Type.</param>
         /// <param name="name">Le nom.</param>
-        /// <returns>Retourne une instance du type à résoudre.</returns>
+        /// <returns>
+        /// Retourne une instance du type à résoudre.
+        /// </returns>
         public T Resolve<T>(Type type, string name)
         {
             return (T)_container.Resolve(type, name);
@@ -110,7 +93,9 @@ namespace Yis.Framework.Core.IoC
         /// Résoudre le type spécifié.
         /// </summary>
         /// <typeparam name="T">Le type à résoudre.</typeparam>
-        /// <returns>Retourne une instance du type à résoudre.</returns>
+        /// <returns>
+        /// Retourne une instance du type à résoudre.
+        /// </returns>
         public T Resolve<T>()
         {
             return _container.Resolve<T>();
@@ -121,7 +106,9 @@ namespace Yis.Framework.Core.IoC
         /// </summary>
         /// <typeparam name="T">Le type à résoudre.</typeparam>
         /// <param name="name">Le nom.</param>
-        /// <returns>Retourne une instance du type à résoudre.</returns>
+        /// <returns>
+        /// Retourne une instance du type à résoudre.
+        /// </returns>
         public T Resolve<T>(string name)
         {
             return _container.Resolve<T>(name);
@@ -131,7 +118,9 @@ namespace Yis.Framework.Core.IoC
         /// Résoudre un ensemble
         /// </summary>
         /// <typeparam name="T">Le type à résoudre.</typeparam>
-        /// <returns>Retourne des instances de type à résoudre.</returns>
+        /// <returns>
+        /// Retourne des instances de type à résoudre.
+        /// </returns>
         public IEnumerable<T> ResolveAll<T>()
         {
             IEnumerable<T> namedInstances = _container.ResolveAll<T>();
@@ -155,6 +144,27 @@ namespace Yis.Framework.Core.IoC
             //return new ReadOnlyCollection<T>(new List<T>(namedInstances) { unnamedInstance });
 
             return null;
+        }
+
+        public void Dispose()
+        {
+            _container.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Injection sur un type existant.
+        /// </summary>
+        /// <typeparam name="T">Le type de l'existant</typeparam>
+        /// <param name="existing">L'existant.</param>
+        public void Inject<T>(T existing)
+        {
+            _container.BuildUp(existing);
+        }
+
+        public bool IsRegistered<T>()
+        {
+            return _container.IsRegistered<T>();
         }
 
         #endregion Methods

@@ -8,15 +8,9 @@ namespace Yis.Framework.Data.Database
 {
     public sealed class DbDataParamHelper
     {
-        #region Constructors + Destructors
-
         private DbDataParamHelper()
         {
         }
-
-        #endregion Constructors + Destructors
-
-        #region Methods
 
         public static IDataParameter BuildDataParameter(IDbConnection connection, DbType dataType, string parameterName, object value)
         {
@@ -71,7 +65,5 @@ namespace Yis.Framework.Data.Database
 
             return param;
         }
-
-        #endregion Methods
     }
 }

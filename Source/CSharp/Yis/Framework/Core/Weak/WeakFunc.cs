@@ -1,11 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Yis.Framework.Core.Weak
 {
     internal class WeakFunc<TResult>
     {
-        #region Constructors + Destructors
+        #region Fields
+
+        private readonly Type _delegateType;
+        private readonly MethodInfo _method;
+        private readonly WeakReference _targetRef;
+        private readonly Func<TResult> _func;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Constructeur
@@ -22,25 +35,14 @@ namespace Yis.Framework.Core.Weak
             _func = item;
         }
 
-        #endregion Constructors + Destructors
-
-        #region Fields
-
-        private readonly Type _delegateType;
-        private readonly Func<TResult> _func;
-        private readonly MethodInfo _method;
-        private readonly WeakReference _targetRef;
-
-        #endregion Fields
+        #endregion Constructors
 
         #region Properties
 
         /// <summary>
         /// Obtient l'instance de la classe sur lequel le délégué est invoqué
         /// </summary>
-        /// <remarks>
-        /// peut être null, alors soit la référence n'existe plus soit il s'agissait d'une méthode statique
-        /// </remarks>
+        /// <remarks>peut être null, alors soit la référence n'existe plus soit il s'agissait d'une méthode statique</remarks>
         public object Target
         {
             get
