@@ -101,7 +101,7 @@ namespace Yis.Erp.Shell.Presentation.ViewModel
                    
             }
 
-            if (newView.Equals(null))
+            if (newView == null)
             {
                 newView = new ViewViewModel { Name = message.Title, Title = message.Title, View = message.View };
                 OpenedView.Add(newView);

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Yis</RootNamespace>
     <AssemblyName>Yis</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -127,8 +127,8 @@
     <Compile Include="Erp\Mdm\Presentation\Ribbon\HomeRibbonTab.xaml.cs">
       <DependentUpon>HomeRibbonTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Erp\Mdm\Presentation\ViewModel\FicheClientCollectionViewModel.cs" />
     <Compile Include="Erp\Mdm\Presentation\ViewModel\FicheClientViewModel.cs" />
+    <Compile Include="Erp\Mdm\Presentation\ViewModel\FicheClientCollectionViewModel.cs" />
     <Compile Include="Erp\Mdm\Presentation\View\FicheClientCollectionView.xaml.cs">
       <DependentUpon>FicheClientCollectionView.xaml</DependentUpon>
     </Compile>
@@ -142,7 +142,6 @@
     <Compile Include="Erp\Shell\Presentation\Contract\IRibbonTabExtension.cs" />
     <Compile Include="Erp\Shell\Presentation\Contract\RibbonTabBase.cs" />
     <Compile Include="Erp\Shell\Presentation\Event\ShowView.cs" />
-    <Compile Include="Erp\Shell\Presentation\Event\NewObject.cs" />
     <Compile Include="Erp\Shell\Presentation\ViewModel\ShellViewModel.cs" />
     <Compile Include="Erp\Shell\Presentation\ViewModel\ViewViewModel.cs" />
     <Compile Include="Erp\Shell\Presentation\View\ShellWindow.xaml.cs">

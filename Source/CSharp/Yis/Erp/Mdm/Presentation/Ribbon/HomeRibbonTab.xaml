@@ -15,5 +15,8 @@
         <ribbon:RibbonButton x:Name="NewFicheClient"
                              Label="Nouveau"
                              Click="NewFicheClient_Click" />
+        <ribbon:RibbonButton x:Name="ListFicheClient"
+                             Click="ListFicheClient_Click"
+                             Label="Liste" />
     </ribbon:RibbonGroup>
 </contract:RibbonTabBase>

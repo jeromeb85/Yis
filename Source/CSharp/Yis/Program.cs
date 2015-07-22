@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
-using Yis.Designer.Conceptual.Business;
-using Yis.Designer.Model;
-using Yis.Designer.Presentation;
-using Yis.Designer.Software.Business;
-using Yis.Designer.Technic.Internal;
 using Yis.Erp.Shell.Presentation;
 using Yis.Framework.Core.Extension;
 using Yis.Framework.Core.IoC;
@@ -19,8 +14,6 @@ using Yis.Framework.Core.Shell;
 using Yis.Framework.Helper;
 using Yis.Framework.Presentation.Locator;
 using Yis.Framework.Presentation.Locator.Contract;
-using Yis.WebCrawler;
-using Yis.WebCrawler.ExcludeFilters;
 
 namespace Yis
 {
@@ -162,11 +155,11 @@ namespace Yis
         {
             ConsoleHelper.ShowConsoleWindow();
 
-            Directory.Delete(@"D:\DataYis\", true);
-            InitializeData.Run();
+            //Directory.Delete(@"D:\DataYis\", true);
+            //InitializeData.Run();
 
-            Transformator trans = new Transformator();
-            DomainCollection.GetAll().ForEach((i) => trans.Transform(i));
+            //Transformator trans = new Transformator();
+            //DomainCollection.GetAll().ForEach((i) => trans.Transform(i));
 
             //NameSpaceCollection manag = new NameSpaceCollection();
             //NameSpace ns = manag.AddNew();
@@ -185,13 +178,13 @@ namespace Yis
 
              manag.Add(root);*/
 
-            foreach (var item in NameSpaceCollection.GetAll())
-            {
-                Console.WriteLine(item.Name);
-            }
+            //foreach (var item in NameSpaceCollection.GetAll())
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
 
-            Generator gen = new Generator();
-            gen.Generate(NameSpace.GetByName("Yis"), @"D:\TestGen\");
+            //Generator gen = new Generator();
+            //gen.Generate(NameSpace.GetByName("Yis"), @"D:\TestGen\");
 
             //
             //NameSpace root = new NameSpace() { Id = Guid.NewGuid(), Name = "Yis", ChrildrenNameSpace = new List<NameSpace>() };
@@ -215,45 +208,45 @@ namespace Yis
         {
             ConsoleHelper.ShowConsoleWindow();
 
-            var crawler = new Crawler
-            {
-                ExcludeFilters = new IExcludeFilter[]
-                {
-                    new ExcludeImagesFilter(),
-                    new ExcludeTrackbacks(),
-                    new ExcludeMailTo(),
-                    new ExcludeHostsExcept(new[] { "nyqui.st" }),
-                    new ExcludeJavaScript(), 
-                    new ExcludeAnchors(), 
-                }
-            };
+            //var crawler = new Crawler
+            //{
+            //    ExcludeFilters = new IExcludeFilter[]
+            //    {
+            //        new ExcludeImagesFilter(),
+            //        new ExcludeTrackbacks(),
+            //        new ExcludeMailTo(),
+            //        new ExcludeHostsExcept(new[] { "nyqui.st" }),
+            //        new ExcludeJavaScript(), 
+            //        new ExcludeAnchors(), 
+            //    }
+            //};
 
-            crawler.OnCompleted += () =>
-            {
-                Console.WriteLine("[Main] Crawl completed!");
-               // Environment.Exit(0);
-            };
+            //crawler.OnCompleted += () =>
+            //{
+            //    Console.WriteLine("[Main] Crawl completed!");
+            //   // Environment.Exit(0);
+            //};
 
-            crawler.OnPageDownloaded += page =>
-            {
-                Console.WriteLine("[Main] Downloaded page {0}", page.Url);
+            //crawler.OnPageDownloaded += page =>
+            //{
+            //    Console.WriteLine("[Main] Downloaded page {0}", page.Url);
 
-                // Write external links
-                foreach (var link in page.Links)
-                {
-                    if (link.TargetUrl.Host != page.Url.Host)
-                    {
-                        Console.WriteLine("Found outbound link from {0} to {1}", page.Url, link.TargetUrl);
-                    }
-                }
-            };
+            //    // Write external links
+            //    foreach (var link in page.Links)
+            //    {
+            //        if (link.TargetUrl.Host != page.Url.Host)
+            //        {
+            //            Console.WriteLine("Found outbound link from {0} to {1}", page.Url, link.TargetUrl);
+            //        }
+            //    }
+            //};
 
-            crawler.Enqueue(new Uri("http://www.developpez.com/"));
-            crawler.Start();
+            //crawler.Enqueue(new Uri("http://www.developpez.com/"));
+            //crawler.Start();
 
-            Console.WriteLine("[Main] Crawler started.");
-            Console.WriteLine("[Main] Press [enter] to abort.");
-            Console.ReadLine();
+            //Console.WriteLine("[Main] Crawler started.");
+            //Console.WriteLine("[Main] Press [enter] to abort.");
+            //Console.ReadLine();
         }
 
 

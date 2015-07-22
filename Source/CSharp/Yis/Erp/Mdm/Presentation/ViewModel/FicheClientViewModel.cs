@@ -13,14 +13,14 @@ namespace Yis.Erp.Mdm.Presentation.ViewModel
 
         public FicheClientViewModel(Client model)
         {
-            client = model;
+            Item = model;
         }
 
         public FicheClientViewModel()
             : base()
         {
-            client = new Client();
-            AutoValidateProperty = false;
+            Item = Client.New();
+            AutoValidateProperty = true;
         }
 
         #endregion Constructors + Destructors
@@ -36,15 +36,15 @@ namespace Yis.Erp.Mdm.Presentation.ViewModel
         [StringLength(50, MinimumLength = 5, ErrorMessage = "La longueur doit être comprise entre 5 et 50")]
         public string Description
         {
-            get { return client.Description; }
-            set { SetProperty<string>(v => client.Description = value, client.Description, value); }
+            get { return Item.Description; }
+            set { SetProperty<string>(v => Item.Description = value, Item.Description, value); }
         }
 
         [Required]
         public string Reference
         {
-            get { return client.Reference; }
-            set { SetProperty<string>(v => client.Reference = value, client.Reference, value); }
+            get { return Item.Reference; }
+            set { SetProperty<string>(v => Item.Reference = value, Item.Reference, value); }
         }
 
         public ICommand Valider
@@ -59,8 +59,7 @@ namespace Yis.Erp.Mdm.Presentation.ViewModel
             }
         }
 
-        //public string Reference { get { return client.Reference; } set { SetProperty<string>(v => client.Reference = value, client.Reference, value); } }
-        private Client client { get; set; }
+        private Client Item { get; set; }
 
         #endregion Properties
 
@@ -70,13 +69,19 @@ namespace Yis.Erp.Mdm.Presentation.ViewModel
         {
             base.OnRuleInialize();
 
-             Validator.AddRule<FicheClientViewModel>((t) => t.Description, (t) => { return
-             t.Description == "tototo"; }, "Tu dois metre tototo");
+            Validator.AddRule<FicheClientViewModel>((t) => t.Description, (t) =>
+            {
+                return
+                    t.Description == "tototo";
+            }, "Tu dois metre tototo");
         }
 
         private void Sauvegarder()
         {
-            client.Save
+            if (Validate())
+            {
+                Item.Save();
+            }
         }
 
         #endregion Methods

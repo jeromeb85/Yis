@@ -41,8 +41,7 @@
                                           TextBlock.FontFamily="Tahoma"
                                           TextBlock.FontSize="8pt"
                                           TextBlock.FontWeight="Bold"
-                                          Content="{Binding View}"
-                                          VerticalAlignment="Center" />
+                                          Content="{Binding View}" />
                     </DockPanel>
                 </DataTemplate>
             </TabControl.ContentTemplate>
@@ -65,8 +64,7 @@
                                 <behavior:CloseTabBehavior />
                             </interactivity:Interaction.Behaviors>
                         </Button>
-                        <ContentPresenter Content="{Binding Title}"
-                                          VerticalAlignment="Center" />
+                        <ContentPresenter Content="{Binding Title}" />
                     </DockPanel>
                 </DataTemplate>
 
