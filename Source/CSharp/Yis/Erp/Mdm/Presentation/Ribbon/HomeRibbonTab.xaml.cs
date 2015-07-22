@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Yis.Erp.Mdm.Presentation.View;
 using Yis.Erp.Shell.Presentation.Contract;
+using Yis.Erp.Shell.Presentation.Event;
 
 namespace Yis.Erp.Mdm.Presentation.Ribbon
 {
@@ -29,7 +30,7 @@ namespace Yis.Erp.Mdm.Presentation.Ribbon
 
         private void ListFicheClient_Click(object sender, RoutedEventArgs e)
         {
-            Bus.Publish<ShowView>(new ShowView(this, "Fiche client", new FicheClientCollectionView()));
+            Bus.Publish<ShowView>(new ShowView(this, "Fiche client", new FicheClientCollectionView(),true));
         }
     }
 }

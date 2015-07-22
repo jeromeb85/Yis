@@ -1,7 +1,7 @@
 ﻿using Yis.Framework.Core.Messaging.Event;
 using Yis.Framework.Presentation.View;
 
-namespace Yis.Erp.Shell.Presentation.Contract
+namespace Yis.Erp.Shell.Presentation.Event
 {
     public class ShowView : Message
     {
@@ -14,6 +14,12 @@ namespace Yis.Erp.Shell.Presentation.Contract
             View = view;
         }
 
+        public ShowView(object sender, string title, IView view, bool uniqueInstance)
+            : this(sender, title, view)
+        {
+            UniqueInstance = uniqueInstance;
+        }
+
         #endregion Constructors + Destructors
 
         #region Properties
@@ -21,6 +27,8 @@ namespace Yis.Erp.Shell.Presentation.Contract
         public string Title { get; set; }
 
         public IView View { get; set; }
+
+        public bool UniqueInstance { get; set; }
 
         #endregion Properties
     }

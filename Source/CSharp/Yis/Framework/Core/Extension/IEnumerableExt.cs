@@ -70,6 +70,8 @@ namespace Yis.Framework.Core.Extension
             value.Where(predicate).ForEach(action);
         }
 
+
+
         #endregion Methods
     }
 }

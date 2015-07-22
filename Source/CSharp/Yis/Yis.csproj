@@ -141,7 +141,7 @@
     <Compile Include="Erp\Shell\Presentation\Behavior\CloseTabBehavior.cs" />
     <Compile Include="Erp\Shell\Presentation\Contract\IRibbonTabExtension.cs" />
     <Compile Include="Erp\Shell\Presentation\Contract\RibbonTabBase.cs" />
-    <Compile Include="Erp\Shell\Presentation\Contract\ShowView.cs" />
+    <Compile Include="Erp\Shell\Presentation\Event\ShowView.cs" />
     <Compile Include="Erp\Shell\Presentation\Event\NewObject.cs" />
     <Compile Include="Erp\Shell\Presentation\ViewModel\ShellViewModel.cs" />
     <Compile Include="Erp\Shell\Presentation\ViewModel\ViewViewModel.cs" />

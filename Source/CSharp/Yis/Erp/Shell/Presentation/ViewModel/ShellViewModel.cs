@@ -1,7 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls.Ribbon;
 using Yis.Erp.Shell.Presentation.Contract;
+using Yis.Erp.Shell.Presentation.Event;
 using Yis.Framework.Presentation.ViewModel;
+using Yis.Framework.Core.Extension;
 
 namespace Yis.Erp.Shell.Presentation.ViewModel
 {
@@ -86,9 +90,23 @@ namespace Yis.Erp.Shell.Presentation.ViewModel
 
         public void OpenView(ShowView message)
         {
-            ViewViewModel newView = new ViewViewModel { Name = message.Title, Title = message.Title, View = message.View };
-            OpenedView.Add(newView);
-            SelectedView = newView;
+            ViewViewModel newView = null;
+
+            if (message.UniqueInstance)
+            {
+                if (OpenedView.Any((p) => p.Name == message.Title))
+                {
+                    SelectedView = OpenedView.First((p) => p.Name == message.Title);
+                }
+                   
+            }
+
+            if (newView.Equals(null))
+            {
+                newView = new ViewViewModel { Name = message.Title, Title = message.Title, View = message.View };
+                OpenedView.Add(newView);
+                SelectedView = newView;
+            }
         }
 
         #endregion Methods
