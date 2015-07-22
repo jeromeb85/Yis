@@ -263,8 +263,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Erp\Mdm\Presentation\View\FicheClientCollectionView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Erp\Mdm\Presentation\View\FicheClientView.xaml">
       <SubType>Designer</SubType>
