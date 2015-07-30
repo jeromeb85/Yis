@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Controls;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Presentation.Locator.Contract;
@@ -28,7 +29,10 @@ namespace Yis.Framework.Presentation.View
 
         protected UserControlBase(bool searchViewModel)
         {
-            DataContext = Activator.CreateInstance(Locator.ResolveViewModel(this.GetType()));
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                DataContext = Activator.CreateInstance(Locator.ResolveViewModel(this.GetType()));
+            }
         }
     }
 }

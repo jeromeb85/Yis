@@ -117,6 +117,48 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Erp\Core\Presentation\DragDrop\DragDropManager.cs" />
+    <Compile Include="Erp\Core\Presentation\DragDrop\DragSourceAdvisor.cs" />
+    <Compile Include="Erp\Core\Presentation\DragDrop\DropPreviewAdorner.cs" />
+    <Compile Include="Erp\Core\Presentation\DragDrop\DropTargetAdvisor.cs" />
+    <Compile Include="Erp\Core\Presentation\DragDrop\IDragSourceAdvisor.cs" />
+    <Compile Include="Erp\Core\Presentation\DragDrop\IDropTargetAdvisor.cs" />
+    <Compile Include="Erp\Core\Presentation\ItemsControlTypeDescriptorProvider.cs" />
+    <Compile Include="Erp\Core\Presentation\ObservableCollectionListView.xaml.cs">
+      <DependentUpon>ObservableCollectionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Erp\Core\Presentation\WPFPropertyGridProxyConverter.cs" />
+    <Compile Include="Erp\Core\Presentation\XamlSerializer.cs" />
+    <Compile Include="Erp\Core\Presentation\XamlSerializerHelper.cs" />
+    <Compile Include="Erp\Core\Presentation\UIHelper.cs" />
+    <Compile Include="Erp\Designer\Business\Form.cs" />
+    <Compile Include="Erp\Designer\Business\FormCollection.cs" />
+    <Compile Include="Erp\Designer\Data\Contract\IFormProvider.cs" />
+    <Compile Include="Erp\Designer\Data\Contract\IDesignerDataContext.cs" />
+    <Compile Include="Erp\Designer\Data\Memory\FormProvider.cs" />
+    <Compile Include="Erp\Designer\Data\Memory\DesignerDataContext.cs" />
+    <Compile Include="Erp\Designer\Model\Form.cs" />
+    <Compile Include="Erp\Designer\Presentation\Behaviors\ControlHasBindingBehavior.cs" />
+    <Compile Include="Erp\Designer\Presentation\Ribbon\HomeRibbonTab.xaml.cs">
+      <DependentUpon>HomeRibbonTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Erp\Designer\Presentation\ViewModel\FormViewModel.cs" />
+    <Compile Include="Erp\Designer\Presentation\ViewModel\FormCollectionViewModel.cs" />
+    <Compile Include="Erp\Designer\Presentation\View\FormDesignerPropertyView.xaml.cs">
+      <DependentUpon>FormDesignerPropertyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Erp\Designer\Presentation\View\FormDesignerSurfaceView.xaml.cs">
+      <DependentUpon>FormDesignerSurfaceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Erp\Designer\Presentation\View\FormDesignerToolBoxView.xaml.cs">
+      <DependentUpon>FormDesignerToolBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Erp\Designer\Presentation\View\FormView.xaml.cs">
+      <DependentUpon>FormView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Erp\Designer\Presentation\View\FormCollectionView.xaml.cs">
+      <DependentUpon>FormCollectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Erp\Mdm\Business\Client.cs" />
     <Compile Include="Erp\Mdm\Business\ClientCollection.cs" />
     <Compile Include="Erp\Mdm\Data\Contract\IClientProvider.cs" />
@@ -257,6 +299,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Erp\Core\Presentation\ObservableCollectionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Erp\Designer\Presentation\Ribbon\HomeRibbonTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Erp\Designer\Presentation\View\FormDesignerPropertyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Erp\Designer\Presentation\View\FormDesignerSurfaceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Erp\Designer\Presentation\View\FormDesignerToolBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Erp\Designer\Presentation\View\FormView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Erp\Designer\Presentation\View\FormCollectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Erp\Mdm\Presentation\Ribbon\HomeRibbonTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -301,7 +371,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Erp\Core\" />
     <Folder Include="Erp\Shell\Presentation\Command\" />
     <Folder Include="Framework\Data\nHibernate\" />
   </ItemGroup>

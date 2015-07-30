@@ -1,0 +1,44 @@
+﻿<yis:UserControlBase x:Class="Yis.Erp.Designer.Presentation.View.FormView"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:yis="clr-namespace:Yis.Framework.Presentation.View"
+                     xmlns:View="clr-namespace:Yis.Erp.Designer.Presentation.View"                     
+                     xmlns:ViewModel="clr-namespace:Yis.Erp.Designer.Presentation.ViewModel"                     
+                     d:DesignHeight="300"
+                     d:DesignWidth="500"
+                     mc:Ignorable="d"
+                     d:DataContext="{d:DesignInstance Type=ViewModel:FormViewModel, IsDesignTimeCreatable=False}">
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" Grid.Column="0">
+            <Button Command="{Binding Valider}">Sauvegarder</Button>
+        </WrapPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <TextBlock>Reference</TextBlock>
+            <TextBox Text="{Binding Reference}" />
+            <TextBlock>Description</TextBlock>
+            <TextBox Text="{Binding Description}" />
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="2.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <View:FormDesignerToolBoxView Grid.Column="0"/>
+                <View:FormDesignerSurfaceView Grid.Column="1"/>
+                <View:FormDesignerPropertyView Grid.Column="2"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</yis:UserControlBase>

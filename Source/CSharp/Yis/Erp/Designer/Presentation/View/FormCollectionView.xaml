@@ -1,0 +1,45 @@
+﻿<yis:UserControlBase x:Class="Yis.Erp.Designer.Presentation.View.FormCollectionView"                                                          
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:yis="clr-namespace:Yis.Framework.Presentation.View"                                                                               
+                     xmlns:View="clr-namespace:Yis.Erp.Designer.Presentation.View"
+                     xmlns:ViewModel="clr-namespace:Yis.Erp.Designer.Presentation.ViewModel"
+                     mc:Ignorable="d" 
+                     d:DesignHeight="300"
+                     d:DesignWidth="329.348"
+                     d:DataContext="{d:DesignInstance Type=ViewModel:FormCollectionViewModel, IsDesignTimeCreatable=False}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel Height="22" Grid.Row="0">
+                <Button x:Name="button" Content="Ajouter" Command="{Binding Ajouter}" />
+            </StackPanel>
+            <ListBox x:Name="listBox" Grid.Row="1" ItemsSource="{Binding List}" SelectedItem="{Binding Selected, Mode=TwoWay}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2">
+                            <TextBlock Text="{Binding Reference}" />     
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <DockPanel Grid.Column="1" UseLayoutRounding="False" VerticalAlignment="Stretch" FlowDirection="LeftToRight">
+            
+            <View:FormView DataContext="{Binding SelectedItem, ElementName=listBox}"/>
+
+        </DockPanel>
+    </Grid>
+</yis:UserControlBase>

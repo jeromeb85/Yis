@@ -55,6 +55,8 @@ namespace Yis.Framework.Presentation.ViewModel
 
         public ObservableCollection<TViewModel> List { get; set; }
 
+        public TViewModel Selected { get; set; }
+
         #endregion Properties
     }
 }
