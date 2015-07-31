@@ -30,13 +30,13 @@
             <Grid>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.5*"/>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
 
-                <View:FormDesignerToolBoxView Grid.Column="0"/>
-                <View:FormDesignerSurfaceView Grid.Column="1"/>
+                <View:FormDesignerToolBoxView Grid.Column="0" DataContext="{Binding}"/>
+                <View:FormDesignerSurfaceView Grid.Column="1" DataContext="{Binding}"/>
                 <View:FormDesignerPropertyView Grid.Column="2"/>
             </Grid>
         </StackPanel>

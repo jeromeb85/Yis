@@ -97,13 +97,17 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Controls.Ribbon" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -117,17 +121,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Erp\Core\Presentation\DragDrop\DragDropManager.cs" />
-    <Compile Include="Erp\Core\Presentation\DragDrop\DragSourceAdvisor.cs" />
-    <Compile Include="Erp\Core\Presentation\DragDrop\DropPreviewAdorner.cs" />
-    <Compile Include="Erp\Core\Presentation\DragDrop\DropTargetAdvisor.cs" />
-    <Compile Include="Erp\Core\Presentation\DragDrop\IDragSourceAdvisor.cs" />
-    <Compile Include="Erp\Core\Presentation\DragDrop\IDropTargetAdvisor.cs" />
     <Compile Include="Erp\Core\Presentation\ItemsControlTypeDescriptorProvider.cs" />
     <Compile Include="Erp\Core\Presentation\ObservableCollectionListView.xaml.cs">
       <DependentUpon>ObservableCollectionListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Erp\Core\Presentation\WPFPropertyGridProxyConverter.cs" />
+    <Page Include="Framework\Presentation\Resource\Style\ErrorTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Framework\Presentation\Resource\Style\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Framework\Presentation\Resource\Style\GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Framework\Presentation\Resource\Style\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Framework\Presentation\Resource\Style\Shared.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Compile Include="Erp\Core\Presentation\XamlSerializer.cs" />
     <Compile Include="Erp\Core\Presentation\XamlSerializerHelper.cs" />
     <Compile Include="Erp\Core\Presentation\UIHelper.cs" />
@@ -138,7 +155,7 @@
     <Compile Include="Erp\Designer\Data\Memory\FormProvider.cs" />
     <Compile Include="Erp\Designer\Data\Memory\DesignerDataContext.cs" />
     <Compile Include="Erp\Designer\Model\Form.cs" />
-    <Compile Include="Erp\Designer\Presentation\Behaviors\ControlHasBindingBehavior.cs" />
+    <Compile Include="Erp\Designer\Presentation\Adorner\ResizingAdorner.cs" />
     <Compile Include="Erp\Designer\Presentation\Ribbon\HomeRibbonTab.xaml.cs">
       <DependentUpon>HomeRibbonTab.xaml</DependentUpon>
     </Compile>
@@ -181,6 +198,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Erp\Shell\Presentation\Behavior\CloseTabBehavior.cs" />
+    <Compile Include="Erp\Shell\Presentation\Behavior\CloseWindowFromViewModel.cs" />
     <Compile Include="Erp\Shell\Presentation\Contract\IRibbonTabExtension.cs" />
     <Compile Include="Erp\Shell\Presentation\Contract\RibbonTabBase.cs" />
     <Compile Include="Erp\Shell\Presentation\Event\ShowView.cs" />
@@ -245,7 +263,12 @@
     <Compile Include="Framework\Data\Memory\DataStore.cs" />
     <Compile Include="Framework\Data\Memory\RepositoryBase.cs" />
     <Compile Include="Framework\Data\Memory\Transaction.cs" />
+    <Compile Include="Framework\Presentation\Behavior\Contract\IDragDropHandler.cs" />
+    <Compile Include="Framework\Presentation\Behavior\DragDropBehavior.cs" />
+    <Compile Include="Framework\Presentation\Behavior\DragDropHandler.cs" />
     <Compile Include="Framework\Presentation\Commanding\Command.cs" />
+    <Compile Include="Framework\Presentation\Event\CloseEventArgs.cs" />
+    <Compile Include="Framework\Presentation\ViewModel\IClosableViewModel.cs" />
     <Compile Include="Framework\Presentation\ViewModel\ViewModelCollectionBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Framework\Core\Shell\Boot.cs" />
@@ -343,6 +366,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Framework\Presentation\Resource\Style\ToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -371,6 +398,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Erp\Designer\Presentation\Behaviors\" />
     <Folder Include="Erp\Shell\Presentation\Command\" />
     <Folder Include="Framework\Data\nHibernate\" />
   </ItemGroup>

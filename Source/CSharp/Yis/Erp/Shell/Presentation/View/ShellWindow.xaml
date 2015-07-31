@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <Ribbon x:Name="Ribbon"
-                                       Grid.Column="0"
+                       Grid.Column="0"
                        Grid.Row="0"
                 ItemsSource="{Binding RibbonTabCollection}"/>
         <TabControl HorizontalAlignment="Stretch"

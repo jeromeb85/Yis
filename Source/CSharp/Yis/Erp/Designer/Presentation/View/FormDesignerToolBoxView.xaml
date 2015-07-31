@@ -3,19 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Yis.Erp.Designer.Presentation.View"
-             xmlns:DragDrop="clr-namespace:Yis.Erp.Core.Presentation.DragDrop"
+             xmlns:local="clr-namespace:Yis.Erp.Designer.Presentation.View"     
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"                 
+             xmlns:behavior="clr-namespace:Yis.Framework.Presentation.Behavior"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <SolidColorBrush x:Key="ToolboxBackgroundBrush" Color="#FFE5DBB3" />
-        <!--<SolidColorBrush x:Key="ExpanderBackgroundBrush" Color="#AAADC972" Opacity="1" />-->
-        <SolidColorBrush x:Key="ExpanderBackgroundBrush" Color="#AAADC972" Opacity="1" />
-        <DragDrop:DragSourceAdvisor x:Key="sourceAdvisor" />
-    </UserControl.Resources>
-    <StackPanel Grid.Column="0">
-        <Expander Header="WPF Form Controls" Background="{StaticResource ToolboxBackgroundBrush}" IsExpanded="True">
-            <StackPanel x:Name="_topPanel" Background="{StaticResource ToolboxBackgroundBrush}" HorizontalAlignment="Center" DragDrop:DragDropManager.DragSourceAdvisor="{StaticResource sourceAdvisor}">
+    <Grid>
+        <Expander Header="Contrôle standard"  IsExpanded="True">
+            <ListBox >
+                <ListBoxItem>BOUTON</ListBoxItem>
+                <ListBoxItem>LABEL</ListBoxItem>
+                <interactivity:Interaction.Behaviors>
+                    <behavior:DragDropBehavior IsDragSource="True"/>
+                </interactivity:Interaction.Behaviors>
+            </ListBox>
+            <!--<StackPanel x:Name="_topPanel" HorizontalAlignment="Center" DragDrop:DragDropManager.DragSourceAdvisor="{StaticResource sourceAdvisor}">
                 <Rectangle Name="Border" StrokeThickness="1" StrokeDashArray="2" Fill="Transparent" SnapsToDevicePixels="true" />
                 <Label Content="Label" Width="Auto" Height="Auto" Margin="3,7,3,7" ToolTip="Label" />
                 <TextBox Width="75" Height="20" Margin="3,7,3,7" ToolTip="TextBox" />
@@ -23,7 +25,7 @@
                 <RadioButton Content="Radio Button" Height="Auto" Width="Auto" VerticalAlignment="Center" Margin="3,7,3,7" />
                 <DatePicker Width="125" Height="25" Margin="3,7,3,7" ToolTip="DatePicker" />
                 <ComboBox MinWidth="50" Width="150" Height="20" Margin="3,7,3,7" ToolTip="ComboBox" />                
-            </StackPanel>
+            </StackPanel>-->
         </Expander>
-    </StackPanel>
+    </Grid>
 </UserControl>
