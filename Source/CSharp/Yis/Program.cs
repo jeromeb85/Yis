@@ -12,8 +12,8 @@ using Yis.Framework.Core.Messaging.Contract;
 using Yis.Framework.Core.Messaging.Event;
 using Yis.Framework.Core.Shell;
 using Yis.Framework.Helper;
-using Yis.Framework.Presentation.Locator;
-using Yis.Framework.Presentation.Locator.Contract;
+using Yis.Framework.Presentation.Windows.Locator;
+using Yis.Framework.Presentation.Windows.Locator.Contract;
 
 namespace Yis
 {

@@ -13,9 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Yis.Erp.Core.Presentation;
-using Yis.Erp.Designer.Presentation.Adorner;
+using Yis.Erp.Designer.Presentation.Windows.Adorner;
 
-namespace Yis.Erp.Designer.Presentation.View
+namespace Yis.Erp.Designer.Presentation.Windows.View
 {
     /// <summary>
     /// Logique d'interaction pour FormSurface.xaml

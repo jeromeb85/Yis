@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yis.Erp.Shell.Presentation.Contract
+namespace Yis.Erp.Shell.Presentation.Windows.Contract
 {
     /// <summary>
     /// Interface marquesue pour permettre de retrouver toute les extensions

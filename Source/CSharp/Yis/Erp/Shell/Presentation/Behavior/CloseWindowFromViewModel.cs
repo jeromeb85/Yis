@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Interactivity;
-using Yis.Framework.Presentation.Event;
-using Yis.Framework.Presentation.ViewModel;
+using Yis.Framework.Presentation.Windows.Event;
+using Yis.Framework.Presentation.Windows.ViewModel;
 
-namespace Yis.Erp.Shell.Presentation.Behavior
+namespace Yis.Erp.Shell.Presentation.Windows.Behavior
 {
     /// <summary>
     /// Behaviour for closing window from viewmodels.

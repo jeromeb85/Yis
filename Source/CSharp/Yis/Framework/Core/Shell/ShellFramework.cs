@@ -8,8 +8,8 @@ using Yis.Framework.Core.Messaging.Contract;
 using Yis.Framework.Core.Serialization;
 using Yis.Framework.Core.Serialization.Contract;
 using Yis.Framework.Core.Shell.Contract;
-using Yis.Framework.Presentation.Locator.Contract;
-using Yis.Framework.Presentation.Navigation.Contract;
+using Yis.Framework.Presentation.Windows.Locator.Contract;
+using Yis.Framework.Presentation.Windows.Navigation.Contract;
 
 namespace Yis.Framework.Core.Shell
 {

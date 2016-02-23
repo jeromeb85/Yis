@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using Yis.Erp.Mdm.Presentation.View;
-using Yis.Erp.Shell.Presentation.Contract;
-using Yis.Erp.Shell.Presentation.Event;
+using Yis.Erp.Mdm.Presentation.Windows.View;
+using Yis.Erp.Shell.Presentation.Windows.Contract;
+using Yis.Erp.Shell.Presentation.Windows.Event;
 
-namespace Yis.Erp.Mdm.Presentation.Ribbon
+namespace Yis.Erp.Mdm.Presentation.Windows.Ribbon
 {
     /// <summary>
     /// Logique d'interaction pour HomeRibbonTab.xaml

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls.Ribbon;
-using Yis.Erp.Shell.Presentation.Contract;
-using Yis.Erp.Shell.Presentation.Event;
-using Yis.Framework.Presentation.ViewModel;
+using Yis.Erp.Shell.Presentation.Windows.Contract;
+using Yis.Erp.Shell.Presentation.Windows.Event;
+using Yis.Framework.Presentation.Windows.ViewModel;
 using Yis.Framework.Core.Extension;
 
-namespace Yis.Erp.Shell.Presentation.ViewModel
+namespace Yis.Erp.Shell.Presentation.Windows.ViewModel
 {
     public class ShellViewModel : ViewModelBase
     {

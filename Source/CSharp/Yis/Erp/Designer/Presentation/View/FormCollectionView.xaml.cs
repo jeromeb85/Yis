@@ -1,6 +1,6 @@
-﻿using Yis.Framework.Presentation.View;
+﻿using Yis.Framework.Presentation.Windows.View;
 
-namespace Yis.Erp.Designer.Presentation.View
+namespace Yis.Erp.Designer.Presentation.Windows.View
 {
     /// <summary>
     /// Logique d'interaction pour FicheClientView.xaml

@@ -125,23 +125,23 @@
     <Compile Include="Erp\Core\Presentation\ObservableCollectionListView.xaml.cs">
       <DependentUpon>ObservableCollectionListView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Framework\Presentation\Resource\Style\ErrorTemplate.xaml">
+    <Page Include="Framework\Presentation\Windows\Resource\Style\ErrorTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Framework\Presentation\Resource\Style\Expander.xaml">
+    <Page Include="Framework\Presentation\Windows\Resource\Style\Expander.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Framework\Presentation\Resource\Style\GroupBox.xaml">
+    <Page Include="Framework\Presentation\Windows\Resource\Style\GroupBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Framework\Presentation\Resource\Style\ScrollBar.xaml">
+    <Page Include="Framework\Presentation\Windows\Resource\Style\ScrollBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Framework\Presentation\Resource\Style\Shared.xaml">
+    <Page Include="Framework\Presentation\Windows\Resource\Style\Shared.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,26 +263,26 @@
     <Compile Include="Framework\Data\Memory\DataStore.cs" />
     <Compile Include="Framework\Data\Memory\RepositoryBase.cs" />
     <Compile Include="Framework\Data\Memory\Transaction.cs" />
-    <Compile Include="Framework\Presentation\Behavior\Contract\IDragDropHandler.cs" />
-    <Compile Include="Framework\Presentation\Behavior\DragDropBehavior.cs" />
-    <Compile Include="Framework\Presentation\Behavior\DragDropHandler.cs" />
-    <Compile Include="Framework\Presentation\Commanding\Command.cs" />
-    <Compile Include="Framework\Presentation\Event\CloseEventArgs.cs" />
-    <Compile Include="Framework\Presentation\ViewModel\IClosableViewModel.cs" />
-    <Compile Include="Framework\Presentation\ViewModel\ViewModelCollectionBase.cs" />
+    <Compile Include="Framework\Presentation\Windows\Behavior\Contract\IDragDropHandler.cs" />
+    <Compile Include="Framework\Presentation\Windows\Behavior\DragDropBehavior.cs" />
+    <Compile Include="Framework\Presentation\Windows\Behavior\DragDropHandler.cs" />
+    <Compile Include="Framework\Presentation\Windows\Commanding\Command.cs" />
+    <Compile Include="Framework\Presentation\Windows\Event\CloseEventArgs.cs" />
+    <Compile Include="Framework\Presentation\Windows\ViewModel\IClosableViewModel.cs" />
+    <Compile Include="Framework\Presentation\Windows\ViewModel\ViewModelCollectionBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Framework\Core\Shell\Boot.cs" />
     <Compile Include="Framework\Core\Shell\Contract\IShell.cs" />
     <Compile Include="Framework\Core\Shell\Contract\IShellBootable.cs" />
-    <Compile Include="Framework\Presentation\Locator\Contract\IViewLocator.cs" />
-    <Compile Include="Framework\Presentation\Locator\Contract\IViewModelLocator.cs" />
-    <Compile Include="Framework\Presentation\Locator\ViewLocator.cs" />
-    <Compile Include="Framework\Presentation\Locator\ViewModelLocator.cs" />
-    <Compile Include="Framework\Presentation\Navigation\Contract\INavigation.cs" />
-    <Compile Include="Framework\Presentation\Navigation\Navigation.cs" />
-    <Compile Include="Framework\Presentation\View\IView.cs" />
-    <Compile Include="Framework\Presentation\View\IWindowView.cs" />
-    <Compile Include="Framework\Presentation\View\UserControlBase.cs" />
+    <Compile Include="Framework\Presentation\Windows\Locator\Contract\IViewLocator.cs" />
+    <Compile Include="Framework\Presentation\Windows\Locator\Contract\IViewModelLocator.cs" />
+    <Compile Include="Framework\Presentation\Windows\Locator\ViewLocator.cs" />
+    <Compile Include="Framework\Presentation\Windows\Locator\ViewModelLocator.cs" />
+    <Compile Include="Framework\Presentation\Windows\Navigation\Contract\INavigation.cs" />
+    <Compile Include="Framework\Presentation\Windows\Navigation\Navigation.cs" />
+    <Compile Include="Framework\Presentation\Windows\View\IView.cs" />
+    <Compile Include="Framework\Presentation\Windows\View\IWindowView.cs" />
+    <Compile Include="Framework\Presentation\Windows\View\UserControlBase.cs" />
     <Compile Include="Framework\Core\Validation\Contract\IRule.cs" />
     <Compile Include="Framework\Core\Validation\Contract\IRuleContext.cs" />
     <Compile Include="Framework\Core\Validation\Internal\RuleContext.cs" />
@@ -311,12 +311,12 @@
     <Compile Include="Framework\Data\Contract\IUnitOfWork.cs" />
     <Compile Include="Framework\Model\Contract\IModel.cs" />
     <Compile Include="Framework\Model\ModelBase.cs" />
-    <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyDataErrorInfo.cs" />
-    <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyPropertyChanged.cs" />
-    <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.INotifyPropertyChanging.cs" />
-    <Compile Include="Framework\Presentation\View\WindowBase.cs" />
-    <Compile Include="Framework\Presentation\ViewModel\IViewModel.cs" />
-    <Compile Include="Framework\Presentation\ViewModel\ViewModelBase.cs" />
+    <Compile Include="Framework\Presentation\Windows\ViewModel\ViewModelBase.INotifyDataErrorInfo.cs" />
+    <Compile Include="Framework\Presentation\Windows\ViewModel\ViewModelBase.INotifyPropertyChanged.cs" />
+    <Compile Include="Framework\Presentation\Windows\ViewModel\ViewModelBase.INotifyPropertyChanging.cs" />
+    <Compile Include="Framework\Presentation\Windows\View\WindowBase.cs" />
+    <Compile Include="Framework\Presentation\Windows\ViewModel\IViewModel.cs" />
+    <Compile Include="Framework\Presentation\Windows\ViewModel\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <ApplicationDefinition Include="Erp\Shell\Presentation\App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -366,7 +366,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Framework\Presentation\Resource\Style\ToolBar.xaml">
+    <Page Include="Framework\Presentation\Windows\Resource\Style\ToolBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -401,6 +401,7 @@
     <Folder Include="Erp\Designer\Presentation\Behaviors\" />
     <Folder Include="Erp\Shell\Presentation\Command\" />
     <Folder Include="Framework\Data\nHibernate\" />
+    <Folder Include="Framework\Presentation\Web\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -1,4 +1,4 @@
-﻿<Application x:Class="Yis.Erp.Shell.Presentation.App"
+﻿<Application x:Class="Yis.Erp.Shell.Presentation.Windows.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="/Erp/Shell/Presentation/View/ShellWindow.xaml">

@@ -1,7 +1,7 @@
-﻿using Yis.Framework.Presentation.View;
-using Yis.Framework.Presentation.ViewModel;
+﻿using Yis.Framework.Presentation.Windows.View;
+using Yis.Framework.Presentation.Windows.ViewModel;
 
-namespace Yis.Erp.Shell.Presentation.ViewModel
+namespace Yis.Erp.Shell.Presentation.Windows.ViewModel
 {
     public class ViewViewModel : ViewModelBase
     {

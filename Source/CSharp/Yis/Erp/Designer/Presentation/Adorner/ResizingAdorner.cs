@@ -6,7 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Yis.Erp.Designer.Presentation.Adorner
+namespace Yis.Erp.Designer.Presentation.Windows.Adorner
 {
     public class ResizingAdorner : System.Windows.Documents.Adorner
     {

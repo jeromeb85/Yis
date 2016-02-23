@@ -1,14 +1,14 @@
 ﻿<w:WindowBase
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:w="clr-namespace:Yis.Framework.Presentation.View"
+        xmlns:w="clr-namespace:Yis.Framework.Presentation.Windows.View"
         xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
         xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"    
-        xmlns:behavior="clr-namespace:Yis.Erp.Shell.Presentation.Behavior"
-        xmlns:View="clr-namespace:Yis.Erp.Shell.Presentation.View"
-        x:Class="Yis.Erp.Shell.Presentation.View.ShellWindow"
+        xmlns:behavior="clr-namespace:Yis.Erp.Shell.Presentation.Windows.Behavior"
+        xmlns:View="clr-namespace:Yis.Erp.Shell.Presentation.Windows.View"
+        x:Class="Yis.Erp.Shell.Presentation.Windows.View.ShellWindow"
         Title="{Binding Title, Mode=OneWay}">
-    <!--xmlns:ViewModel="clr-namespace:Yis.Designer.Presentation.ViewModel"-->
+    <!--xmlns:ViewModel="clr-namespace:Yis.Designer.Presentation.Windows.ViewModel"-->
     <!--<w:MainWindowBase.DataContext>
         <ViewModel:MainViewModel />
     </w:MainWindowBase.DataContext>-->

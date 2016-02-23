@@ -1,7 +1,7 @@
 ﻿using Yis.Framework.Core.Messaging.Event;
-using Yis.Framework.Presentation.View;
+using Yis.Framework.Presentation.Windows.View;
 
-namespace Yis.Erp.Shell.Presentation.Event
+namespace Yis.Erp.Shell.Presentation.Windows.Event
 {
     public class ShowView : Message
     {

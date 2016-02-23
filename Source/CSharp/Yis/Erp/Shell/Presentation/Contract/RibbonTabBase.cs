@@ -8,7 +8,7 @@ using System.Windows.Controls.Ribbon;
 using Yis.Framework.Core.IoC;
 using Yis.Framework.Core.Messaging.Contract;
 
-namespace Yis.Erp.Shell.Presentation.Contract
+namespace Yis.Erp.Shell.Presentation.Windows.Contract
 {
     public abstract class RibbonTabBase : RibbonTab, IRibbonTabExtension
     {

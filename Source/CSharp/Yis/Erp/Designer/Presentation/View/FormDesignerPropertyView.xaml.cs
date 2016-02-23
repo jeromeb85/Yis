@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Yis.Erp.Designer.Presentation.View
+namespace Yis.Erp.Designer.Presentation.Windows.View
 {
     /// <summary>
     /// Logique d'interaction pour FormDesignerPropertyView.xaml

@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Interactivity;
 using Yis.Framework.Core.Extension;
 
-namespace Yis.Erp.Shell.Presentation.Behavior
+namespace Yis.Erp.Shell.Presentation.Windows.Behavior
 {
     public class CloseTabBehavior : Behavior<Button>
     {

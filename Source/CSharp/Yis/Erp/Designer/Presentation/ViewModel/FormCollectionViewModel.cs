@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 using Yis.Erp.Designer.Business;
 using Yis.Framework.Core.Extension;
-using Yis.Framework.Presentation.Commanding;
-using Yis.Framework.Presentation.ViewModel;
+using Yis.Framework.Presentation.Windows.Commanding;
+using Yis.Framework.Presentation.Windows.ViewModel;
 
-namespace Yis.Erp.Designer.Presentation.ViewModel
+namespace Yis.Erp.Designer.Presentation.Windows.ViewModel
 {
     public class FormCollectionViewModel : ViewModelCollectionBase<FormViewModel>
     {
